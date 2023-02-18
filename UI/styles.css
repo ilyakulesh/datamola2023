@@ -1,0 +1,264 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #f5f7fb;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  background-color: #ffffff;
+  /* height: 50px; */
+  padding: 3px 0px 3px 0px;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22);
+}
+
+.header-container {
+  margin: 0px 46px 0px 46px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Логотип */
+.logo {
+  height: 40px;
+  width: 40px;
+  margin: auto;
+}
+
+.menu {
+  display: flex;
+}
+
+/* Темная тема */
+.toggle-button {
+  box-sizing: border-box;
+  text-align: center;
+  width: 50px;
+  height: 25px;
+  margin: auto 24px;
+}
+
+.checkbox {
+  box-sizing: border-box;
+  opacity: 0;
+  position: absolute;
+}
+
+.label {
+  margin-top: 5px;
+  box-sizing: border-box;
+  background-color: #31416d;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px;
+  position: relative;
+  height: 16px;
+  width: 30px;
+  transform: scale(1.5);
+}
+
+.label .ball {
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  height: 12px;
+  width: 12px;
+  transform: translateX(0px);
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .label .ball {
+  box-sizing: border-box;
+  transform: translateX(14px);
+}
+
+.fa-moon {
+  font-size: 10px;
+  box-sizing: border-box;
+  color: #f1c40f;
+}
+
+.fa-sun {
+  font-size: 10px;
+  box-sizing: border-box;
+  color: #f39c12;
+}
+
+/* Кнопка вход */
+.header-button {
+  background-color: #31416d;
+  color: #ffffff;
+  border-radius: 40px;
+  width: 134px;
+  height: 35px;
+  cursor: pointer;
+  border-style: none;
+  margin: auto;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
+    -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.toggle-language {
+  cursor: default;
+  margin: auto;
+}
+
+/* Футер */
+.footer {
+  background-color: #1f2430;
+  margin-top: auto;
+  width: 100%;
+  padding: 8px 0px 8px 0px;
+  box-shadow: 1px 0px 0px 0px rgba(0, 0, 0, 0.25);
+}
+
+.footer-container {
+  margin: 7px 46px 7px 46px;
+  display: flex;
+  text-align: center;
+  vertical-align: middle;
+  justify-content: space-between;
+  color: #ffffff;
+}
+
+/* Главная доска */
+main {
+  margin-left: 8%;
+  margin-right: 8%;
+  margin-bottom: 100px;
+  /* max-width: 1700px; */
+  min-width: 1150px;
+}
+
+.main-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons {
+  margin-top: 100px;
+  background-color: #31416d;
+  color: #ffffff;
+  border-radius: 10px;
+  border-style: none;
+  height: 26px;
+  cursor: pointer;
+  padding: 0px 20px 0px 20px;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
+    -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+section {
+  width: 370px;
+  /* height: 700px; */
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #ffffff;
+  text-align: center;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
+    -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
+  /* box-shadow: 0 14px 21px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); */
+}
+
+section hr {
+  margin-top: 5px;
+}
+
+.task {
+  background-color: #f5f7fb;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
+    -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
+  border-radius: 10px;
+  min-height: 140px;
+  font-size: 14px;
+  margin: 10px 0px;
+  cursor: pointer;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.task-content {
+  width: 70%;
+  text-align: left;
+  padding: 5px 12px;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.content {
+  margin-top: 10px;
+}
+
+.status-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 50%;
+  font-size: 13px;
+}
+.status-wrapper div {
+  background-color: #ef7564;
+  color: #ffffff;
+  width: fit-content;
+  margin: 5px;
+  padding: 0px 8px;
+  border-radius: 10px;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  text-align: left;
+  padding: 0px 12px;
+  font-size: 13px;
+}
+
+.task-footer i {
+  margin-right: 4px;
+}
+
+.loadmore {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
