@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" href="../mockups/extra tasks/Logo.png" type="image/png">
+    <title>Main (columns)</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
     <link rel="stylesheet" href="./styles.css">
@@ -19,13 +20,28 @@
                 <img src="../mockups/extra tasks/Logo.png" alt="logo" class="logo">
                 Taskly
             </a>
-            <div class="menu">
-                <button class="header-button">Войти</button>
-                <div class="toggle-button"><input class="checkbox" type="checkbox" id="chk"><label class="label"
-                        for="chk"><i class="fas fa-moon"></i><i class="fas fa-sun"></i>
-                        <div class="ball"></div>
-                    </label></div>
-                <div class="toggle-language">RU</div>
+            <div class="burger-wrapper">
+                <input id="menu-toggle" type="checkbox" />
+                <label class='menu-button-container' for="menu-toggle">
+                    <div class='menu-button'></div>
+                </label>
+                <ul class="menu">
+                    <li><button class="header-button">Войти</button></li>
+                    <li>
+                        <div class="toggle-button"><input class="checkbox" type="checkbox" id="chk"><label class="label"
+                                for="chk"><i class="fas fa-moon"></i><i class="fas fa-sun"></i>
+                                <div class="ball"></div>
+                            </label></div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <button class="toggle-language">RU</button>
+                            <div class="dropdown-content">
+                                <a class="english-toggle" href="#" data-title="English">EN</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </header>
@@ -67,9 +83,61 @@
             </section>
             <section class="inprogress">В процессе
                 <hr>
+                <div class="task">
+                    <div class="content-wrapper">
+                        <div class="task-content">
+                            <div class="title">Название задачи</div>
+                            <div class="content">Текст задачи будет расположен здесь, задача будет растягиваться вниз
+                            </div>
+                        </div>
+                        <div class="status-wrapper">
+                            <div>Нужно сделать</div>
+                            <div>Высокий</div>
+                            <div>Приватная</div>
+                        </div>
+                    </div>
+                    <div class="task-footer">
+                        <div><i class="fa-regular fa-flag"></i>11 февраля 18:22</div>
+                        <div><i class="fa-regular fa-message"></i>2</div>
+                        <div>Иван Иванов</div>
+                        <div>
+                            <i class="fa-solid fa-pencil"></i>
+                            <i class="fa-solid fa-trash"></i>
+                        </div>
+                    </div>
+                </div>
+                <button class="loadmore">
+                    + Загрузить еще
+                </button>
             </section>
             <section class="complete">Готово
                 <hr>
+                <div class="task">
+                    <div class="content-wrapper">
+                        <div class="task-content">
+                            <div class="title">Название задачи</div>
+                            <div class="content">Текст задачи будет расположен здесь, задача будет растягиваться вниз
+                            </div>
+                        </div>
+                        <div class="status-wrapper">
+                            <div>Нужно сделать</div>
+                            <div>Высокий</div>
+                            <div>Приватная</div>
+                        </div>
+                    </div>
+                    <div class="task-footer">
+                        <div><i class="fa-regular fa-flag"></i>11 февраля 18:22</div>
+                        <div><i class="fa-regular fa-message"></i>2</div>
+                        <div>Иван Иванов</div>
+                        <div>
+                            <i class="fa-solid fa-pencil"></i>
+                            <i class="fa-solid fa-trash"></i>
+                        </div>
+                    </div>
+                </div>
+                <button class="loadmore">
+                    + Загрузить еще
+                </button>
             </section>
         </div>
     </main>
@@ -78,9 +146,11 @@
             <a href="#">
                 Taskly
             </a>
-            <div>Ilya Kulesh</div>
-            <div>ilyakulesh457@gmail.com</div>
-            <div>18.02.2023</div>
+            <div class="footer-wrapper">
+                <div>Ilya Kulesh</div>
+                <div>ilyakulesh457@gmail.com</div>
+                <div>18.02.2023</div>
+            </div>
         </div>
     </footer>
 </body>
