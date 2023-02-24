@@ -17,8 +17,7 @@
     <header class="header">
         <div class="header-container">
             <a href="#">
-                <img src="../mockups/extra tasks/Logo.png" alt="logo" class="logo">
-                Taskly
+                <img src="./assets/img/Name.svg" alt="logo" class="logo-name">
             </a>
             <div class="burger-wrapper">
                 <input id="menu-toggle" type="checkbox" />
@@ -49,11 +48,140 @@
         <div class="main-buttons">
             <button class="buttons">Вид</button>
             <button class="buttons">+ Создать новую задачу</button>
-            <button class="buttons">Фильтр</button>
+            <div class="filter">
+                <button class="buttons">Фильтр</button>
+                <div class="filter-content">
+                    <div class="filter-dropdown">Фильтр</div>
+                    <hr>
+                    <div>Исполнитель:
+                        <div>
+                            <input type="checkbox" id="checkbox_1">
+                            <label for="checkbox_1">Иван Иванов</label>
+                        </div>
+
+                    </div>
+                    <div>Название задачи:
+                        <div>
+                            <input class="filter-task__input" type='text' name='filter-task'
+                                placeholder="Введите название задачи...">
+                        </div>
+                    </div>
+                    <div>Приоритет:
+                        <div class="priority">
+                            <div>
+                                <input type="checkbox" id="priority_high">
+                                <label for="priority_high">Высокий</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="priority_medium">
+                                <label for="priority_medium">Средний</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="priority_low">
+                                <label for="priority_low">Низкий</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div>Дата:
+                        <input class="date__input" type="date" id="start" name="trip-start" value="2023-02-22"
+                            min="2018-01-01" max="2023-02-28">
+                        -
+                        <input class="date__input" type="date" id="start" name="trip-start" value="2023-02-22"
+                            min="2018-01-01" max="2023-02-28">
+                    </div>
+                    <div>Приватность:
+                        <div class="privacy">
+                            <div>
+                                <input type="checkbox" id="privacy_all">
+                                <label for="privacy_all">Все</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="privacy_own">
+                                <label for="privacy_own">Личные</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="privacy_public">
+                                <label for="privacy_public">Общедоступные</label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <button class="filter-button">Сбросить</button>
+                </div>
+            </div>
         </div>
         <div class="main-container">
             <section class="todo">Нужно сделать
                 <hr>
+                <div class="task">
+                    <div class="content-wrapper">
+                        <div class="task-content">
+                            <div class="title">Название задачи</div>
+                            <div class="content">Текст задачи будет расположен здесь, задача будет растягиваться вниз
+                            </div>
+                        </div>
+                        <div class="status-wrapper">
+                            <div>Нужно сделать</div>
+                            <div>Высокий</div>
+                            <div>Приватная</div>
+                        </div>
+                    </div>
+                    <div class="task-footer">
+                        <div><i class="fa-regular fa-flag"></i>11 февраля 18:22</div>
+                        <div><i class="fa-regular fa-message"></i>2</div>
+                        <div>Иван Иванов</div>
+                        <div>
+                            <i class="fa-solid fa-pencil"></i>
+                            <i class="fa-solid fa-trash"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="task">
+                    <div class="content-wrapper">
+                        <div class="task-content">
+                            <div class="title">Название задачи</div>
+                            <div class="content">Текст задачи будет расположен здесь, задача будет растягиваться вниз
+                            </div>
+                        </div>
+                        <div class="status-wrapper">
+                            <div>Нужно сделать</div>
+                            <div>Высокий</div>
+                            <div>Приватная</div>
+                        </div>
+                    </div>
+                    <div class="task-footer">
+                        <div><i class="fa-regular fa-flag"></i>11 февраля 18:22</div>
+                        <div><i class="fa-regular fa-message"></i>2</div>
+                        <div>Иван Иванов</div>
+                        <div>
+                            <i class="fa-solid fa-pencil"></i>
+                            <i class="fa-solid fa-trash"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="task">
+                    <div class="content-wrapper">
+                        <div class="task-content">
+                            <div class="title">Название задачи</div>
+                            <div class="content">Текст задачи будет расположен здесь, задача будет растягиваться вниз
+                            </div>
+                        </div>
+                        <div class="status-wrapper">
+                            <div>Нужно сделать</div>
+                            <div>Высокий</div>
+                            <div>Приватная</div>
+                        </div>
+                    </div>
+                    <div class="task-footer">
+                        <div><i class="fa-regular fa-flag"></i>11 февраля 18:22</div>
+                        <div><i class="fa-regular fa-message"></i>2</div>
+                        <div>Иван Иванов</div>
+                        <div>
+                            <i class="fa-solid fa-pencil"></i>
+                            <i class="fa-solid fa-trash"></i>
+                        </div>
+                    </div>
+                </div>
                 <div class="task">
                     <div class="content-wrapper">
                         <div class="task-content">
@@ -144,7 +272,7 @@
     <footer class="footer">
         <div class="footer-container">
             <a href="#">
-                Taskly
+                <img src="./assets/img/Name_footer.svg" alt="logo" class="logo-name">
             </a>
             <div class="footer-wrapper">
                 <div>Ilya Kulesh</div>

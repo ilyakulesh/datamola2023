@@ -1,0 +1,24 @@
+.footer {
+  background-color: #1f2430;
+  margin-top: auto;
+  width: 100%;
+  padding: 3px 0px 3px 0px;
+  box-shadow: 1px 0px 0px 0px rgba(0, 0, 0, 0.25);
+}
+
+.footer-container {
+  font-size: 16px;
+  margin: 7px 46px 7px 46px;
+  display: flex;
+  text-align: center;
+  vertical-align: middle;
+  justify-content: space-between;
+  color: #ffffff;
+}
+
+.footer-wrapper {
+  display: flex;
+}
+.footer-wrapper div {
+  margin-left: 50px;
+}
