@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <header class="ticket-header"></header>
     <main class="main-ticket">
         <section class="ticket-desktop">
             <div class="ticket-desktop__side-content">
@@ -30,7 +31,10 @@
                     </div>
                     <div class="ticket-desktop__icons-wrapper">
                         <div class="ticket-desktop__subs">
-                            <i class="fa-regular fa-bell"></i>
+                            <i class="fa-regular fa-bell">
+                                <span class="gfg_text">
+                                    Подписаться на уведомления об изменениях цены этого билета.
+                                </span></i>
                         </div>
                         <div class="ticket-desktop__share">
                             <i class="fa-regular fa-share-from-square"></i>
@@ -40,9 +44,9 @@
                 <div class="ticket-desktop__body">
                     <div class="ticket-desktop__segments-wrap">
                         <div class="segment-origin">
-                            <div>18:10</div>
-                            <div>Минск</div>
-                            <div>7 мар 2022, вс</div>
+                            <div class="segment-time">18:10</div>
+                            <div class="segment-body">Минск</div>
+                            <div class="segment-body">7 мар 2022, вс</div>
                         </div>
                         <div class="segment-route__route_wrap">
                             <div class="segment-route__duration">
@@ -60,17 +64,15 @@
                             </div>
                         </div>
                         <div class="segment-destination">
-                            <div>17:20</div>
-                            <div>Нью-Йорк</div>
-                            <div>8 мар 2022, вт</div>
+                            <div class="segment-time">17:20</div>
+                            <div class="segment-body">Нью-Йорк</div>
+                            <div class="segment-body">8 мар 2022, вт</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <strong class="badge_34b0c12 round_34b0c12 ticket-desktop__outer-badge"
-                style="height: 20px; padding: 0px 6px; color: #ffffff; background-color: #35c768;">
-                <span class="body-3-semi_03dd9f9 mobile-body-3-semi_03dd9f9 single-line_03dd9f9 text_34b0c12"
-                    data-test-id="text">Самый дешёвый</span>
+            <strong class="ticket-desktop__outer-badge">
+                <span>Самый дешёвый</span>
             </strong>
         </section>
     </main>
