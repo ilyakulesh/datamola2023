@@ -130,12 +130,19 @@ body {
     align-items: center;
   }
 
-  .edit-input-wrapper {
-    width: 252px;
+  .edit-input-wrapper input {
+    min-width: 285px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .edit-user-footer {
     justify-content: center;
     align-items: center;
+  }
+
+  .status-task {
+    width: 100%;
+    margin: 0;
   }
 }

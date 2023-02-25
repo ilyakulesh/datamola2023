@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #eff1f4;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  color: #333333;
+  line-height: 1.5;
+}
+
+.main-ticket {
+  position: relative;
+  margin-top: 50px;
+}
+
+.ticket-desktop {
+  cursor: pointer;
+  box-shadow: 0 0 0 transparent;
+  background: #ffffff;
+  width: 100%;
+  max-width: 729px;
+  min-height: 251px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.ticket-desktop__side-content {
+  width: 30%;
+  text-align: center;
+  padding: 15px 12px;
+}
+
+.ticket-desktop__price {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.buy-button {
+  background-color: #ff6f32;
+  border-style: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.buy-button:hover {
+  opacity: 0.9;
+}
+
+.ticket-desktop__content {
+  width: 70%;
+}
+
+.ticket-desktop__header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 17px 20px 20px;
+}
+
+.ticket-desktop__companies img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.ticket-desktop__icons-wrapper {
+  display: flex;
+}
+
+.ticket-desktop__icons-wrapper i {
+  font-size: 20px;
+  color: #8f9cad;
+  padding: 0px 5px;
+}
+
+.ticket-desktop__icons-wrapper i:hover {
+  color: #0c73fe;
+}
+
+.ticket-desktop__body {
+  padding: 5px 20px 20px;
+}
+.ticket-desktop__segments-wrap {
+  display: flex;
+}
+
+.ticket-desktop .ticket-desktop__outer-badge {
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  max-width: 350px;
+  border-radius: 10px;
+}

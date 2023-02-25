@@ -1,5 +1,5 @@
 .info-task {
-  width: auto;
+  max-width: 1220px;
   height: 500px;
   border-radius: 10px;
   margin: auto;
@@ -14,6 +14,11 @@
 .header-info {
   display: flex;
   justify-content: space-between;
+  padding: 0px 15px;
+}
+
+.text-info {
+  font-size: 20px;
 }
 
 .task-wrapper {
