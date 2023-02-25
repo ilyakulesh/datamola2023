@@ -21,6 +21,15 @@
   font-size: 20px;
 }
 
+.info-task__icons i {
+  padding-left: 5px;
+}
+
+.info-task__icons i:hover {
+  color: #31416d;
+  cursor: pointer;
+}
+
 .task-wrapper {
   display: flex;
   flex-direction: row;
@@ -73,6 +82,10 @@
   margin-right: 12px;
 }
 
+.comment-wrapper div:first-child {
+  font-weight: bold;
+}
+
 .full-task input {
   width: 390px;
   height: 51px;
@@ -95,16 +108,27 @@
   display: flex;
   margin-top: 20px;
   white-space: nowrap;
+  font-weight: bold;
 }
 
-.status-task div div {
+.status-task__todo,
+.status-task__priority {
   background-color: #ef7564;
   color: #ffffff;
   width: fit-content;
+  border-radius: 10px;
+}
+
+.status-task div div {
   margin: 0px;
   margin-left: 5px;
   padding: 0px 8px;
-  border-radius: 10px;
+
+  font-weight: normal;
+}
+
+.status-task div:last-child {
+  font-weight: normal;
 }
 
 .main-page-button {

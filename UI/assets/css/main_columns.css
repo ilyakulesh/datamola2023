@@ -200,12 +200,17 @@ section hr {
   justify-content: space-between;
   margin-top: 20px;
   text-align: left;
-  padding: 0px 12px;
+  padding: 5px 12px;
   font-size: 13px;
 }
 
 .task-footer i {
   margin-right: 4px;
+}
+
+.task__icons i:hover {
+  color: #31416d;
+  cursor: pointer;
 }
 
 .loadmore {

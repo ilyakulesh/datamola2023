@@ -86,6 +86,15 @@
   padding: 10px 20px;
 }
 
+.task-icons i {
+  padding: 5px;
+}
+
+.task-icons i:hover {
+  cursor: pointer;
+  color: #31416d;
+}
+
 .list-todo {
   background-color: #ef7564;
   color: #ffffff;
@@ -128,6 +137,10 @@
   outline: inherit;
 }
 
+.wrap-list i {
+  padding-left: 5px;
+}
+
 .unwrap-list {
   margin: auto;
   background: none;
@@ -137,4 +150,8 @@
   font: inherit;
   cursor: pointer;
   outline: inherit;
+}
+
+.unwrap-list i {
+  padding-left: 5px;
 }

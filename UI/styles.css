@@ -18,7 +18,6 @@ body {
   color: #333333;
 }
 
-/* Медиа запросы */
 @media (max-width: 1165px) {
   .header-container {
     margin: 0px 13px 0px 13px;
