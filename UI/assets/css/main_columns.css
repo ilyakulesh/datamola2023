@@ -30,11 +30,16 @@ main {
   display: inline-block;
 }
 
+.filter button i {
+  font-size: 10px;
+  padding-left: 4px;
+}
+
 .filter-content {
   display: block;
   position: absolute;
   margin-top: 20px;
-  margin-left: -307px;
+  margin-left: -300px;
   font-size: 14px;
   width: 390px;
   border-radius: 10px;
@@ -156,8 +161,11 @@ section hr {
   /* min-height: 140px; */
   font-size: 14px;
   margin: 10px 0px;
-  cursor: pointer;
   min-width: 330px;
+}
+
+.task:hover {
+  cursor: pointer;
 }
 
 .content-wrapper {
@@ -221,4 +229,8 @@ section hr {
   font: inherit;
   cursor: pointer;
   outline: inherit;
+}
+
+.loadmore-none {
+  display: none;
 }

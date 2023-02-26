@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,9 +7,9 @@
 
 body {
   background-color: #eff1f4;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 16px;
-  color: #333333;
+  color: #0c131d;
   line-height: 1.5;
 }
 
@@ -45,8 +44,9 @@ body {
 }
 
 .ticket-desktop__price {
-  font-size: 20px;
+  font-size: 23px;
   font-weight: bold;
+  margin-top: 10px;
 }
 
 .buy-button {
@@ -54,9 +54,11 @@ body {
   border-style: none;
   color: #ffffff;
   cursor: pointer;
-  font-size: 16px;
-  border-radius: 5px;
-  padding: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 12px 18px;
+  margin-top: 10px;
 }
 
 .buy-button:hover {
@@ -73,10 +75,120 @@ body {
   padding: 20px 17px 20px 20px;
 }
 
+.ticket-desktop__companies {
+  display: flex;
+}
+
 .ticket-desktop__companies img {
-  width: 40px;
-  height: 40px;
+  width: 33px;
+  height: 33px;
   border-radius: 50%;
+}
+
+.belavia-img {
+  position: relative;
+  display: inline-block;
+}
+
+.belavia-label {
+  visibility: hidden;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  width: 130px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 70%;
+  left: 40%;
+  margin-left: -61px;
+  padding: 15px;
+  transition: all 0.2s ease-in-out;
+  animation: ani 2.5s forwards;
+}
+
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.belavia-label::before,
+.belavia-label::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.belavia-img:hover .belavia-label {
+  visibility: visible;
+  bottom: 45px;
+}
+
+.turkish-airlines {
+  margin-left: 10px;
+}
+
+.turkish-img {
+  position: relative;
+  display: inline-block;
+}
+
+.turkish-label {
+  visibility: hidden;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  width: 130px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 70%;
+  left: 40%;
+  margin-left: -55px;
+  padding: 15px;
+  transition: all 0.2s ease-in-out;
+  animation: ani 2.5s forwards;
+}
+
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.turkish-label::before,
+.turkish-label::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.turkish-img:hover .turkish-label {
+  visibility: visible;
+  bottom: 45px;
 }
 
 .ticket-desktop__icons-wrapper {
@@ -103,7 +215,8 @@ body {
 
 .fa-bell .gfg_text {
   visibility: hidden;
-  font-size: 14px;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
   width: 300px;
   background-color: black;
   color: white;
@@ -112,7 +225,7 @@ body {
   padding: 5px 0;
   position: absolute;
   z-index: 1;
-  bottom: 115%;
+  bottom: 60%;
   left: 50%;
   margin-left: -150px;
   padding: 15px;
@@ -159,14 +272,30 @@ body {
 }
 
 .segment-body {
-  font-size: 14px;
-  font-weight: 500;
-  color: #c8c8c8;
+  font-size: 12px;
+  font-weight: 400;
+  color: #9ea9b7;
+}
+
+.segment-route__route_wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.segment-route__duration {
+  font-size: 12px;
+  line-height: 18px;
+  color: #9ea9b7;
 }
 
 .plane-departure {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+
+.plane-arrival {
+  display: flex;
+  flex-direction: column;
 }
 
 .ticket-desktop__outer-badge {
@@ -174,7 +303,8 @@ body {
   padding: 0px 6px;
   color: #ffffff;
   background-color: #35c768;
-
+  font-size: 13px;
+  font-weight: 600;
   position: absolute;
   top: -10px;
   left: 12px;
