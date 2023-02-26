@@ -72,7 +72,7 @@ body {
 .ticket-desktop__header {
   display: flex;
   justify-content: space-between;
-  padding: 20px 17px 20px 20px;
+  padding: 20px 17px 0px 20px;
 }
 
 .ticket-desktop__companies {
@@ -136,13 +136,10 @@ body {
   bottom: 45px;
 }
 
-.turkish-airlines {
-  margin-left: 10px;
-}
-
 .turkish-img {
   position: relative;
   display: inline-block;
+  margin-left: 10px;
 }
 
 .turkish-label {
@@ -159,7 +156,7 @@ body {
   z-index: 1;
   bottom: 70%;
   left: 40%;
-  margin-left: -55px;
+  margin-left: -61px;
   padding: 15px;
   transition: all 0.2s ease-in-out;
   animation: ani 2.5s forwards;
@@ -260,11 +257,13 @@ body {
 }
 
 .ticket-desktop__body {
-  padding: 5px 20px 20px;
+  padding: 20px 20px;
 }
+
 .ticket-desktop__segments-wrap {
   display: flex;
   justify-content: space-between;
+  height: 80px;
 }
 
 .segment-time {
@@ -282,20 +281,126 @@ body {
   flex-direction: column;
 }
 
+.duration-wrap {
+  display: flex;
+  width: 250px;
+  justify-content: space-between;
+}
+
+.fa-plane-departure,
+.fa-plane-arrival {
+  font-size: 14px;
+  color: #9ea9b7;
+}
+
+.fa-plane-departure:hover,
+.fa-plane-arrival:hover {
+  color: #ff6f32;
+}
+
 .segment-route__duration {
   font-size: 12px;
   line-height: 18px;
   color: #9ea9b7;
 }
 
-.plane-departure {
+.segment-route__lines {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
 }
 
-.plane-arrival {
+.start-line {
+  display: block;
+  width: 30px;
+  height: 1px;
+  border: 0;
+  border-top: 5px solid #ccc;
+  border-radius: 10px;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.middle-line {
+  display: block;
+  width: 150px;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 1.1em 0;
+  padding: 0;
+}
+
+.middle-line:hover {
+  border-top: 1px solid #ff6f32;
+}
+
+.end-line {
+  display: block;
+  width: 70px;
+  height: 1px;
+  border: 0;
+  border-top: 5px solid #ccc;
+  border-radius: 10px;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.start-line__two {
+  display: block;
+  width: 90px;
+  height: 1px;
+  border: 0;
+  border-top: 5px solid #ccc;
+  border-radius: 10px;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.middle-line__two {
+  display: block;
+  width: 120px;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 1.1em 0;
+  padding: 0;
+}
+
+.middle-line__two:hover {
+  border-top: 1px solid #ff6f32;
+}
+
+.end-line__two {
+  display: block;
+  width: 40px;
+  height: 1px;
+  border: 0;
+  border-top: 5px solid #ccc;
+  border-radius: 10px;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.segment-route__path {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+}
+
+.segment-route__path span {
+  font-size: 10px;
+  font-weight: 600;
+  color: #0c73fe;
+}
+
+.segment-route__path span:hover {
+  color: #ff6f32;
+}
+
+.ticket-desktop-body__hr {
+  margin: 0px 17px;
+  border-top: 1px solid #9ea9b7;
 }
 
 .ticket-desktop__outer-badge {
@@ -304,7 +409,7 @@ body {
   color: #ffffff;
   background-color: #35c768;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   position: absolute;
   top: -10px;
   left: 12px;
