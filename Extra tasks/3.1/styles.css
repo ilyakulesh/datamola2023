@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  color: #333333;
+  line-height: 1.5;
+}
+
+.main {
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100vh;
+}
+
+.modal {
+  width: 450px;
+  border-radius: 3px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+}
+
+.modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-info {
+  font-size: 17px;
+  color: black;
+}
+
+.fa-xmark {
+  cursor: pointer;
+  font-size: 17px;
+  color: #6f7680;
+}
+
+.modal-content {
+  font-size: 14px;
+  margin: 20px 0px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-footer button {
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 9px;
+  margin-left: 5px;
+}
+
+.modal-button-close {
+  background-color: #6f7680;
+}
+
+.modal-button-close:hover {
+  opacity: 0.9;
+}
+
+.modal-button-save {
+  background-color: #1d78ff;
+}
+
+.modal-button-save:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 450px) {
+  .modal {
+    width: 300px;
+  }
+}

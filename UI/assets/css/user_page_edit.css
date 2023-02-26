@@ -1,0 +1,101 @@
+.edit-user {
+  max-width: 670px;
+  height: 320px;
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 200px;
+  padding: 10px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
+    -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
+  font-size: 14px;
+  overflow: auto;
+}
+
+.user-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #f5f7fb;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
+    -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
+}
+
+.user-photo-button {
+  background-color: #f5f7fb;
+  color: #333333;
+  border-radius: 10px;
+  font-size: 16px;
+  width: 105px;
+  height: 32px;
+  cursor: pointer;
+  border-style: none;
+  margin-top: 10px;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
+    -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
+}
+
+.edit-user-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.user-photo-wrapper {
+  width: 30%;
+  text-align: left;
+  padding: 5px 12px;
+  margin-top: 13px;
+}
+
+.edit-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.edit-input-wrapper input {
+  max-width: 370px;
+  height: 34px;
+  font-size: 14px;
+  padding-left: 21px;
+  background-color: #f5f7fb;
+  border-style: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
+    -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
+  margin-top: 18px;
+  margin-bottom: 7px;
+}
+
+.password-hide {
+  background: url("../eye-hide.png") no-repeat right;
+  background-position: 340px 7px;
+
+  background-size: 20px;
+}
+
+.edit-user-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  text-align: left;
+  padding: 0px 12px;
+  font-size: 13px;
+}
+
+.edit-user-button {
+  background-color: #31416d;
+  color: #ffffff;
+  border-radius: 10px;
+  font-size: 16px;
+  width: 105px;
+  height: 32px;
+  cursor: pointer;
+  border-style: none;
+  margin-left: 37px;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
+    -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
+}
+.edit-user-button:first-child {
+  background-color: #6f7680;
+}

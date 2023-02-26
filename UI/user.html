@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../mockups/extra tasks/Logo.png" type="image/png">
+    <title>User page(edit)</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="https://kit.fontawesome.com/89087bd124.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="#">
+                <img src="./assets/img/Name.svg" alt="logo" class="logo-name">
+            </a>
+            <div class="burger-wrapper">
+                <input id="menu-toggle" type="checkbox" />
+                <label class='menu-button-container' for="menu-toggle">
+                    <div class='menu-button'></div>
+                </label>
+                <ul class="menu">
+                    <li><button class="header-button">Войти</button></li>
+                    <li>
+                        <div class="toggle-button"><input class="checkbox" type="checkbox" id="chk"><label class="label"
+                                for="chk"><i class="fas fa-moon"></i><i class="fas fa-sun"></i>
+                                <div class="ball"></div>
+                            </label></div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <button class="toggle-language">RU</button>
+                            <div class="dropdown-content">
+                                <a class="english-toggle" href="#" data-title="English">EN</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <main сlass="main">
+        <div class="edit-user">
+            <div class="edit-user-wrapper">
+                <div class="user-photo-wrapper">
+                    <div class="user-photo"></div>
+                    <button class="user-photo-button">Загрузить</button>
+                </div>
+                <div class="edit-input-wrapper">
+                    <input type='text' name='name' placeholder="Имя пользователя">
+                    <input type='text' name='login' placeholder="Логин">
+                    <input class="password-hide" type='password' name='password' placeholder="Пароль">
+                    <input type='password' name='password-confirm' placeholder="Подтверждение пароля">
+                </div>
+            </div>
+            <div class="edit-user-footer">
+                <button class="edit-user-button">Сбросить</button>
+                <button class="edit-user-button">Сохранить</button>
+            </div>
+        </div>
+        <div class="button-wrapper">
+            <button class="main-page-button">На главную</button>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <a href="#">
+                <img src="./assets/img/Name_footer.svg" alt="logo" class="logo-name">
+            </a>
+            <div class="footer-wrapper">
+                <div>Ilya Kulesh</div>
+                <div>ilyakulesh457@gmail.com</div>
+                <div>26.02.2023</div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

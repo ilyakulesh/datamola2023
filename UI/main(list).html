@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../mockups/extra tasks/Logo.png" type="image/png">
+    <title>Main (columns)</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="https://kit.fontawesome.com/89087bd124.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="#">
+                <img src="./assets/img/Name.svg" alt="logo" class="logo-name">
+            </a>
+            <div class="burger-wrapper">
+                <input id="menu-toggle" type="checkbox" />
+                <label class='menu-button-container' for="menu-toggle">
+                    <div class='menu-button'></div>
+                </label>
+                <ul class="menu">
+                    <li><button class="header-button">Войти</button></li>
+                    <li>
+                        <div class="toggle-button"><input class="checkbox" type="checkbox" id="chk"><label class="label"
+                                for="chk"><i class="fas fa-moon"></i><i class="fas fa-sun"></i>
+                                <div class="ball"></div>
+                            </label></div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <button class="toggle-language">RU</button>
+                            <div class="dropdown-content">
+                                <a class="english-toggle" href="#" data-title="English">EN</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <main class="main-list">
+        <div class="main-buttons">
+            <button class="buttons">Вид</button>
+            <button class="buttons">+ Создать новую задачу</button>
+            <button class="buttons">Фильтр<i class="fa-solid fa-angle-up"></i></button>
+        </div>
+        <section class="list">
+            <div class="list-header">
+                <span class="task-group">Группа</span>
+                <span class="task-name">Название задачи</span>
+                <span class="task-executor">Исполнитель</span>
+                <span class="task-date">Дата</span>
+                <span class="task-text">Описание</span>
+                <span class="task-comments">Комментарии</span>
+                <span class="task-status">Статус</span>
+                <span class="task-priority">Приоритет</span>
+                <span class="task-privacy">Приватность</span>
+            </div>
+
+            <div class="list-task">
+                <div class="list-task-wrapper">
+                    <div class="list-todo-wrapper">
+                        <div class="list-todo">Нужно сделать</div>
+                    </div>
+                    <div class="tasks">
+                        <div class="task-container">
+                            <div class="task-example">
+                                <div>Название задачи</div>
+                                <div>Иван Иванов</div>
+                                <div>11 февраля 18:22</div>
+                                <div>Текст задачи будет расположен здесь, задача будет растягиваться вниз</div>
+                                <div>2</div>
+                                <div>Нужно сделать</div>
+                                <div>Низкий</div>
+                                <div>Приватная</div>
+                            </div>
+                            <div class="task-icons">
+                                <i class="fa-solid fa-pencil"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="task-container">
+                            <div class="task-example">
+                                <div>Название задачи</div>
+                                <div>Иван Иванов</div>
+                                <div>11 февраля 18:22</div>
+                                <div>Текст задачи будет расположен здесь, задача будет растягиваться вниз</div>
+                                <div>2</div>
+                                <div>Нужно сделать</div>
+                                <div>Низкий</div>
+                                <div>Приватная</div>
+                            </div>
+                            <div class="task-icons">
+                                <i class="fa-solid fa-pencil"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wrap-list">Свернуть<i class="fa-solid fa-angle-up"></i></div>
+            </div>
+            <div class="list-task">
+                <div class="list-task-wrapper">
+                    <div class="list-todo-wrapper">
+                        <div class="inprogress-list">В процессе</div>
+                    </div>
+                    <div class="tasks">
+                        <div class="task-container">
+                            <div class="task-example">
+                                <div>Название задачи</div>
+                                <div>Иван Иванов</div>
+                                <div>11 февраля 18:22</div>
+                                <div>Текст задачи будет расположен здесь, задача будет растягиваться вниз</div>
+                                <div>2</div>
+                                <div>Нужно сделать</div>
+                                <div>Низкий</div>
+                                <div>Приватная</div>
+                            </div>
+                            <div class="task-icons">
+                                <i class="fa-solid fa-pencil"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="task-container">
+                            <div class="task-example">
+                                <div>Название задачи</div>
+                                <div>Иван Иванов</div>
+                                <div>11 февраля 18:22</div>
+                                <div>Текст задачи будет расположен здесь, задача будет растягиваться вниз</div>
+                                <div>2</div>
+                                <div>Нужно сделать</div>
+                                <div>Низкий</div>
+                                <div>Приватная</div>
+                            </div>
+                            <div class="task-icons">
+                                <i class="fa-solid fa-pencil"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="wrap-list">Свернуть<i class="fa-solid fa-angle-up"></i></button>
+            </div>
+            <div class="list-task">
+                <div class="list-task-unwrap">
+                    <div class="completed-list">Готово</div>
+                    <button class="unwrap-list">Развернуть<i class="fa-solid fa-angle-down"></i></button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <a href="#">
+                <img src="./assets/img/Name_footer.svg" alt="logo" class="logo-name">
+            </a>
+            <div class="footer-wrapper">
+                <div>Ilya Kulesh</div>
+                <div>ilyakulesh457@gmail.com</div>
+                <div>26.02.2023</div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
