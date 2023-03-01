@@ -1,0 +1,11 @@
+:root {
+  --white-color: #ffffff;
+  --red-color: #ef7564;
+  --green-color: #7bc86c;
+  --gray-color: #505f79;
+  --purple-color: #cd8de5;
+  --background-color: #f5f7fb;
+  --background-buttons: #31416d;
+  --box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
+    -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
+}

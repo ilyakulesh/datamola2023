@@ -5,9 +5,8 @@
   margin: auto;
   margin-top: 100px;
   padding: 10px;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
-    -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
+  background-color: var(--white-color);
+  box-shadow: var(--box-shadow);
   font-size: 14px;
 }
 
@@ -26,7 +25,7 @@
 }
 
 .info-task__icons i:hover {
-  color: #31416d;
+  color: var(--background-buttons);
   cursor: pointer;
 }
 
@@ -46,14 +45,14 @@
 }
 
 .full-task::-webkit-scrollbar {
-  background-color: #fff;
+  background-color: var(--white-color);
   width: 16px;
 }
 
 .full-task::-webkit-scrollbar-thumb {
   background-color: #babac0;
   border-radius: 16px;
-  border: 5px solid #fff;
+  border: 5px solid var(--white-color);
 }
 .full-task::-webkit-scrollbar-thumb:hover {
   background-color: #a0a0a5;
@@ -91,11 +90,10 @@
   height: 51px;
   font-size: 14px;
   padding-left: 21px;
-  background-color: #f5f7fb;
+  background-color: var(--background-color);
   border-style: none;
   border-radius: 10px;
-  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
-    -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
+  box-shadow: var(--box-shadow);
   margin-top: 18px;
 }
 
@@ -113,8 +111,8 @@
 
 .status-task__todo,
 .status-task__priority {
-  background-color: #ef7564;
-  color: #ffffff;
+  background-color: var(--red-color);
+  color: var(--white-color);
   width: fit-content;
   border-radius: 10px;
 }
@@ -132,8 +130,8 @@
 }
 
 .main-page-button {
-  background-color: #31416d;
-  color: #ffffff;
+  background-color: var(--background-buttons);
+  color: var(--white-color);
   border-radius: 10px;
   font-size: 16px;
   width: 226px;
@@ -141,8 +139,7 @@
   cursor: pointer;
   border-style: none;
   margin: auto;
-  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
-    -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
+  box-shadow: var(--box-shadow);
 }
 
 .button-wrapper {
