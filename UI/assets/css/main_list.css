@@ -4,7 +4,7 @@
 
 .list {
   width: 1250px;
-  height: 610px;
+  max-height: 65vh;
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
@@ -14,7 +14,6 @@
   font-size: 14px;
   box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
     -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
-  max-height: 450px;
   overflow: auto;
 }
 
@@ -39,13 +38,56 @@
 
 .list-header {
   display: flex;
-  justify-content: space-between;
+  width: 1180px;
+  /* justify-content: center; */
   font-weight: bold;
-  padding: 10px 20px 0px 40px;
+  padding: 10px 0px 0px 0px;
+  cursor: default;
+  margin: 0px 20px;
+}
+
+.list-header span {
+  padding: 0px 20px;
+}
+
+.list-header span:first-child {
+  padding: 0;
+}
+
+.task-group {
+  width: 120px;
+}
+
+.task-name {
+  width: 130px;
+}
+
+.task-executor {
+  width: 105px;
+}
+
+.task-date {
+  width: 130px;
 }
 
 .task-text {
-  padding: 0px 120px;
+  width: 290px;
+}
+
+.task-comments {
+  width: 140px;
+}
+
+.task-status {
+  width: 120px;
+}
+
+.task-priority {
+  width: 110px;
+}
+
+.task-privacy {
+  width: 115px;
 }
 
 .list-task {
@@ -54,7 +96,7 @@
   margin: 15px 10px;
   padding: 10px;
   background-color: #f5f7fb;
-  text-align: center;
+  text-align: left;
   box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
     -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
 }
@@ -65,7 +107,7 @@
 }
 
 .list-todo-wrapper {
-  width: 10%;
+  width: 120px;
 }
 
 .tasks {
@@ -84,6 +126,38 @@
 
 .task-example div {
   padding: 10px 20px;
+}
+
+.task-example__name {
+  width: 130px;
+}
+
+.task-example__executor {
+  width: 105px;
+}
+
+.task-example__date {
+  width: 130px;
+}
+
+.task-example__text {
+  width: 290px;
+}
+
+.task-example__comments {
+  width: 140px;
+}
+
+.task-example__status {
+  width: 120px;
+}
+
+.task-example__priority {
+  width: 110px;
+}
+
+.task-example__privacy {
+  width: 115px;
 }
 
 .task-icons i {
@@ -127,6 +201,11 @@
 }
 
 .wrap-list {
+  display: flex;
+  justify-content: center;
+}
+
+.wrap-list__button {
   margin-top: 15px;
   background: none;
   color: inherit;
@@ -135,13 +214,18 @@
   font: inherit;
   cursor: pointer;
   outline: inherit;
+  margin: 0 auto;
 }
 
-.wrap-list i {
+.wrap-list__button i {
   padding-left: 5px;
 }
 
 .unwrap-list {
+  margin: 0px 0px 0px 480px;
+}
+
+.unwrap-list__button {
   margin: auto;
   background: none;
   color: inherit;
@@ -152,6 +236,6 @@
   outline: inherit;
 }
 
-.unwrap-list i {
+.unwrap-list__button i {
   padding-left: 5px;
 }

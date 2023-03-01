@@ -48,7 +48,9 @@
         <div class="main-buttons">
             <button class="buttons">Вид</button>
             <button class="buttons">+ Создать новую задачу</button>
-            <button class="buttons">Фильтр<i class="fa-solid fa-angle-up"></i></button>
+            <div class="filter">
+                <button class="buttons">Фильтр<i class="fa-solid fa-angle-up"></i></button>
+            </div>
         </div>
         <section class="list">
             <div class="list-header">
@@ -71,14 +73,20 @@
                     <div class="tasks">
                         <div class="task-container">
                             <div class="task-example">
-                                <div>Название задачи</div>
-                                <div>Иван Иванов</div>
-                                <div>11 февраля 18:22</div>
-                                <div>Текст задачи будет расположен здесь, задача будет растягиваться вниз</div>
-                                <div>2</div>
-                                <div>Нужно сделать</div>
-                                <div>Низкий</div>
-                                <div>Приватная</div>
+                                <div class="task-example__name">Название задачи</div>
+                                <div class="task-example__executor">Иван Иванов</div>
+                                <div class="task-example__date">11 февраля 18:22</div>
+                                <div class="task-example__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra orci
+                                    sagittis eu volutpat. Senectus et netus et malesuada fames ac turpis. Lobortis
+                                    mattis aliquam faucibus purus in massa tempor nec feugiat. Volutpat ac tincidunt
+                                    vitae semper. Fames ac turpis egestas integer eget aliquet nibh praesent. Nunc
+                                    scelerisque viverra mauris in. Pharetra diam sit amet nisl. Lectus magna fringilla
+                                    urna porttitor rhoncus dolor purus. Enim neque volutpat ac tincidunt vitae.</div>
+                                <div class="task-example__comments">2</div>
+                                <div class="task-example__status">Нужно сделать</div>
+                                <div class="task-example__priority">Низкий</div>
+                                <div class="task-example__privacy">Приватная</div>
                             </div>
                             <div class="task-icons">
                                 <i class="fa-solid fa-pencil"></i>
@@ -90,14 +98,175 @@
 
                         <div class="task-container">
                             <div class="task-example">
-                                <div>Название задачи</div>
-                                <div>Иван Иванов</div>
-                                <div>11 февраля 18:22</div>
-                                <div>Текст задачи будет расположен здесь, задача будет растягиваться вниз</div>
-                                <div>2</div>
-                                <div>Нужно сделать</div>
-                                <div>Низкий</div>
-                                <div>Приватная</div>
+                                <div class="task-example__name">Название задачи</div>
+                                <div class="task-example__executor">Иван Иванов</div>
+                                <div class="task-example__date">11 февраля 18:22</div>
+                                <div class="task-example__text">Текст задачи будет расположен здесь, задача будет
+                                    растягиваться вниз</div>
+                                <div class="task-example__comments">2</div>
+                                <div class="task-example__status">Нужно сделать</div>
+                                <div class="task-example__priority">Низкий</div>
+                                <div class="task-example__privacy">Приватная</div>
+                            </div>
+                            <div class="task-icons">
+                                <i class="fa-solid fa-pencil"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="task-container">
+                            <div class="task-example">
+                                <div class="task-example__name">Название задачи</div>
+                                <div class="task-example__executor">Иван Иванов</div>
+                                <div class="task-example__date">11 февраля 18:22</div>
+                                <div class="task-example__text">Текст задачи будет расположен здесь, задача будет
+                                    растягиваться вниз</div>
+                                <div class="task-example__comments">2</div>
+                                <div class="task-example__status">Нужно сделать</div>
+                                <div class="task-example__priority">Низкий</div>
+                                <div class="task-example__privacy">Приватная</div>
+                            </div>
+                            <div class="task-icons">
+                                <i class="fa-solid fa-pencil"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="task-container">
+                            <div class="task-example">
+                                <div class="task-example__name">Название задачи</div>
+                                <div class="task-example__executor">Иван Иванов</div>
+                                <div class="task-example__date">11 февраля 18:22</div>
+                                <div class="task-example__text">Текст задачи будет расположен здесь, задача будет
+                                    растягиваться вниз</div>
+                                <div class="task-example__comments">2</div>
+                                <div class="task-example__status">Нужно сделать</div>
+                                <div class="task-example__priority">Низкий</div>
+                                <div class="task-example__privacy">Приватная</div>
+                            </div>
+                            <div class="task-icons">
+                                <i class="fa-solid fa-pencil"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="task-container">
+                            <div class="task-example">
+                                <div class="task-example__name">Название задачи</div>
+                                <div class="task-example__executor">Иван Иванов</div>
+                                <div class="task-example__date">11 февраля 18:22</div>
+                                <div class="task-example__text">Текст задачи будет расположен здесь, задача будет
+                                    растягиваться вниз</div>
+                                <div class="task-example__comments">2</div>
+                                <div class="task-example__status">Нужно сделать</div>
+                                <div class="task-example__priority">Низкий</div>
+                                <div class="task-example__privacy">Приватная</div>
+                            </div>
+                            <div class="task-icons">
+                                <i class="fa-solid fa-pencil"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="task-container">
+                            <div class="task-example">
+                                <div class="task-example__name">Название задачи</div>
+                                <div class="task-example__executor">Иван Иванов</div>
+                                <div class="task-example__date">11 февраля 18:22</div>
+                                <div class="task-example__text">Текст задачи будет расположен здесь, задача будет
+                                    растягиваться вниз</div>
+                                <div class="task-example__comments">2</div>
+                                <div class="task-example__status">Нужно сделать</div>
+                                <div class="task-example__priority">Низкий</div>
+                                <div class="task-example__privacy">Приватная</div>
+                            </div>
+                            <div class="task-icons">
+                                <i class="fa-solid fa-pencil"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="task-container">
+                            <div class="task-example">
+                                <div class="task-example__name">Название задачи</div>
+                                <div class="task-example__executor">Иван Иванов</div>
+                                <div class="task-example__date">11 февраля 18:22</div>
+                                <div class="task-example__text">Текст задачи будет расположен здесь, задача будет
+                                    растягиваться вниз</div>
+                                <div class="task-example__comments">2</div>
+                                <div class="task-example__status">Нужно сделать</div>
+                                <div class="task-example__priority">Низкий</div>
+                                <div class="task-example__privacy">Приватная</div>
+                            </div>
+                            <div class="task-icons">
+                                <i class="fa-solid fa-pencil"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="task-container">
+                            <div class="task-example">
+                                <div class="task-example__name">Название задачи</div>
+                                <div class="task-example__executor">Иван Иванов</div>
+                                <div class="task-example__date">11 февраля 18:22</div>
+                                <div class="task-example__text">Текст задачи будет расположен здесь, задача будет
+                                    растягиваться вниз</div>
+                                <div class="task-example__comments">2</div>
+                                <div class="task-example__status">Нужно сделать</div>
+                                <div class="task-example__priority">Низкий</div>
+                                <div class="task-example__privacy">Приватная</div>
+                            </div>
+                            <div class="task-icons">
+                                <i class="fa-solid fa-pencil"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="task-container">
+                            <div class="task-example">
+                                <div class="task-example__name">Название задачи</div>
+                                <div class="task-example__executor">Иван Иванов</div>
+                                <div class="task-example__date">11 февраля 18:22</div>
+                                <div class="task-example__text">Текст задачи будет расположен здесь, задача будет
+                                    растягиваться вниз</div>
+                                <div class="task-example__comments">2</div>
+                                <div class="task-example__status">Нужно сделать</div>
+                                <div class="task-example__priority">Низкий</div>
+                                <div class="task-example__privacy">Приватная</div>
+                            </div>
+                            <div class="task-icons">
+                                <i class="fa-solid fa-pencil"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="task-container">
+                            <div class="task-example">
+                                <div class="task-example__name">Название задачи</div>
+                                <div class="task-example__executor">Иван Иванов</div>
+                                <div class="task-example__date">11 февраля 18:22</div>
+                                <div class="task-example__text">Текст задачи будет расположен здесь, задача будет
+                                    растягиваться вниз</div>
+                                <div class="task-example__comments">2</div>
+                                <div class="task-example__status">Нужно сделать</div>
+                                <div class="task-example__priority">Низкий</div>
+                                <div class="task-example__privacy">Приватная</div>
                             </div>
                             <div class="task-icons">
                                 <i class="fa-solid fa-pencil"></i>
@@ -106,7 +275,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="wrap-list">Свернуть<i class="fa-solid fa-angle-up"></i></div>
+                <div class="wrap-list">
+                    <button class="wrap-list__button">Свернуть<i class="fa-solid fa-angle-up"></i></button>
+                </div>
             </div>
             <div class="list-task">
                 <div class="list-task-wrapper">
@@ -116,14 +287,15 @@
                     <div class="tasks">
                         <div class="task-container">
                             <div class="task-example">
-                                <div>Название задачи</div>
-                                <div>Иван Иванов</div>
-                                <div>11 февраля 18:22</div>
-                                <div>Текст задачи будет расположен здесь, задача будет растягиваться вниз</div>
-                                <div>2</div>
-                                <div>Нужно сделать</div>
-                                <div>Низкий</div>
-                                <div>Приватная</div>
+                                <div class="task-example__name">Название задачи</div>
+                                <div class="task-example__executor">Иван Иванов</div>
+                                <div class="task-example__date">11 февраля 18:22</div>
+                                <div class="task-example__text">Текст задачи будет расположен здесь, задача будет
+                                    растягиваться вниз</div>
+                                <div class="task-example__comments">2</div>
+                                <div class="task-example__status">В процессе</div>
+                                <div class="task-example__priority">Низкий</div>
+                                <div class="task-example__privacy">Приватная</div>
                             </div>
                             <div class="task-icons">
                                 <i class="fa-solid fa-pencil"></i>
@@ -135,14 +307,15 @@
 
                         <div class="task-container">
                             <div class="task-example">
-                                <div>Название задачи</div>
-                                <div>Иван Иванов</div>
-                                <div>11 февраля 18:22</div>
-                                <div>Текст задачи будет расположен здесь, задача будет растягиваться вниз</div>
-                                <div>2</div>
-                                <div>Нужно сделать</div>
-                                <div>Низкий</div>
-                                <div>Приватная</div>
+                                <div class="task-example__name">Название задачи</div>
+                                <div class="task-example__executor">Иван Иванов</div>
+                                <div class="task-example__date">11 февраля 18:22</div>
+                                <div class="task-example__text">Текст задачи будет расположен здесь, задача будет
+                                    растягиваться вниз</div>
+                                <div class="task-example__comments">2</div>
+                                <div class="task-example__status">В процессе</div>
+                                <div class="task-example__priority">Низкий</div>
+                                <div class="task-example__privacy">Приватная</div>
                             </div>
                             <div class="task-icons">
                                 <i class="fa-solid fa-pencil"></i>
@@ -151,12 +324,16 @@
                         </div>
                     </div>
                 </div>
-                <button class="wrap-list">Свернуть<i class="fa-solid fa-angle-up"></i></button>
+                <div class="wrap-list">
+                    <button class="wrap-list__button">Свернуть<i class="fa-solid fa-angle-up"></i></button>
+                </div>
             </div>
             <div class="list-task">
                 <div class="list-task-unwrap">
                     <div class="completed-list">Готово</div>
-                    <button class="unwrap-list">Развернуть<i class="fa-solid fa-angle-down"></i></button>
+                    <div class="unwrap-list">
+                        <button class="unwrap-list__button">Развернуть<i class="fa-solid fa-angle-down"></i></button>
+                    </div>
                 </div>
             </div>
         </section>
