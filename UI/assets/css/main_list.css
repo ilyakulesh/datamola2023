@@ -7,7 +7,7 @@
   max-height: 65vh;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   margin-top: 20px;
   background-color: var(--white-color);
   text-align: center;
@@ -90,7 +90,7 @@
 
 .list-task {
   width: 1200px;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   margin: 15px 10px;
   padding: 10px;
   background-color: var(--background-color);
@@ -172,7 +172,7 @@
   width: fit-content;
   height: fit-content;
   padding: 0px 8px;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   white-space: nowrap;
 }
 
@@ -181,7 +181,7 @@
   color: var(--white-color);
   width: fit-content;
   padding: 0px 8px;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 }
 
 .completed-list {
@@ -189,7 +189,7 @@
   color: var(--white-color);
   width: fit-content;
   padding: 0px 8px;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 }
 
 .task-icons {

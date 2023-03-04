@@ -16,7 +16,7 @@ main {
   margin-top: 100px;
   background-color: var(--background-buttons);
   color: var(--white-color);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   border-style: none;
   height: 26px;
   cursor: pointer;
@@ -41,7 +41,7 @@ main {
   margin-left: -300px;
   font-size: 14px;
   width: 390px;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   padding: 10px;
   background-color: var(--white-color);
   box-shadow: var(--box-shadow);
@@ -64,7 +64,7 @@ main {
   padding-left: 21px;
   background-color: var(--background-color);
   border-style: none;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
 }
 
@@ -74,7 +74,7 @@ main {
   font-size: 14px;
   background-color: var(--background-color);
   border-style: none;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   margin: 0px 5px;
 }
@@ -92,7 +92,7 @@ main {
 .filter-button {
   background-color: #6f7680;
   color: var(--white-color);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   border-style: none;
   height: 26px;
   cursor: pointer;
@@ -159,7 +159,7 @@ main {
 .task {
   background-color: var(--background-color);
   box-shadow: var(--box-shadow);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   font-size: 14px;
   margin: 10px 0px;
   min-width: 330px;
@@ -201,7 +201,7 @@ main {
   width: fit-content;
   margin: 5px;
   padding: 0px 8px;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 }
 
 .status-wrapper__todo {

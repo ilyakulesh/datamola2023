@@ -1,7 +1,7 @@
 .edit-user {
   max-width: 670px;
   height: 320px;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   margin: auto;
   margin-top: 200px;
   padding: 10px;
@@ -22,7 +22,7 @@
 .user-photo-button {
   background-color: var(--background-color);
   color: #333333;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   font-size: 16px;
   width: 105px;
   height: 32px;
@@ -54,10 +54,11 @@
   max-width: 370px;
   height: 34px;
   font-size: 14px;
-  padding-left: 21px;
+  /* padding-left: 21px; */
+  padding: 0px 21px;
   background-color: var(--background-color);
   border-style: none;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   margin-top: 18px;
   margin-bottom: 7px;
@@ -82,7 +83,7 @@
 .edit-user-button {
   background-color: var(--background-buttons);
   color: var(--white-color);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   font-size: 16px;
   width: 105px;
   height: 32px;
