@@ -1,7 +1,7 @@
 .header {
   position: fixed;
   width: 100%;
-  background-color: #ffffff;
+  background-color: var(--white-color);
   padding: 3px 0px 3px 0px;
   box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22);
 }
@@ -102,7 +102,7 @@
 .label {
   margin-top: 5px;
   box-sizing: border-box;
-  background-color: #31416d;
+  background-color: var(--background-buttons);
   border-radius: 50px;
   cursor: pointer;
   display: flex;
@@ -117,7 +117,7 @@
 
 .label .ball {
   box-sizing: border-box;
-  background-color: #fff;
+  background-color: var(--white-color);
   border-radius: 50%;
   position: absolute;
   top: 2px;
@@ -146,16 +146,16 @@
 }
 
 .header-button {
-  background-color: #31416d;
-  color: #ffffff;
+  margin-left: 15px;
+  background-color: var(--background-buttons);
+  color: var(--white-color);
   border-radius: 40px;
   font-size: 16px;
   width: 134px;
   height: 35px;
   cursor: pointer;
   border-style: none;
-  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22),
-    -0px 0px 2px -1px rgba(0, 0, 0, 0.22);
+  box-shadow: var(--box-shadow);
 }
 
 button:hover {
@@ -179,12 +179,12 @@ button:hover {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #fff;
+  background-color: var(--white-color);
   z-index: 1;
 }
 
 .dropdown-content a {
-  color: #31416d;
+  color: var(--background-buttons);
   padding: 5px 1px;
   text-decoration: none;
   display: block;
@@ -195,5 +195,5 @@ button:hover {
 }
 
 .dropdown:hover .toggle-language {
-  color: #31416d;
+  color: var(--background-buttons);
 }
