@@ -88,7 +88,7 @@ const taskModule = (() => {
 
     if (validateTask(newTask)) {
       tasks.push(newTask);
-      console.log("tasks", tasks);
+      console.log("addTask", tasks);
       return true;
     }
     return false;
@@ -121,4 +121,21 @@ const taskModule = (() => {
   };
 
   console.log("validateComment", validateComment(comment));
+
+  // метод для удаления задачи
+  const removeTask = (id) => {
+    const checkId = tasks.findIndex((task) => task.id === id);
+
+    const checkUser = tasks[checkId]?.assignee === user;
+
+    if (checkId !== -1 && checkUser) {
+      tasks.splice(checkId, 1);
+      console.log("removeTask", tasks);
+      return true;
+    }
+
+    return false;
+  };
+
+  removeTask("5");
 })();
