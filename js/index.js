@@ -6,7 +6,7 @@ const taskModule = (() => {
     return tasks.find((task) => task.id === id);
   };
 
-  getTask("19");
+  console.log("getTask", getTask("19"));
 
   // метод для проверки задачи на валидность
   const validateTask = (task) => {
@@ -138,4 +138,16 @@ const taskModule = (() => {
   };
 
   removeTask("5");
+
+  // метод для изменения текущего пользователя
+  const changeUser = (usr) => {
+    console.log("changeUserBefore", user);
+
+    if (typeof usr === "string") {
+      user = usr;
+      console.log("changeUserAfter", user);
+    }
+  };
+
+  changeUser("Ivan Ivanov");
 })();
