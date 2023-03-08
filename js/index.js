@@ -139,6 +139,20 @@ const taskModule = (() => {
 
   removeTask("5");
 
+  const addComment = (id, text) => {
+    const checkId = tasks.findIndex((task) => task.id === id);
+    console.log("checkId", checkId);
+
+    const taskToComment = tasks[checkId];
+    console.log("taskToComment", taskToComment);
+
+    taskToComment?.comments.push(text);
+
+    console.log("push", taskToComment);
+  };
+
+  addComment("15", "some text");
+
   // метод для изменения текущего пользователя
   const changeUser = (usr) => {
     console.log("changeUserBefore", user);
