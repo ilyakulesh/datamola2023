@@ -1,13 +1,23 @@
 const taskModule = (() => {
-  let user = "Ilya Kulesh";
+  let user = "IlyaKulesh";
+
+  // метод для получения задач с сортировкой
+  // console.log("getTasks", getTasks(0, 10, { description: "резюме" }));
 
   // метод для получения задачи по id
   const getTask = (id) => {
     try {
-      if (typeof id !== "string") {
-        throw new Error("Id должен быть string");
+      if (!checkStr(id)) {
+        throw new Error(ERRORS.idError);
       }
-      return tasks.find((task) => task.id === id);
+
+      const task = findTaskById(id, tasks);
+
+      if (!task) {
+        throw new Error(ERRORS.taskNotFound);
+      }
+
+      return task;
     } catch (err) {
       console.error(err);
     }
@@ -18,63 +28,70 @@ const taskModule = (() => {
   // метод для проверки задачи на валидность
   const validateTask = (task) => {
     try {
-      if (!task.id || typeof task.id !== "string") {
-        throw new Error("Поле id не должно быть пустым");
+      if (!checkIsObj(task)) {
+        throw new Error(ERRORS.notObjError);
       }
+
+      console.log("task.id", task.id);
+
+      if (!task.id || !checkStr(task.id)) {
+        throw new Error(ERRORS.idError);
+      }
+
       if (
         !task.name ||
-        typeof task.name !== "string" ||
-        task.name.length > 100
+        !checkStr(task.name) ||
+        task.name.length > TASK_MAX_LENGTH.name
       ) {
-        throw new Error("Имя не должно быть пустым/более 100 символов");
+        throw new Error(ERRORS.nameError);
       }
 
       if (
         !task.description ||
-        typeof task.description !== "string" ||
-        task.description.length > 280
+        !checkStr(task.description) ||
+        task.description.length > TASK_MAX_LENGTH.description
       ) {
-        throw new Error("Описание не должно быть пустым/более 280 символов");
+        throw new Error(ERRORS.descriptionError);
       }
 
       if (!task.createdAt || !(task.createdAt instanceof Date)) {
-        throw new Error("Неправильная дата");
+        throw new Error(ERRORS.dateError);
       }
 
       if (
         !task.assignee ||
-        typeof task.assignee !== "string" ||
+        !checkStr(task.assignee) ||
         task.assignee.length === 0
       ) {
-        throw new Error("Поле юзер не должно быть пустым");
+        throw new Error(ERRORS.assigneeError);
       }
 
       if (
         !task.status ||
-        typeof task.status !== "string" ||
-        (task.status !== "To Do" &&
-          task.status !== "In progress" &&
-          task.status !== "Complete")
+        !checkStr(task.status) ||
+        (task.status !== TASK_STATUS.toDo &&
+          task.status !== TASK_STATUS.inProgress &&
+          task.status !== TASK_STATUS.complete)
       ) {
-        throw new Error("Неправильный статус");
+        throw new Error(ERRORS.statusError);
       }
 
       if (
         !task.priority ||
-        typeof task.priority !== "string" ||
-        (task.priority !== "High" &&
-          task.priority !== "Medium" &&
-          task.priority !== "Low")
+        !checkStr(task.priority) ||
+        (task.priority !== TASK_PRIORITY.high &&
+          task.priority !== TASK_PRIORITY.medium &&
+          task.priority !== TASK_PRIORITY.low)
       ) {
-        throw new Error("Неправильный приоритет");
+        throw new Error(ERRORS.priorityError);
       }
 
       if (typeof task.isPrivate !== "boolean") {
-        throw new Error("Неправильная приватность");
+        throw new Error(ERRORS.isPrivateError);
       }
 
       if (!Array.isArray(task.comments)) {
-        throw new Error("Комментарии должны быть в массиве");
+        throw new Error(ERRORS.commentsError);
       }
 
       return true;
@@ -87,10 +104,17 @@ const taskModule = (() => {
   console.log("validateTask", validateTask(tasks[19]));
 
   // метод для добавления задачи
-  const addTask = (name, description, status, priority, isPrivate) => {
+  const addTask = (
+    name,
+    description,
+    assignee,
+    status,
+    priority,
+    isPrivate
+  ) => {
     try {
       const newTask = {
-        id: String(Math.floor(Math.random() * 1000)),
+        id: generateId(),
         name: name,
         description: description,
         createdAt: new Date(),
@@ -108,14 +132,21 @@ const taskModule = (() => {
         console.log("addTask", tasks);
         return true;
       }
-      throw new Error("Задача не прошла валидацию");
+      throw new Error(ERRORS.taskNotValidate);
     } catch (err) {
       console.error(err);
       return false;
     }
   };
 
-  addTask("Тестовая задача", "Тестовое описание", "Complete", "High", false);
+  addTask(
+    "Тестовая задача",
+    "Тестовое описание",
+    "IlyaKulesh",
+    "Complete",
+    "High",
+    false
+  );
 
   // метод для изменения параметров задачи
   const editTask = (
@@ -128,11 +159,11 @@ const taskModule = (() => {
     isPrivate = false
   ) => {
     try {
-      const taskIndex = tasks.findIndex((task) => task.id === id);
+      const taskIndex = findTaskIndexById(id, tasks);
       const task = { ...tasks[taskIndex] };
 
       if (task.assignee !== user) {
-        throw new Error("Текущий пользователь не совпадает с автором задачи");
+        throw new Error(ERRORS.editTaskAssigneeError);
       }
 
       if (name !== undefined) {
@@ -160,7 +191,7 @@ const taskModule = (() => {
       const isValid = validateTask(task);
 
       if (!isValid) {
-        throw new Error("Задача не прошла валидацию");
+        throw new Error(ERRORS.taskNotValidate);
       }
 
       tasks[taskIndex] = task;
@@ -178,7 +209,7 @@ const taskModule = (() => {
       "19",
       "Тестовая задача edit",
       "Тестовое описание edit",
-      "Ilya Kulesh",
+      "IlyaKulesh",
       "Complete",
       "High",
       true
@@ -190,17 +221,25 @@ const taskModule = (() => {
   // метод для проверки комментария на валидность
   const validateComment = (com) => {
     try {
-      if (!com.id || typeof com.id !== "string") {
-        throw new Error("Не уникальное id");
+      if (!checkIsObj(com)) {
+        throw new Error(ERRORS.notObjError);
       }
-      if (!com.text || typeof com.text !== "string" || com.text.length > 280) {
-        throw new Error("Описание не должно быть пустым/более 280 символов");
+
+      if (!com.id || !checkStr(com.id)) {
+        throw new Error(ERRORS.idError);
+      }
+      if (
+        !com.text ||
+        !checkStr(com.text) ||
+        com.text.length > TASK_MAX_LENGTH.comment
+      ) {
+        throw new Error(ERRORS.descriptionError);
       }
       if (!com.createdAt || !(com.createdAt instanceof Date)) {
-        throw new Error("Неправильная дата");
+        throw new Error(ERRORS.dateError);
       }
-      if (!com.author || typeof com.author !== "string") {
-        throw new Error("Поле автор не должно быть пустым");
+      if (!com.author || !checkStr(com.author)) {
+        throw new Error(ERRORS.authorError);
       }
       return true;
     } catch (err) {
@@ -213,7 +252,7 @@ const taskModule = (() => {
     id: "11",
     text: "Тестовый текст комментария",
     createdAt: new Date(),
-    author: "Ilya Kulesh",
+    author: "IlyaKulesh",
   };
 
   console.log("validateComment", validateComment(comment));
@@ -221,14 +260,14 @@ const taskModule = (() => {
   // метод для удаления задачи
   const removeTask = (id) => {
     try {
-      if (typeof id !== "string") {
-        throw new Error("id должен быть string");
+      if (!checkStr(id)) {
+        throw new Error(ERRORS.idError);
       }
 
-      const checkId = tasks.findIndex((task) => task.id === id);
+      const checkId = findTaskIndexById(id, tasks);
 
       if (checkId === -1) {
-        throw new Error("Такой задачи не существует");
+        throw new Error(ERRORS.checkIdError);
       }
 
       const checkUser = tasks[checkId]?.assignee === user;
@@ -250,23 +289,23 @@ const taskModule = (() => {
   const addComment = (id, text) => {
     try {
       const newComment = {
-        id: String(Math.floor(Math.random() * 1000)),
+        id: generateId(),
         text: text,
         createdAt: new Date(),
         author: user,
       };
 
       if (!validateComment(newComment)) {
-        throw new Error("Ошибка валидации комментария");
+        throw new Error(ERRORS.validateCommentError);
       }
 
-      const checkId = tasks.findIndex((task) => task.id === id);
+      const checkId = findTaskIndexById(id, tasks);
 
       const taskToComment = tasks[checkId];
       console.log("taskToComment", taskToComment);
 
       if (!taskToComment) {
-        throw new Error("Задачи с таким id не существует");
+        throw new Error(ERRORS.taskToCommentError);
       }
 
       taskToComment.comments.push(newComment);
@@ -285,8 +324,8 @@ const taskModule = (() => {
     console.log("changeUserBefore", user);
 
     try {
-      if (typeof usr !== "string") {
-        throw new Error("Usr должен быть string");
+      if (!checkStr(usr)) {
+        throw new Error(ERRORS.changeUserError);
       }
 
       user = usr;
@@ -296,5 +335,5 @@ const taskModule = (() => {
     }
   };
 
-  changeUser("Ivan Ivanov");
+  changeUser("IvanIvanov");
 })();
