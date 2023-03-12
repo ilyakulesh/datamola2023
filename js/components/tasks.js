@@ -9,7 +9,20 @@ const tasks = [
     status: "Complete",
     priority: "Low",
     isPrivate: false,
-    comments: [],
+    comments: [
+      {
+        id: "11",
+        text: "Осталось купить билеты",
+        createdAt: new Date("2023-03-09T23:40:00"),
+        author: "DoraHunt",
+      },
+      {
+        id: "12",
+        text: "Ок",
+        createdAt: new Date("2023-03-09T23:45:00"),
+        author: "IlyaKulesh",
+      },
+    ],
   },
   {
     id: "2",
@@ -64,7 +77,7 @@ const tasks = [
     createdAt: new Date("2023-03-04T23:00:00"),
     assignee: "DanielHunt",
     status: "Complete",
-    priority: "High",
+    priority: "Medium",
     isPrivate: false,
     comments: [],
   },
@@ -125,7 +138,20 @@ const tasks = [
     status: "To Do",
     priority: "Medium",
     isPrivate: true,
-    comments: [],
+    comments: [
+      {
+        id: "55",
+        text: "Все получилось?",
+        createdAt: new Date("2023-03-09T23:40:00"),
+        author: "DoraHunt",
+      },
+      {
+        id: "14",
+        text: "Да",
+        createdAt: new Date("2023-03-09T23:45:00"),
+        author: "IlyaKulesh",
+      },
+    ],
   },
   {
     id: "12",
@@ -171,7 +197,20 @@ const tasks = [
     status: "To Do",
     priority: "Medium",
     isPrivate: true,
-    comments: [],
+    comments: [
+      {
+        id: "77",
+        text: "В какой спортзал?",
+        createdAt: new Date("2023-03-09T23:40:00"),
+        author: "DoraHunt",
+      },
+      {
+        id: "99",
+        text: "Не знаю",
+        createdAt: new Date("2023-03-09T23:45:00"),
+        author: "IlyaKulesh",
+      },
+    ],
   },
   {
     id: "16",
