@@ -1,7 +1,8 @@
 .header {
   position: fixed;
   width: 100%;
-  background-color: var(--white-color);
+  background-color: var(--background-secondary);
+  color: var(--black-color);
   padding: 3px 0px 3px 0px;
   box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.22);
 }
@@ -53,7 +54,7 @@
 .menu-button::before,
 .menu-button::after {
   display: block;
-  background-color: #333333;
+  background-color: var(--black-color);
   position: absolute;
   height: 4px;
   width: 30px;
@@ -164,7 +165,7 @@ button:hover {
 
 .toggle-language {
   background: none;
-  color: inherit;
+  color: var(--black-color);
   border: none;
   padding: 0;
   font: inherit;
@@ -179,12 +180,13 @@ button:hover {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: var(--white-color);
+  background-color: var(--background-secondary);
   z-index: 1;
 }
 
 .dropdown-content a {
-  color: var(--background-buttons);
+  color: var(--black-color);
+  background-color: var(--background-secondary);
   padding: 5px 1px;
   text-decoration: none;
   display: block;
@@ -192,8 +194,4 @@ button:hover {
 
 .dropdown:hover .dropdown-content {
   display: block;
-}
-
-.dropdown:hover .toggle-language {
-  color: var(--background-buttons);
 }

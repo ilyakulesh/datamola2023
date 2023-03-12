@@ -5,7 +5,7 @@
   margin: auto;
   margin-top: 200px;
   padding: 10px;
-  background-color: var(--white-color);
+  background-color: var(--background-secondary);
   box-shadow: var(--box-shadow);
   font-size: 14px;
   overflow: auto;
@@ -21,7 +21,7 @@
 
 .user-photo-button {
   background-color: var(--background-color);
-  color: #333333;
+  color: var(--black-color);
   border-radius: var(--border-radius);
   font-size: 16px;
   width: 105px;
@@ -54,9 +54,9 @@
   max-width: 370px;
   height: 34px;
   font-size: 14px;
-  /* padding-left: 21px; */
   padding: 0px 21px;
   background-color: var(--background-color);
+  color: var(--black-color);
   border-style: none;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
