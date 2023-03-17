@@ -1,6 +1,15 @@
 class TaskCollection {
   constructor(tasks) {
-    this.tasks = Array.isArray(tasks) ? tasks : [];
+    this._tasks = Array.isArray(tasks) ? tasks : [];
+    this._user = "IlyaKulesh";
+  }
+
+  get user() {
+    return this._user;
+  }
+
+  set user(user) {
+    this._user = user;
   }
 
   getPage(skip = 0, top = 10, filterConfig = {}) {
@@ -9,7 +18,7 @@ class TaskCollection {
         throw new Error(ERRORS.notObjError);
       }
 
-      const filteredTasks = tasks.filter((task) => {
+      const filteredTasks = this._tasks.filter((task) => {
         const {
           assignee,
           dateFrom,
@@ -47,7 +56,7 @@ class TaskCollection {
         throw new Error(ERRORS.idError);
       }
 
-      const task = findTaskById(id, tasks);
+      const task = findTaskById(id, this._tasks);
 
       if (!task) {
         throw new Error(ERRORS.taskNotFound);
@@ -59,9 +68,8 @@ class TaskCollection {
     }
   }
 
-  add(text) {
+  add(name, description, assignee, status, priority, isPrivate) {
     try {
-      const { name, description, assignee, status, priority, isPrivate } = text;
       const newTask = {
         id: generateId(),
         name: name,
@@ -74,8 +82,8 @@ class TaskCollection {
         comments: [],
       };
 
-      if (validateTask(newTask)) {
-        tasks.push(newTask);
+      if (Task.validate(newTask)) {
+        this._tasks.push(newTask);
         return true;
       }
       throw new Error(ERRORS.taskNotValidate);
@@ -87,10 +95,10 @@ class TaskCollection {
 
   edit(id, name, description, assignee, status, priority, isPrivate = false) {
     try {
-      const taskIndex = findTaskIndexById(id, tasks);
-      const task = { ...tasks[taskIndex] };
+      const taskIndex = findTaskIndexById(id, this._tasks);
+      const task = { ...this._tasks[taskIndex] };
 
-      if (task.assignee !== user) {
+      if (task.assignee !== this._user) {
         throw new Error(ERRORS.editTaskAssigneeError);
       }
 
@@ -116,13 +124,13 @@ class TaskCollection {
 
       task.isPrivate = isPrivate;
 
-      const isValid = validateTask(task);
+      const isValid = Task.validate(task);
 
       if (!isValid) {
         throw new Error(ERRORS.taskNotValidate);
       }
 
-      tasks[taskIndex] = task;
+      this._tasks[taskIndex] = task;
 
       return true;
     } catch (err) {
@@ -137,16 +145,16 @@ class TaskCollection {
         throw new Error(ERRORS.idError);
       }
 
-      const checkId = findTaskIndexById(id, tasks);
+      const checkId = findTaskIndexById(id, this._tasks);
 
       if (checkId === -1) {
         throw new Error(ERRORS.checkIdError);
       }
 
-      const checkUser = tasks[checkId]?.assignee === user;
+      const checkUser = this._tasks[checkId]?.assignee === this._user;
 
       if (checkUser) {
-        tasks.splice(checkId, 1);
+        this._tasks.splice(checkId, 1);
         return true;
       }
 
@@ -163,16 +171,16 @@ class TaskCollection {
         id: generateId(),
         text: text,
         createdAt: new Date(),
-        author: user,
+        author: this._user,
       };
 
-      if (!validateComment(newComment)) {
+      if (!Comment.validate(newComment)) {
         throw new Error(ERRORS.validateCommentError);
       }
 
-      const checkId = findTaskIndexById(id, tasks);
+      const checkId = findTaskIndexById(id, this._tasks);
 
-      const taskToComment = tasks[checkId];
+      const taskToComment = this._tasks[checkId];
 
       if (!taskToComment) {
         throw new Error(ERRORS.taskToCommentError);
@@ -184,4 +192,69 @@ class TaskCollection {
       return false;
     }
   }
+
+  addAll(tasks) {
+    const invalidTasks = [];
+    tasks.forEach((task) => {
+      if (!Task.validate(task)) {
+        invalidTasks.push(task);
+      } else {
+        this._tasks.push(task);
+      }
+    });
+    return invalidTasks;
+  }
+
+  clear() {
+    this._tasks = [];
+  }
 }
+
+const taskCollection = new TaskCollection(tasks);
+//getPageCLASS
+console.log(
+  "getPageCLASS",
+  taskCollection.getPage(0, 10, { description: "резюме", priority: "High" })
+);
+
+//getCLASS
+console.log("getCLASS", taskCollection.get("19"));
+
+//addCLASS
+console.log("add_beforeCLASS", tasks);
+taskCollection.add(
+  "Тестовая задача",
+  "Тестовое описание",
+  "IlyaKulesh",
+  "Complete",
+  "High",
+  false
+);
+console.log("addTask_afterCLASS", tasks);
+
+//editCLASS
+console.log(
+  "editCLASS",
+  taskCollection.edit(
+    "19",
+    "Тестовая задача edit",
+    "Тестовое описание edit",
+    "IlyaKulesh",
+    "Complete",
+    "High",
+    true
+  )
+);
+
+console.log("editTask_taskCLASS", taskCollection.get("19"));
+
+//removeCLASS
+taskCollection.remove("7");
+console.log("removeTaskCLASS", tasks);
+
+//addCommentCLASS
+taskCollection.addComment("15", "some text");
+console.log("addCommentCLASS", tasks[13]);
+
+//addAllCLASS
+console.log("addAllCLASS", taskCollection.addAll(tasks));
