@@ -1,8 +1,8 @@
 class Comment {
-  constructor(id, text) {
+  constructor(id, text, createdAt, author) {
     this._id = id;
     this.text = text;
-    this._createdAt = new Date();
+    this._createdAt = createdAt;
     this._author = author;
   }
 

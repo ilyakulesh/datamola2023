@@ -9,7 +9,15 @@ class TaskCollection {
   }
 
   set user(user) {
-    this._user = user;
+    try {
+      if (!checkStr(user)) {
+        throw new Error(ERRORS.changeUserError);
+      }
+
+      this._user = user;
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   getPage(skip = 0, top = 10, filterConfig = {}) {
@@ -70,17 +78,17 @@ class TaskCollection {
 
   add(name, description, assignee, status, priority, isPrivate) {
     try {
-      const newTask = {
-        id: generateId(),
-        name: name,
-        description: description,
-        createdAt: new Date(),
-        assignee: assignee,
-        status: status,
-        priority: priority,
-        isPrivate: isPrivate,
-        comments: [],
-      };
+      const newTask = new Task(
+        generateId(),
+        name,
+        description,
+        new Date(),
+        assignee,
+        status,
+        priority,
+        isPrivate,
+        []
+      );
 
       if (Task.validate(newTask)) {
         this._tasks.push(newTask);
@@ -167,12 +175,12 @@ class TaskCollection {
 
   addComment(id, text) {
     try {
-      const newComment = {
-        id: generateId(),
-        text: text,
-        createdAt: new Date(),
-        author: this._user,
-      };
+      const newComment = new Comment(
+        generateId(),
+        text,
+        new Date(),
+        this._user
+      );
 
       if (!Comment.validate(newComment)) {
         throw new Error(ERRORS.validateCommentError);
