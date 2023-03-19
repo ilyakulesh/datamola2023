@@ -19,7 +19,15 @@ class Comment {
   }
 
   set author(author) {
-    this._author = author;
+    try {
+      if (!checkStr(author)) {
+        throw new Error(ERRORS.changeUserError);
+      }
+
+      this._author = author;
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   static validate(com) {

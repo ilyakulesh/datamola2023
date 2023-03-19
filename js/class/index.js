@@ -203,6 +203,7 @@ class TaskCollection {
 
   addAll(tasks) {
     const invalidTasks = [];
+
     tasks.forEach((task) => {
       if (!Task.validate(task)) {
         invalidTasks.push(task);
