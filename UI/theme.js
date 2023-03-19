@@ -1,4 +1,3 @@
-const body = document.querySelector("body");
 const themeButton = document.getElementById("chk");
 console.log(themeButton);
 const root = document.querySelector(":root");
