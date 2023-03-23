@@ -1,4 +1,17 @@
-class TaskCollection {
+import {
+  findTaskIndexById,
+  generateId,
+  checkStr,
+  checkIsObj,
+  findTaskById,
+} from "../utils/utils.js";
+
+import { ERRORS } from "../components/consts.js";
+
+import { Task } from "./task.js";
+import { Comment } from "./comment.js";
+
+export class TaskCollection {
   constructor(tasks) {
     this._tasks = Array.isArray(tasks) ? tasks : [];
     this._user = "IlyaKulesh";
@@ -165,7 +178,7 @@ class TaskCollection {
         this._tasks.splice(checkId, 1);
         return true;
       }
-
+      console.log("dsds");
       return false;
     } catch (err) {
       console.error(err);
@@ -219,51 +232,51 @@ class TaskCollection {
   }
 }
 
-const taskCollection = new TaskCollection(tasks);
-//getPageCLASS
-console.log(
-  "getPageCLASS",
-  taskCollection.getPage(0, 10, { description: "резюме", priority: "High" })
-);
+// const taskCollection = new TaskCollection(tasks);
+// //getPageCLASS
+// console.log(
+//   "getPageCLASS",
+//   taskCollection.getPage(0, 10, { description: "резюме", priority: "High" })
+// );
 
 //getCLASS
-console.log("getCLASS", taskCollection.get("19"));
+// console.log("getCLASS", taskCollection.get("15"));
 
-//addCLASS
-console.log("add_beforeCLASS", tasks);
-taskCollection.add(
-  "Тестовая задача",
-  "Тестовое описание",
-  "IlyaKulesh",
-  "Complete",
-  "High",
-  false
-);
-console.log("addTask_afterCLASS", tasks);
+// //addCLASS
+// console.log("add_beforeCLASS", tasks);
+// taskCollection.add(
+//   "Тестовая задача",
+//   "Тестовое описание",
+//   "IlyaKulesh",
+//   "Complete",
+//   "High",
+//   false
+// );
+// console.log("addTask_afterCLASS", tasks);
 
-//editCLASS
-console.log(
-  "editCLASS",
-  taskCollection.edit(
-    "19",
-    "Тестовая задача edit",
-    "Тестовое описание edit",
-    "IlyaKulesh",
-    "Complete",
-    "High",
-    true
-  )
-);
+// //editCLASS
+// console.log(
+//   "editCLASS",
+//   taskCollection.edit(
+//     "19",
+//     "Тестовая задача edit",
+//     "Тестовое описание edit",
+//     "IlyaKulesh",
+//     "Complete",
+//     "High",
+//     true
+//   )
+// );
 
-console.log("editTask_taskCLASS", taskCollection.get("19"));
+// console.log("editTask_taskCLASS", taskCollection.get("19"));
 
-//removeCLASS
-taskCollection.remove("7");
-console.log("removeTaskCLASS", tasks);
+// // //removeCLASS
+// // taskCollection.remove("7");
+// // console.log("removeTaskCLASS", tasks);
 
-//addCommentCLASS
-taskCollection.addComment("15", "some text");
-console.log("addCommentCLASS", tasks[13]);
+// //addCommentCLASS
+// taskCollection.addComment("15", "some text");
+// console.log("addCommentCLASS", tasks[13]);
 
-//addAllCLASS
-console.log("addAllCLASS", taskCollection.addAll(tasks));
+// //addAllCLASS
+// console.log("addAllCLASS", taskCollection.addAll(tasks));

@@ -1,4 +1,13 @@
-class Task {
+import { checkStr, checkIsObj } from "../utils/utils.js";
+
+import {
+  ERRORS,
+  TASK_MAX_LENGTH,
+  TASK_STATUS,
+  TASK_PRIORITY,
+} from "../components/consts.js";
+
+export class Task {
   constructor(
     id,
     name,
@@ -55,7 +64,7 @@ class Task {
         throw new Error(ERRORS.descriptionError);
       }
 
-      if (!task.createdAt || !(task.createdAt instanceof Date)) {
+      if (!task.createdAt) {
         throw new Error(ERRORS.dateError);
       }
 

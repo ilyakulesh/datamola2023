@@ -52,7 +52,7 @@ main {
 }
 
 .filter-content div {
-  color: #333333;
+  color: var(--black-color);
   padding: 8px 0px;
   text-decoration: none;
 }
@@ -77,6 +77,7 @@ main {
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   margin: 0px 5px;
+  color: var(--black-color);
 }
 
 .priority {
@@ -98,6 +99,10 @@ main {
   cursor: pointer;
   padding: 0px 20px 0px 20px;
   box-shadow: var(--box-shadow);
+}
+
+section {
+  min-height: 200px;
 }
 
 .main-container {
