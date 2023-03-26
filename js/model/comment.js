@@ -1,4 +1,8 @@
-class Comment {
+import { checkStr, checkIsObj } from "../utils/utils.js";
+
+import { ERRORS, TASK_MAX_LENGTH } from "../components/consts.js";
+
+export class Comment {
   constructor(id, text, createdAt, author) {
     this._id = id;
     this.text = text;
@@ -16,18 +20,6 @@ class Comment {
 
   get author() {
     return this._author;
-  }
-
-  set author(author) {
-    try {
-      if (!checkStr(author)) {
-        throw new Error(ERRORS.changeUserError);
-      }
-
-      this._author = author;
-    } catch (err) {
-      console.error(err);
-    }
   }
 
   static validate(com) {

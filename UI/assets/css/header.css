@@ -31,6 +31,14 @@
   padding: 0;
 }
 
+.menu-name {
+  display: flex;
+}
+
+.menu-name__user-name {
+  margin: auto 0;
+}
+
 .menu > li {
   margin: auto;
   overflow: hidden;

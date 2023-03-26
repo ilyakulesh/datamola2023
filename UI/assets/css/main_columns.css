@@ -24,6 +24,10 @@ main {
   box-shadow: var(--box-shadow);
 }
 
+#create-task__button {
+  visibility: hidden;
+}
+
 .filter {
   /* position: relative; */
   display: inline-block;
@@ -47,12 +51,23 @@ main {
   box-shadow: var(--box-shadow);
 }
 
+.filter-select {
+  height: 19px;
+  font-size: 14px;
+  padding: 0px 8px;
+  background-color: var(--background-color);
+  border-style: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin: 8px 5px;
+}
+
 .filter-dropdown {
   text-align: center;
 }
 
 .filter-content div {
-  color: #333333;
+  color: var(--black-color);
   padding: 8px 0px;
   text-decoration: none;
 }
@@ -77,6 +92,7 @@ main {
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   margin: 0px 5px;
+  color: var(--black-color);
 }
 
 .priority {
@@ -92,12 +108,17 @@ main {
 .filter-button {
   background-color: #6f7680;
   color: var(--white-color);
+  display: none;
   border-radius: var(--border-radius);
   border-style: none;
   height: 26px;
   cursor: pointer;
   padding: 0px 20px 0px 20px;
   box-shadow: var(--box-shadow);
+}
+
+section {
+  min-height: 160px;
 }
 
 .main-container {
@@ -167,9 +188,9 @@ main {
   min-width: 330px;
 }
 
-.task:hover {
+/* .task:hover {
   cursor: pointer;
-}
+} */
 
 .content-wrapper {
   display: flex;

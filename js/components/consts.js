@@ -1,4 +1,4 @@
-const ERRORS = {
+export const ERRORS = {
   idError: "Поле id не должно быть пустым/id должен быть string",
   nameError: "Имя не должно быть пустым/более 100 символов",
   descriptionError:
@@ -18,21 +18,22 @@ const ERRORS = {
   editTaskAssigneeError: "Текущий пользователь не совпадает с автором задачи",
   taskNotFound: "Задача не найдена",
   notObjError: "Не является обьектом",
+  notString: "Не является строкой",
 };
 
-const TASK_MAX_LENGTH = {
+export const TASK_MAX_LENGTH = {
   name: 100,
   description: 280,
   comment: 280,
 };
 
-const TASK_STATUS = {
+export const TASK_STATUS = {
   toDo: "To Do",
   inProgress: "In progress",
   complete: "Complete",
 };
 
-const TASK_PRIORITY = {
+export const TASK_PRIORITY = {
   high: "High",
   medium: "Medium",
   low: "Low",
