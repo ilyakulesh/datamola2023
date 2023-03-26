@@ -24,6 +24,10 @@ main {
   box-shadow: var(--box-shadow);
 }
 
+#create-task__button {
+  visibility: hidden;
+}
+
 .filter {
   /* position: relative; */
   display: inline-block;
@@ -104,6 +108,7 @@ main {
 .filter-button {
   background-color: #6f7680;
   color: var(--white-color);
+  display: none;
   border-radius: var(--border-radius);
   border-style: none;
   height: 26px;
@@ -183,9 +188,9 @@ section {
   min-width: 330px;
 }
 
-.task:hover {
+/* .task:hover {
   cursor: pointer;
-}
+} */
 
 .content-wrapper {
   display: flex;

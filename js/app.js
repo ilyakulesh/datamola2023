@@ -10,7 +10,11 @@ import {
 import { FilterView } from "./view/FilterView.js";
 const filterView = new FilterView(".filter-content");
 
+// Тесты
+setCurrentUser(null);
 setCurrentUser("IlyaKulesh");
+// setCurrentUser("DanielHunt");
+// setCurrentUser(null);
 
 addTask({
   name: "Тестовая задача",
@@ -27,13 +31,13 @@ editTask("19", {
   assignee: "IlyaKulesh",
   status: "Complete",
   priority: "High",
-  isPrivate: true,
+  isPrivate: false,
 });
 
 removeTask("10");
 
-// getFeed(0, 10, { assignee: "IlyaKulesh" });
+// getFeed(0, 10, { status: ["To Do", "In progress"], isPrivate: [true, false] });
 
 // showTask("1");
 
-filterView.display();
+// filterView.display();

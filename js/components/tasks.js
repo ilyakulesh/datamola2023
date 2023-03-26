@@ -53,7 +53,7 @@ export const tasks = [
     name: "Реализовать мультиязычность",
     description: "Добавить поддержку английского языка на сайте",
     createdAt: new Date("2023-03-06T23:00:00").toLocaleDateString(),
-    assignee: "IlyaKulesh",
+    assignee: "DanielHunt",
     status: "In progress",
     priority: "High",
     isPrivate: false,

@@ -4,11 +4,10 @@ export class TaskView {
   }
 
   display(task) {
-    const newTask = document.createElement("div");
-    newTask.className = "info-task";
-    this.container.prepend(newTask);
+    this.container.innerHTML = "";
 
-    newTask.innerHTML = `        
+    this.container.innerHTML = `
+    <div class="info-task">        
         <div class="header-info">
             <div class="text-info">Информация о задаче</div>
             <div class="info-task__icons">
@@ -49,6 +48,10 @@ export class TaskView {
                 </div>
                 <div>Создано ${task.createdAt}</div>
             </div>
+        </div>
+        </div>
+        <div class="button-wrapper">
+            <button class="main-page-button">На главную</button>
         </div>`;
 
     if (task.comments.length > 0) {

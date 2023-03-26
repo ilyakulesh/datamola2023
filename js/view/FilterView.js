@@ -61,10 +61,16 @@ export class FilterView {
                   <input type="checkbox" id="privacy_public">
                   <label for="privacy_public">Общедоступные</label>
               </div>
-  
           </div>
       </div>
       <button class="filter-button">Сбросить</button>`;
+
+    // Если применен какой-то фильтр, то кнопка появляется
+    // taskCollection._tasks это пример, что пользователь применил фильтр
+    if (taskCollection._tasks) {
+      const filterButton = document.querySelector(".filter-button");
+      filterButton.style.display = "block";
+    }
   }
 
   getUniqueAssignees(tasks) {

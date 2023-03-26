@@ -16,6 +16,8 @@ taskFeedView.display(taskCollection._tasks);
 export const setCurrentUser = (user) => {
   taskCollection.user = user;
   headerView.display(user);
+
+  taskFeedView.display(taskCollection._tasks, taskCollection.user);
 };
 
 export const addTask = (task) => {
@@ -27,7 +29,7 @@ export const addTask = (task) => {
     task.priority,
     task.isPrivate
   );
-  taskFeedView.display(taskCollection._tasks);
+  taskFeedView.display(taskCollection._tasks, taskCollection.user);
 };
 
 export const editTask = (id, task) => {
@@ -40,17 +42,17 @@ export const editTask = (id, task) => {
     task.priority,
     task.isPrivate
   );
-  taskFeedView.display(taskCollection._tasks);
+  taskFeedView.display(taskCollection._tasks, taskCollection.user);
 };
 
 export const removeTask = (id) => {
   taskCollection.remove(id);
-  taskFeedView.display(taskCollection._tasks);
+  taskFeedView.display(taskCollection._tasks, taskCollection.user);
 };
 
 export const getFeed = (skip, top, filterConfig) => {
   const tasks = taskCollection.getPage(skip, top, filterConfig);
-  taskFeedView.display(tasks);
+  taskFeedView.display(tasks, taskCollection.user);
 };
 
 export const showTask = (id) => {

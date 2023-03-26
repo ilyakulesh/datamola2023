@@ -14,7 +14,7 @@ import { Comment } from "./comment.js";
 export class TaskCollection {
   constructor(tasks) {
     this._tasks = Array.isArray(tasks) ? tasks : [];
-    this._user = "IlyaKulesh";
+    this._user = null;
   }
 
   get user() {
@@ -23,10 +23,6 @@ export class TaskCollection {
 
   set user(user) {
     try {
-      if (!checkStr(user)) {
-        throw new Error(ERRORS.changeUserError);
-      }
-
       this._user = user;
     } catch (err) {
       console.error(err);
@@ -39,24 +35,24 @@ export class TaskCollection {
         throw new Error(ERRORS.notObjError);
       }
 
-      const filteredTasks = this._tasks.filter((task) => {
-        const {
-          assignee,
-          dateFrom,
-          dateTo,
-          status,
-          priority,
-          isPrivate,
-          description,
-        } = filterConfig;
+      const {
+        assignee = null,
+        dateFrom = null,
+        dateTo = null,
+        status = [],
+        priority = [],
+        isPrivate = [],
+        description = null,
+      } = filterConfig;
 
+      const filteredTasks = this._tasks.filter((task) => {
         return (
           (!assignee || task.assignee.includes(assignee)) &&
           (!dateFrom || new Date(task.createdAt) >= new Date(dateFrom)) &&
           (!dateTo || new Date(task.createdAt) <= new Date(dateTo)) &&
-          (!status || task.status === status) &&
-          (!priority || task.priority === priority) &&
-          (isPrivate === undefined || task.isPrivate === isPrivate) &&
+          (status.length === 0 || status.includes(task.status)) &&
+          (priority.length === 0 || priority.includes(task.priority)) &&
+          (isPrivate.length === 0 || isPrivate.includes(task.isPrivate)) &&
           (!description || task.description.includes(description))
         );
       });
@@ -178,7 +174,6 @@ export class TaskCollection {
         this._tasks.splice(checkId, 1);
         return true;
       }
-      console.log("dsds");
       return false;
     } catch (err) {
       console.error(err);
@@ -231,52 +226,3 @@ export class TaskCollection {
     this._tasks = [];
   }
 }
-
-// const taskCollection = new TaskCollection(tasks);
-// //getPageCLASS
-// console.log(
-//   "getPageCLASS",
-//   taskCollection.getPage(0, 10, { description: "резюме", priority: "High" })
-// );
-
-//getCLASS
-// console.log("getCLASS", taskCollection.get("15"));
-
-// //addCLASS
-// console.log("add_beforeCLASS", tasks);
-// taskCollection.add(
-//   "Тестовая задача",
-//   "Тестовое описание",
-//   "IlyaKulesh",
-//   "Complete",
-//   "High",
-//   false
-// );
-// console.log("addTask_afterCLASS", tasks);
-
-// //editCLASS
-// console.log(
-//   "editCLASS",
-//   taskCollection.edit(
-//     "19",
-//     "Тестовая задача edit",
-//     "Тестовое описание edit",
-//     "IlyaKulesh",
-//     "Complete",
-//     "High",
-//     true
-//   )
-// );
-
-// console.log("editTask_taskCLASS", taskCollection.get("19"));
-
-// // //removeCLASS
-// // taskCollection.remove("7");
-// // console.log("removeTaskCLASS", tasks);
-
-// //addCommentCLASS
-// taskCollection.addComment("15", "some text");
-// console.log("addCommentCLASS", tasks[13]);
-
-// //addAllCLASS
-// console.log("addAllCLASS", taskCollection.addAll(tasks));

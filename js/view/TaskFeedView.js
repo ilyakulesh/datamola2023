@@ -1,9 +1,10 @@
 export class TaskFeedView {
   constructor(containerId) {
     this.container = document.querySelector(containerId);
+    this.limit = 10;
   }
 
-  display(tasks) {
+  display(tasks, user) {
     this.container.innerHTML = "";
     this.container.innerHTML = `
     <div class="main-container__wrapper">
@@ -11,17 +12,16 @@ export class TaskFeedView {
             Нужно сделать
         </div>
         <section class="todo">
-        ${this.newTask(this.filterTask(tasks, "To Do"))}
+        ${this.newTask(this.filterTask(tasks, "To Do", user), user)}
         </section>
     </div>
-
 
     <div class="main-container__wrapper">
         <div class="main-container__wrapper-section">
             В процессе
         </div>
         <section class="inprogress">
-        ${this.newTask(this.filterTask(tasks, "In progress"))}
+        ${this.newTask(this.filterTask(tasks, "In progress", user), user)}
         </section>
     </div>
 
@@ -30,13 +30,25 @@ export class TaskFeedView {
             Готово
         </div>
         <section class="complete">
-        ${this.newTask(this.filterTask(tasks, "Complete"))}
+        ${this.newTask(this.filterTask(tasks, "Complete", user), user)}
         </section>
     </div>`;
+
+    this.container.addEventListener("click", (event) => {
+      const loadMoreButton = event.target.closest(".loadmore");
+      if (loadMoreButton) {
+        this.limit += 10;
+        this.display(tasks, user);
+      }
+    });
   }
 
-  filterTask(tasks, status) {
-    return tasks.filter((task) => task.status === status);
+  filterTask(tasks, status, user) {
+    return tasks.filter(
+      (task) =>
+        task.status === status &&
+        (task.isPrivate === false || task.assignee === user)
+    );
   }
 
   setClasses(condition) {
@@ -56,10 +68,15 @@ export class TaskFeedView {
     }
   }
 
-  newTask(tasks) {
+  newTask(tasks, user) {
     let taskList = "";
-    tasks.forEach((task) => {
-      taskList += `<div class="task">
+
+    const visibleTasks = tasks.slice(0, this.limit);
+    visibleTasks.forEach((task) => {
+      const showIcons = task.assignee === user;
+      const noUser = user != null;
+
+      taskList += `<div ${noUser ? `"href = "task.html"` : ""} class="task">
                   <div class="content-wrapper">
                       <div class="task-content">
                           <div class="title">${task.name}</div>
@@ -88,27 +105,31 @@ export class TaskFeedView {
                         task.comments.length
                       }</div>
                       <div>${task.assignee}</div>
-                      <div class="task__icons">
-                          <i class="fa-solid fa-pencil"></i>
-                          <i class="fa-solid fa-trash"></i>
+                      <div class="task__icons">${
+                        showIcons
+                          ? `
+                      <i class="fa-solid fa-pencil"></i>
+                      <i class="fa-solid fa-trash"></i>`
+                          : `
+                          <i style="visibility: hidden" class="fa-solid fa-pencil"></i>
+                          <i style="visibility: hidden" class="fa-solid fa-trash"></i>`
+                      }
+
                       </div>
                   </div>
                   </div>`;
     });
 
-    // const section = document.querySelectorAll("section");
+    if (tasks.length > this.limit) {
+      taskList += `
+        <div class="task-load-more">     
+          <button class="loadmore">
+            + Загрузить еще
+          </button>
+        </div>
+      `;
+    }
 
-    // section.forEach((list) => {
-    //   if (list.children.length >= 10) {
-    //     const loadmore = document.createElement("div");
-    //     loadmore.className = "loadmore";
-    //     list.append(loadmore);
-    //     loadmore.innerHTML = `
-    //     <button class="loadmore">
-    //       + Загрузить еще
-    //     </button>`;
-    //   }
-    // });
     return taskList;
   }
 }
