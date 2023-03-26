@@ -47,6 +47,17 @@ main {
   box-shadow: var(--box-shadow);
 }
 
+.filter-select {
+  height: 19px;
+  font-size: 14px;
+  padding: 0px 8px;
+  background-color: var(--background-color);
+  border-style: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin: 8px 5px;
+}
+
 .filter-dropdown {
   text-align: center;
 }
@@ -102,7 +113,7 @@ main {
 }
 
 section {
-  min-height: 200px;
+  min-height: 160px;
 }
 
 .main-container {

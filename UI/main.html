@@ -25,7 +25,7 @@
                     <div class='menu-button'></div>
                 </label>
                 <ul class="menu">
-                    <li class="menu-name"><button class="header-button">Выйти</button></li>
+                    <li class="menu-name"><button class="header-button">Войти</button></li>
                     <li>
                         <div class="toggle-button"><input class="checkbox" type="checkbox" id="chk"><label class="label"
                                 for="chk"><i class="fas fa-moon"></i><i class="fas fa-sun"></i>
@@ -46,43 +46,15 @@
     </header>
     <main сlass="main">
         <div class="main-buttons">
-            <button class="buttons dark-theme">Вид</button>
-            <button class="buttons dark-theme">+ Создать новую задачу</button>
+            <button class="buttons">Вид</button>
+            <button class="buttons" id="create-task__button">+ Создать новую задачу</button>
             <div class="filter">
                 <button class="buttons">Фильтр<i class="fa-solid fa-angle-up"></i></button>
+                <div class="filter-content"></div>
             </div>
         </div>
         <div class="main-container">
-            <div class="main-container__wrapper">
-                <div class="main-container__wrapper-section">
-                    Нужно сделать
-                </div>
-                <section class="todo">
-                    <button class="loadmore">
-                        + Загрузить еще
-                    </button>
-                </section>
-            </div>
 
-
-            <div class="main-container__wrapper">
-                <div class="main-container__wrapper-section">
-                    В процессе
-                </div>
-                <section class="inprogress">
-                </section>
-            </div>
-
-            <div class="main-container__wrapper">
-                <div class="main-container__wrapper-section">
-                    Готово
-                </div>
-                <section class="complete">
-                    <button class="loadmore">
-                        + Загрузить еще
-                    </button>
-                </section>
-            </div>
         </div>
     </main>
     <footer class="footer">
@@ -93,12 +65,14 @@
             <div class="footer-wrapper">
                 <div>Ilya Kulesh</div>
                 <div>ilyakulesh457@gmail.com</div>
-                <div>26.02.2023</div>
+                <div>26.03.2023</div>
             </div>
         </div>
     </footer>
+
+    <script src="./theme.js"></script>
+    <script defer type="module" src="../js/app.js"></script>
+    <script defer type="module" src="../js/utils/globalMethods.js"></script>
 </body>
-<script src="./theme.js"></script>
-<script type="module" src="../js/script.js"></script>
 
 </html>

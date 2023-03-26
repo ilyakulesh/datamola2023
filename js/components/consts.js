@@ -18,6 +18,7 @@ export const ERRORS = {
   editTaskAssigneeError: "Текущий пользователь не совпадает с автором задачи",
   taskNotFound: "Задача не найдена",
   notObjError: "Не является обьектом",
+  notString: "Не является строкой",
 };
 
 export const TASK_MAX_LENGTH = {

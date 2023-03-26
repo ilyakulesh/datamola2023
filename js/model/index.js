@@ -95,7 +95,7 @@ export class TaskCollection {
         generateId(),
         name,
         description,
-        new Date(),
+        new Date().toLocaleDateString(),
         assignee,
         status,
         priority,
@@ -191,7 +191,7 @@ export class TaskCollection {
       const newComment = new Comment(
         generateId(),
         text,
-        new Date(),
+        new Date().toLocaleDateString(),
         this._user
       );
 
