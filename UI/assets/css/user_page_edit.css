@@ -1,6 +1,6 @@
 .edit-user {
   max-width: 670px;
-  height: 320px;
+  height: fit-content;
   border-radius: var(--border-radius);
   margin: auto;
   margin-top: 200px;
@@ -9,6 +9,22 @@
   box-shadow: var(--box-shadow);
   font-size: 14px;
   overflow: auto;
+}
+
+.edit-user__header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 15px;
+  color: var(--black-color);
+}
+
+.edit-user__info {
+  font-size: 20px;
+}
+
+.edit-user__icons i:hover {
+  color: var(--background-buttons);
+  cursor: pointer;
 }
 
 .user-photo {
@@ -38,37 +54,52 @@
 }
 
 .user-photo-wrapper {
-  width: 30%;
   text-align: left;
   padding: 5px 12px;
   margin-top: 13px;
 }
 
 .edit-input-wrapper {
-  display: flex;
-  flex-direction: column;
+  margin-left: 50px;
   width: 100%;
+  max-width: 360px;
 }
 
-.edit-input-wrapper input {
-  max-width: 370px;
-  height: 34px;
-  font-size: 14px;
-  padding: 0px 21px;
-  background-color: var(--background-color);
-  color: var(--black-color);
-  border-style: none;
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
+.edit-input__user-name {
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+
+.edit-input-wrapper div {
+  width: 100%;
+  max-width: 360px;
+  position: relative;
   margin-top: 18px;
   margin-bottom: 7px;
 }
 
-.password-hide {
-  background: url("../eye-hide.png") no-repeat right;
-  background-position: 340px 7px;
+.edit-input-wrapper input {
+  width: 100%;
+  max-width: 360px;
+  height: 34px;
+  font-size: 14px;
+  border-radius: var(--border-radius);
+  padding: 0px 21px;
+  color: var(--black-color);
+  border-style: none;
+  border: 1px solid var(--black-color);
+}
 
-  background-size: 20px;
+.edit-input-wrapper__error {
+  position: absolute;
+  display: block;
+  top: 33px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  font-size: 13px;
+  color: var(--red-color);
 }
 
 .edit-user-footer {

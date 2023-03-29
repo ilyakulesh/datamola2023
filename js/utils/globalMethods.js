@@ -59,3 +59,15 @@ export const showTask = (id) => {
   const taskId = taskCollection.get(id);
   taskView.display(taskId);
 };
+
+const createNewTask = document.querySelector("#create-task__button");
+createNewTask.addEventListener("click", () => {
+  taskFeedView.modalNewTask();
+
+  const modalClose = document.querySelector(".modal-close");
+  const modalOverlayDelete = document.querySelector(".modal-overlay");
+
+  modalClose.addEventListener("click", () => {
+    modalOverlayDelete.remove();
+  });
+});

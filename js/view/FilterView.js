@@ -82,7 +82,7 @@ export class FilterView {
 
     let filterAssignee = "";
     assignees.forEach((user) => {
-      filterAssignee += `<option class="filter-select__option">${user}</option> `;
+      filterAssignee += `<option class="filter-select__option">${user}</option>`;
     });
 
     return filterAssignee;

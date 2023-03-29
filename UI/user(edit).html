@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../mockups/extra tasks/Logo.png" type="image/png">
-    <title>Main (columns)</title>
+    <title>User page(edit)</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
     <link rel="stylesheet" href="./styles.css">
@@ -27,7 +27,7 @@
                 <ul class="menu">
                     <li class="menu-name">
                         <div class="menu-name__user-name"></div>
-                        <button id="auth-button" class="header-button">Войти</button>
+                        <button class="header-button">Войти</button>
                     </li>
                     <li>
                         <div class="toggle-button"><input class="checkbox" type="checkbox" id="chk"><label class="label"
@@ -48,21 +48,38 @@
         </div>
     </header>
     <main сlass="main">
-        <div class="main-buttons">
-            <div class="main-view">
-                <button class="buttons" id="view__button">Вид
-                    <i id="main-view-icon" class="fa-solid fa-angle-up rotate"></i></button>
-                <div class="view-content" style="display:none"></div>
+        <div class="edit-user">
+            <div class="edit-user-wrapper">
+                <div class="user-photo-wrapper">
+                    <div class="user-photo"></div>
+                    <button class="user-photo-button">Загрузить</button>
+                </div>
+                <div class="edit-input-wrapper">
+                    <div>
+                        <input type='text' placeholder="Имя пользователя*" required>
+                        <span class="edit-input-wrapper__error">Новое имя не должно совпадать со старым</span>
+                    </div>
+                    <div>
+                        <input type='text' placeholder="Логин*" required>
+                    </div>
+                    <div>
+                        <input type="password" id="password" placeholder="Пароль*" required>
+                        <span class="edit-input-wrapper__error">Новый пароль не должен совпадать со старым</span>
+                        <span toggle="#password" class="eye-icon" id="eye-icon__password"></span>
+                    </div>
+                    <div>
+                        <input type="password" id="confirm-password" placeholder="Подтверждение пароля*" required>
+                        <span toggle="#password" class="eye-icon" id="eye-icon__confirm"></span>
+                    </div>
+                </div>
             </div>
-            <button class="buttons" id="create-task__button">+ Создать новую задачу</button>
-            <div class="filter">
-                <button class="buttons" id="filer__button">Фильтр
-                    <i id="filter-icon" class="fa-solid fa-angle-up rotate"></i></button>
-                <div class="filter-content" style="display:none"></div>
+            <div class="edit-user-footer">
+                <button class="edit-user-button">Сбросить</button>
+                <button class="edit-user-button">Сохранить</button>
             </div>
         </div>
-        <div class="main-container">
-
+        <div class="button-wrapper">
+            <button class="main-page-button">На главную</button>
         </div>
     </main>
     <footer class="footer">
@@ -73,14 +90,13 @@
             <div class="footer-wrapper">
                 <div>Ilya Kulesh</div>
                 <div>ilyakulesh457@gmail.com</div>
-                <div>26.03.2023</div>
+                <div>26.02.2023</div>
             </div>
         </div>
     </footer>
 
+    <script src="./script.js"></script>
     <script src="./theme.js"></script>
-    <script defer type="module" src="../js/app.js"></script>
-    <script defer type="module" src="../js/utils/globalMethods.js"></script>
 </body>
 
 </html>
