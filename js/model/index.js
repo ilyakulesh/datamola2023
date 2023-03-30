@@ -46,16 +46,21 @@ export class TaskCollection {
       } = filterConfig;
 
       const filteredTasks = this._tasks.filter((task) => {
+        console.log("Date.parse(task.createdAt)", Date.parse(task.createdAt));
+        console.log("Date.parse(dateFrom)", Date.parse(dateFrom));
         return (
           (!assignee || task.assignee.includes(assignee)) &&
-          (!dateFrom || new Date(task.createdAt) >= new Date(dateFrom)) &&
-          (!dateTo || new Date(task.createdAt) <= new Date(dateTo)) &&
+          (!dateFrom || Date.parse(task.createdAt) >= Date.parse(dateFrom)) &&
+          (!dateTo || Date.parse(task.createdAt) <= Date.parse(dateTo)) &&
           (status.length === 0 || status.includes(task.status)) &&
           (priority.length === 0 || priority.includes(task.priority)) &&
           (isPrivate.length === 0 || isPrivate.includes(task.isPrivate)) &&
-          (!description || task.description.includes(description))
+          (!description ||
+            task.description.toLowerCase().includes(description.toLowerCase()))
         );
       });
+
+      console.log(filteredTasks);
 
       const sortedTasks = filteredTasks.sort(
         (task1, task2) => new Date(task2.createdAt) - new Date(task1.createdAt)

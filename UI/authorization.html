@@ -48,42 +48,41 @@
         </div>
     </header>
     <main сlass="main">
-        <div class="reg-form">
-            <div class="reg-form__header">
-                <div class="reg-form__header-wrapper">
-                    <a href="">
-                        <button class="reg-form__auth">Вход</button>
-                    </a>
-                    <a href="../UI/registration.html">
-                        <button>Регистрация</button>
-                    </a>
+        <div class="auth-form">
+            <div class="reg-form">
+                <div class="reg-form__header">
+                    <div class="reg-form__header-wrapper">
+                        <button id="reg-form-auth" class="reg-form__auth">Вход</button>
+                        <button id="reg-form-reg">Регистрация</button>
+                    </div>
+                    <hr>
                 </div>
-                <hr>
-            </div>
 
-            <div class="reg-form__main">
-                <form class="reg-form__main-wrapper" id="form2">
-                    <div>
-                        <input type="text" id="login" placeholder="Логин*" required>
-                    </div>
-                    <div>
-                        <input type="password" id="password" placeholder="Пароль*" required>
-                        <span toggle="#password" class="eye-icon" id="eye-icon__password"></span>
-                        <span class="reg-form__error">Логин или пароль неверные</span>
-                    </div>
-                </form>
-            </div>
+                <div class="reg-form__main">
+                    <form class="reg-form__main-wrapper" id="form2">
+                        <div>
+                            <input type="text" id="login-auth" placeholder="Логин*" required>
+                        </div>
+                        <div>
+                            <input type="password" id="password-auth" placeholder="Пароль*" required>
+                            <span toggle="#password" class="eye-icon" id="eye-icon__password"></span>
+                            <span id="password-auth__err" class="reg-form__error" style="visibility: hidden;">Логин или
+                                пароль неверные</span>
+                        </div>
+                    </form>
+                </div>
 
-            <div class="reg-form__footer">
-                <button id="reg-form__auth-button" type="submit" class="reg-button" form="form2">
-                    Войти
-                </button>
+                <div class=" reg-form__footer">
+                    <button id="reg-form__auth-button" type="submit" class="reg-button" form="form2">
+                        Войти
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="button-wrapper">
-            <a href="../UI/main.html">
-                <button class="main-page-button">На главную</button>
-            </a>
+            <div class="button-wrapper">
+                <a href="../UI/main.html">
+                    <button class="main-page-button">На главную</button>
+                </a>
+            </div>
         </div>
     </main>
     <footer class="footer">

@@ -3,74 +3,53 @@ import { tasks } from "./components/tasks.js";
 import { TaskFeedView } from "./view/TaskFeedView.js";
 const taskFeedView = new TaskFeedView(".main-container");
 
+import { AuthView } from "./view/AuthView.js";
+const authView = new AuthView("main");
+
+import { RegView } from "./view/RegView.js";
+const regView = new RegView("main");
+
 import { TaskCollection } from "./model/index.js";
 const taskCollection = new TaskCollection(tasks);
 
-import {
-  setCurrentUser,
-  addTask,
-  editTask,
-  removeTask,
-  getFeed,
-  showTask,
-} from "./utils/globalMethods.js";
-
-import { FilterView } from "./view/FilterView.js";
-const filterView = new FilterView(".filter-content");
+import { TaskController } from "./controller/TaskController.js";
+const taskController = new TaskController();
 
 // Тесты
-setCurrentUser(null);
-setCurrentUser("IlyaKulesh");
-// setCurrentUser("DanielHunt");
-// setCurrentUser(null);
+taskController.setCurrentUser(null);
+taskController.setCurrentUser("IlyaKulesh");
 
-addTask({
+taskController.addTask({
   name: "Тестовая задача",
   description: "Тестовое описание",
   assignee: "IlyaKulesh",
   status: "Complete",
-  priority: "High",
+  priority: "Высокий",
   isPrivate: false,
 });
 
-editTask("19", {
+taskController.editTask("19", {
   name: "Тестовая задача edit",
   description: "Тестовое описание edit",
   assignee: "IlyaKulesh",
   status: "Complete",
-  priority: "High",
+  priority: "Высокий",
   isPrivate: false,
 });
 
 // removeTask("10");
 
-// getFeed(0, 10, { status: ["To Do", "In progress"], isPrivate: [true, false] });
+// getFeed(0, 10, {
+//   status: ["To Do", "In progress"],
+//   isPrivate: [true, false],
+// });
 
 // showTask("1");
 
-const filerButton = document.querySelector("#filer__button");
-const filterContent = document.querySelector(".filter-content");
-const icon = document.getElementById("filter-icon");
+const filterButton = document.querySelector("#filer__button");
 
-filerButton.addEventListener("click", () => {
-  if (filterContent.style.display === "none") {
-    filterView.display();
-    icon.classList.toggle("rotate");
-  } else {
-    filterContent.style.display = "none";
-    icon.classList.toggle("rotate");
-  }
-});
-
-const exitButton = document.querySelector("#exit-button");
-
-exitButton.addEventListener("click", () => {
-  setCurrentUser(null);
-
-  const authButton = document.querySelector("#auth-button");
-  authButton.addEventListener("click", () => {
-    window.location.replace("authorization.html");
-  });
+filterButton.addEventListener("click", () => {
+  taskController.filter();
 });
 
 // Не работет после 1 вызова
@@ -79,7 +58,7 @@ taskIconsDelete.forEach((taskIconDelete) => {
   taskIconDelete.addEventListener("click", (e) => {
     const taskToRemove = e.target.closest("div[id]");
     console.log(taskToRemove.id);
-    removeTask(taskToRemove.id);
+    taskController.removeTask(taskToRemove.id);
   });
 });
 
@@ -112,4 +91,75 @@ viewButton.addEventListener("click", () => {
     viewContent.style.display = "none";
     mainViewIcon.classList.toggle("rotate");
   }
+});
+
+const createNewTask = document.querySelector("#create-task__button");
+createNewTask.addEventListener("click", () => {
+  taskFeedView.modalNewTask();
+
+  const saveButton = document.querySelector(".modal-button-save");
+  const resetButton = document.querySelector(".modal-button-close");
+
+  const newTask = taskController.createTask();
+
+  saveButton.addEventListener("click", () => {
+    console.log("Сохранено:", newTask);
+    taskController.addTask({
+      name: newTask.name,
+      description: newTask.description,
+      assignee: newTask.assignee,
+      status: newTask.status,
+      priority: "Высокий",
+      isPrivate: newTask.isPrivate,
+    });
+    modalOverlayDelete.remove();
+  });
+
+  // resetButton.addEventListener("click", () => {
+  //   inputs.forEach((input) => {
+  //     input.value = "";
+  //     // formData[input.id] = "";
+  //   });
+  // });
+
+  const modalClose = document.querySelector(".modal-close");
+  const modalOverlayDelete = document.querySelector(".modal-overlay");
+
+  modalClose.addEventListener("click", () => {
+    modalOverlayDelete.remove();
+  });
+});
+
+const exitButton = document.querySelector("#exit-button");
+
+exitButton.addEventListener("click", () => {
+  taskController.setCurrentUser(null);
+
+  const authButton = document.querySelector("#auth-button");
+  authButton.addEventListener("click", () => {
+    authView.display();
+    authView.authCheck();
+    taskController.passwordEye();
+
+    const authButton = document.querySelector("#reg-form-auth");
+    if (authButton) {
+      authButton.addEventListener("click", (e) => {
+        console.log("authButton", e);
+        authView.display();
+        authView.authCheck();
+        taskController.passwordEye();
+      });
+    }
+
+    const regButton = document.querySelector("#reg-form-reg");
+    if (regButton) {
+      regButton.addEventListener("click", (e) => {
+        console.log("regButton", e);
+
+        regView.display();
+        regView.regCheck();
+        taskController.passwordEye();
+      });
+    }
+  });
 });

@@ -364,11 +364,11 @@ export class TaskFeedView {
         return "status-wrapper__inprogress";
       case "Complete":
         return "status-wrapper__complete";
-      case "High":
+      case "Высокий":
         return "status-wrapper__high";
-      case "Medium":
+      case "Средний":
         return "status-wrapper__medium";
-      case "Low":
+      case "Низкий":
         return "status-wrapper__low";
     }
   }
@@ -468,9 +468,9 @@ export class TaskFeedView {
             <div class="modal-content__left">
                 <div>Название задачи:
                     <div>
-                        <input class="modal-content__input" type='text'
+                        <input id="modal-create__name" class="modal-content__input" type='text'
                             placeholder="Введите название задачи...">
-                        <span class="modal-error">Название не должно превышать 100 символов</span>
+                        <span class="modal-error" style="visibility: hidden;">Название не должно превышать 100 символов</span>
                     </div>
                 </div>
                 <button class="modal-add-img">
@@ -479,18 +479,18 @@ export class TaskFeedView {
                 </button>
                 <div>Описание задачи:
                     <div>
-                        <input class="modal-content__input" type='text'
+                        <input id="modal-create__description" class="modal-content__input" type='text'
                             placeholder="Введите описание задачи...">
-                        <span class="modal-error">Описание не должно превышать 280 символов</span>
+                        <span class="modal-error" style="visibility: hidden;">Описание не должно превышать 280 символов</span>
                     </div>
                 </div>
             </div>
             <div class="modal-content__right">
                 <div class="modal-content__status">Статус задачи:
                     <select class="modal-content-select">
-                        <option class="modal-content-select__option">Нужно сделать</option>
-                        <option class="modal-content-select__option">В процессе</option>
-                        <option class="modal-content-select__option">Готово</option>
+                        <option class="modal-content-select__option" selected>To Do</option>
+                        <option class="modal-content-select__option">In progress</option>
+                        <option class="modal-content-select__option">Complete</option>
                     </select>
                 </div>
                 <div>Приоритет:
@@ -510,7 +510,7 @@ export class TaskFeedView {
                     </div>
                 </div>
                 <div>Приватность:
-                    <div class="privacy">
+                    <div id="privacy__create-modal" class="privacy">
                         <div>
                             <input type="checkbox" id="privacy_own">
                             <label for="privacy_own">Личная</label>
@@ -523,7 +523,7 @@ export class TaskFeedView {
                 </div>
                 <div class="modal-content__assignee">Исполнитель:
                     <select class="modal-content-select">
-                        <option class="modal-content-select__option">IlyaKulesh</option>
+                        <option class="modal-content-select__option" selected>IlyaKulesh</option>
                         <option class="modal-content-select__option">DanielHunt</option>
                     </select>
                 </div>
@@ -584,9 +584,9 @@ export class TaskFeedView {
             <div class="modal-content__right">
                 <div class="modal-content__status">Статус задачи:
                     <select class="modal-content-select">
-                        <option class="modal-content-select__option">Нужно сделать</option>
-                        <option class="modal-content-select__option">В процессе</option>
-                        <option class="modal-content-select__option">Готово</option>
+                        <option class="modal-content-select__option" selected>To Do</option>
+                        <option class="modal-content-select__option">In progress</option>
+                        <option class="modal-content-select__option">Complete</option>
                     </select>
                 </div>
                 <div>Приоритет:
@@ -619,7 +619,7 @@ export class TaskFeedView {
                 </div>
                 <div class="modal-content__assignee">Исполнитель:
                     <select class="modal-content-select">
-                        <option class="modal-content-select__option">IlyaKulesh</option>
+                        <option class="modal-content-select__option" selected>IlyaKulesh</option>
                         <option class="modal-content-select__option">DanielHunt</option>
                     </select>
                 </div>

@@ -34,7 +34,7 @@ export const TASK_STATUS = {
 };
 
 export const TASK_PRIORITY = {
-  high: "High",
-  medium: "Medium",
-  low: "Low",
+  high: "Высокий",
+  medium: "Средний",
+  low: "Низкий",
 };

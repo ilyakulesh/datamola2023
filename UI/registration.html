@@ -48,57 +48,62 @@
         </div>
     </header>
     <main сlass="main">
-        <div class="reg-form">
-            <div class="reg-form__header">
-                <div class="reg-form__header-wrapper">
-                    <a href="../UI/authorization.html">
-                        <button>Вход</button>
-                    </a>
-                    <a href="../UI/registration.html">
-                        <button class="reg-form__reg">Регистрация</button>
-                    </a>
+        <!-- <div class="main__reg-form">
+            <div class="reg-form">
+                <div class="reg-form__header">
+                    <div class="reg-form__header-wrapper">
+                        <button id="reg-form-auth">Вход</button>
+                        <button id="reg-form-reg" class="reg-form__reg">Регистрация</button>
+                    </div>
+                    <hr>
                 </div>
-                <hr>
-            </div>
 
-            <div class="reg-form__main">
-                <form class="reg-form__main-wrapper" id="form1">
-                    <div>
-                        <input type="text" id="login" placeholder="Логин*" required>
-                        <span class="reg-form__error">Введите логин, состоящий из латинских символов</span>
+                <div class="reg-form__main">
+                    <form class="reg-form__main-wrapper" id="form1">
+                        <div>
+                            <input type="text" id="login" class="login-reg" placeholder="Логин*" required>
+                            <span id="login-reg__err" class="reg-form__error" style="visibility: hidden;">Введите логин,
+                                состоящий из латинских
+                                символов</span>
+                        </div>
+                        <div>
+                            <input type="password" id="password" class="password-reg" placeholder="Пароль*" required>
+                            <span toggle="#password" class="eye-icon" id="eye-icon__password"></span>
+                        </div>
+                        <div>
+                            <input type="password" id="confirm-password" class="confirm-password-reg"
+                                placeholder="Подтверждение пароля*" required>
+                            <span toggle="#password" class="eye-icon" id="eye-icon__confirm"></span>
+                            <span id="password-reg__err" class="reg-form__error" style="visibility: hidden;">Пароли не
+                                совпадают</span>
+                        </div>
+                        <div>
+                            <input type="text" id="username" class="username-reg" placeholder="Имя пользователя*"
+                                required>
+                            <span id="username-reg__err" class="reg-form__error" style="visibility: hidden;">Имя
+                                пользователя превышает 100
+                                символов</span>
+                        </div>
+                    </form>
+                    <div class="reg-form__main-avatar">
+                        <button class="reg-form__choose-avatar">Выберите аватар</button>
+                        <div>или</div>
+                        <button class="reg-form__load-avatar">Загрузите аватар</button>
                     </div>
-                    <div>
-                        <input type="password" id="password" placeholder="Пароль*" required>
-                        <span toggle="#password" class="eye-icon" id="eye-icon__password"></span>
-                    </div>
-                    <div>
-                        <input type="password" id="confirm-password" placeholder="Подтверждение пароля*" required>
-                        <span toggle="#password" class="eye-icon" id="eye-icon__confirm"></span>
-                        <span class="reg-form__error">Пароли не совпадают</span>
-                    </div>
-                    <div>
-                        <input type="text" id="username" placeholder="Имя пользователя*" required>
-                        <span class="reg-form__error">Имя пользователя превышает 100 символов</span>
-                    </div>
-                </form>
-                <div class="reg-form__main-avatar">
-                    <button class="reg-form__choose-avatar">Выберите аватар</button>
-                    <div>или</div>
-                    <button class="reg-form__load-avatar">Загрузите аватар</button>
+                </div>
+
+                <div class="reg-form__footer">
+                    <button type="submit" class="reg-button" form="form1">
+                        Зарегистрироваться
+                    </button>
                 </div>
             </div>
-
-            <div class="reg-form__footer">
-                <button type="submit" class="reg-button" form="form1">
-                    Зарегистрироваться
-                </button>
+            <div class="button-wrapper">
+                <a href="../UI/main.html">
+                    <button class="main-page-button">На главную</button>
+                </a>
             </div>
-        </div>
-        <div class="button-wrapper">
-            <a href="../UI/main.html">
-                <button class="main-page-button">На главную</button>
-            </a>
-        </div>
+        </div> -->
     </main>
     <footer class="footer">
         <div class="footer-container">
