@@ -1,3 +1,15 @@
+import { tasks } from "../components/tasks.js";
+import { users } from "../components/users.js";
+
+import { TaskCollection } from "../model/index.js";
+const taskCollection = new TaskCollection(tasks);
+
+import { TaskFeedView } from "../view/TaskFeedView.js";
+const taskFeedView = new TaskFeedView(".main-container");
+
+import { TaskController } from "../controller/TaskController.js";
+const taskController = new TaskController();
+
 export class AuthView {
   constructor(containerId) {
     this.container = document.querySelector(containerId);
@@ -31,36 +43,63 @@ export class AuthView {
         </div>
   
         <div class="reg-form__footer">
-            <button id="reg-form__auth-button" type="submit" class="reg-button" form="form2">
+            <button id="reg-form__auth-button" class="reg-button" form="form2">
                 Войти
             </button>
         </div>
     </div>
     <div class="button-wrapper">
-        <a href="../UI/main.html">
-            <button class="main-page-button">На главную</button>
-        </a>
+            <button id="main-page__no-user" class="main-page-button">На главную</button>
     </div>
   </div>
     `;
   }
 
   authCheck() {
-    const formReg = document.querySelector(".reg-form__main-wrapper");
+    try {
+      const formReg = document.querySelector("#form2");
 
-    const passwordAuthErr = document.querySelector("#password-auth__err");
+      const passwordAuthErr = document.querySelector("#password-auth__err");
 
-    formReg.addEventListener("submit", (e) => {
-      e.preventDefault();
+      formReg.addEventListener("submit", (e) => {
+        e.preventDefault();
 
-      const inputs = formReg.querySelectorAll("input");
-      const data = {};
+        const inputs = formReg.querySelectorAll("input");
+        const data = {};
 
-      inputs.forEach((input) => {
-        data[input.id] = input.value;
+        inputs.forEach((input) => {
+          data[input.id] = input.value;
+        });
+
+        console.log(data);
+
+        const user = users.find((user) => user.login === data.login);
+        const password = users.find((user) => user.password === data.password);
+
+        if (user && password) {
+          console.log("Найден");
+          const main = document.querySelector("main");
+          main.innerHTML = "";
+
+          const mainContainer = document.createElement("div");
+          mainContainer.className = "main-container";
+
+          main.appendChild(mainContainer);
+          // taskFeedView.display(taskCollection._tasks, taskCollection.user);
+          console.log("user.login", user.login);
+          taskController.setCurrentUser(user.login);
+        } else {
+          passwordAuthErr.style.visibility = "visible";
+        }
+
+        console.log(
+          "taskController.getCurrentUser()",
+          taskCollection._tasks,
+          taskController.getCurrentUser()
+        );
       });
-
-      console.log(data);
-    });
+    } catch (err) {
+      console.error(err);
+    }
   }
 }

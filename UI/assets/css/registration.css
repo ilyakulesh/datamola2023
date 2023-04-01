@@ -42,8 +42,13 @@
   text-indent: 0;
   cursor: pointer;
 }
+
 .reg-form__reg {
   font-weight: bold;
+}
+
+#reg-form-reg {
+  color: var(--black-color);
 }
 
 .reg-form__main-wrapper div {

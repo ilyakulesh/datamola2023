@@ -1,5 +1,6 @@
 const themeButton = document.getElementById("chk");
 const root = document.querySelector(":root");
+const checkbox = document.querySelector(".checkbox");
 
 const themes = {
   default: {
@@ -25,6 +26,7 @@ if (!localStorage.getItem("theme")) {
 let isDarkTheme = JSON.parse(localStorage.getItem("theme"));
 
 changeTheme(isDarkTheme);
+checkbox.checked = isDarkTheme ? true : false;
 
 themeButton.onclick = (e) => {
   e.preventDefault;

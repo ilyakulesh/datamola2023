@@ -13,8 +13,28 @@ import { Comment } from "./comment.js";
 
 export class TaskCollection {
   constructor(tasks) {
-    this._tasks = Array.isArray(tasks) ? tasks : [];
-    this._user = null;
+    try {
+      if (!Array.isArray(tasks)) {
+        throw new Error(ERRORS.notArrError);
+      }
+      this._tasks = tasks.map(
+        (task) =>
+          new Task(
+            task.id,
+            task.name,
+            task.description,
+            task.createdAt,
+            task.assignee,
+            task.status,
+            task.priority,
+            task.isPrivate,
+            task.comments
+          )
+      );
+      this._user = null;
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   get user() {
@@ -115,7 +135,15 @@ export class TaskCollection {
     }
   }
 
-  edit(id, name, description, assignee, status, priority, isPrivate = false) {
+  edit(
+    id,
+    name,
+    description,
+    assignee = this._user,
+    status,
+    priority,
+    isPrivate = false
+  ) {
     try {
       const taskIndex = findTaskIndexById(id, this._tasks);
       const task = { ...this._tasks[taskIndex] };

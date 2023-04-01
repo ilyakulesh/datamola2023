@@ -1,3 +1,11 @@
+import { users } from "../components/users.js";
+
+import { UserCollection } from "../model/userCollection.js";
+const userCollection = new UserCollection(users);
+
+import { AuthView } from "./AuthView.js";
+const authView = new AuthView("main");
+
 export class RegView {
   constructor(containerId) {
     this.container = document.querySelector(containerId);
@@ -24,13 +32,14 @@ export class RegView {
                       <span id="login-reg__err" class="reg-form__error" style="visibility: hidden;">Введите логин,
                           состоящий из латинских
                           символов</span>
+                          <span id="login-reg__err-two" class="reg-form__error" style="visibility: hidden;">Пользователь с таким логином уже существует</span>
                   </div>
                   <div>
                       <input type="password" id="password" class="password-reg" placeholder="Пароль*" required>
                       <span toggle="#password" class="eye-icon" id="eye-icon__password"></span>
                   </div>
                   <div>
-                      <input type="password" id="confirm-password" class="confirm-password-reg"
+                      <input type="password" id="confirmPassword" class="confirm-password-reg"
                           placeholder="Подтверждение пароля*" required>
                       <span toggle="#password" class="eye-icon" id="eye-icon__confirm"></span>
                       <span id="password-reg__err" class="reg-form__error" style="visibility: hidden;">Пароли не
@@ -42,6 +51,8 @@ export class RegView {
                       <span id="username-reg__err" class="reg-form__error" style="visibility: hidden;">Имя
                           пользователя превышает 100
                           символов</span>
+                          <span id="username-reg__err-two" class="reg-form__error" style="visibility: hidden;">Введите логин,
+                          состоящий из латиницы и кириллицы</span>
                   </div>
               </form>
               <div class="reg-form__main-avatar">
@@ -52,61 +63,92 @@ export class RegView {
           </div>
     
           <div class="reg-form__footer">
-              <button type="submit" class="reg-button" form="form1">
+              <button class="reg-button" form="form1">
                   Зарегистрироваться
               </button>
           </div>
       </div>
       <div class="button-wrapper">
-          <a href="../UI/main.html">
-              <button class="main-page-button">На главную</button>
-          </a>
+              <button id="main-page__no-user" class="main-page-button">На главную</button>
       </div>
     </div>
       `;
   }
 
   regCheck() {
-    const formReg = document.querySelector(".reg-form__main-wrapper");
+    try {
+      const formReg = document.querySelector(".reg-form__main-wrapper");
 
-    const loginReg = document.querySelector(".login-reg");
-    const passwordReg = document.querySelector(".password-reg");
-    const confirmPasswordReg = document.querySelector(".confirm-password-reg");
-    const usernameReg = document.querySelector(".username-reg");
+      const loginReg = document.querySelector(".login-reg");
+      const passwordReg = document.querySelector(".password-reg");
+      const confirmPasswordReg = document.querySelector(
+        ".confirm-password-reg"
+      );
+      const usernameReg = document.querySelector(".username-reg");
 
-    const loginRegError = document.querySelector("#login-reg__err");
-    const passwordRegError = document.querySelector("#password-reg__err");
-    const usernameRegError = document.querySelector("#username-reg__err");
+      const loginRegError = document.querySelector("#login-reg__err");
+      const loginRegErrTwo = document.querySelector("#login-reg__err-two");
+      const passwordRegError = document.querySelector("#password-reg__err");
+      const usernameRegError = document.querySelector("#username-reg__err");
+      const usernameRegErrorTwo = document.querySelector(
+        "#username-reg__err-two"
+      );
 
-    formReg.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const latinRegex = /^[a-zA-Z]+$/;
-      if (!latinRegex.test(loginReg.value)) {
-        console.error("Ошибка: введите текст на латинице");
-        loginReg.value = "";
-        loginRegError.style.visibility = "visible";
-      }
+      const regButton = document.querySelector(".reg-button");
 
-      const latinСyrillicRegex = /^[a-zA-Zа-яА-Я\s]*$/;
-      if (!latinСyrillicRegex.test(usernameReg.value)) {
-        console.error("Ошибка: введите текст на латинице или кириллице");
-        usernameReg.value = "";
-        usernameRegError.style.visibility = "visible";
-      }
+      formReg.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const latinRegex = /^[a-zA-Z]+$/;
+        if (!latinRegex.test(loginReg.value)) {
+          loginReg.value = "";
+          loginRegError.style.visibility = "visible";
+          throw new Error("Ошибка: введите текст на латинице");
+        }
 
-      if (passwordReg.value !== confirmPasswordReg.value) {
-        console.error("Ошибка: пароли не совпадают");
-        passwordRegError.style.visibility = "visible";
-      }
+        const latinСyrillicRegex = /^[a-zA-Zа-яА-Я\s]*$/;
+        if (!latinСyrillicRegex.test(usernameReg.value)) {
+          usernameReg.value = "";
+          usernameRegErrorTwo.style.visibility = "visible";
+          throw new Error("Ошибка: введите текст на латинице или кириллице");
+        }
 
-      const inputs = formReg.querySelectorAll("input");
-      const data = {};
+        if (usernameReg.value.length > 100) {
+          usernameReg.value = "";
+          usernameRegError.style.visibility = "visible";
+          throw new Error("Ошибка: имя пользователя превышает 100 символов");
+        }
 
-      inputs.forEach((input) => {
-        data[input.id] = input.value;
+        if (passwordReg.value !== confirmPasswordReg.value) {
+          passwordRegError.style.visibility = "visible";
+          throw new Error("Ошибка: пароли не совпадают");
+        }
+
+        const inputs = formReg.querySelectorAll("input");
+        const data = {};
+
+        inputs.forEach((input) => {
+          data[input.id] = input.value;
+        });
+
+        if (userCollection.hasLogin(data.login)) {
+          loginRegErrTwo.style.visibility = "visible";
+          throw new Error("Ошибка: такой пользователь уже существует");
+        }
+
+        // regButton.disabled = false;
+
+        console.log(data);
+        userCollection.add(
+          data.login,
+          data.password,
+          data.confirmPassword,
+          data.username
+        );
+
+        authView.display();
       });
-
-      console.log(data);
-    });
+    } catch (err) {
+      console.error(err);
+    }
   }
 }

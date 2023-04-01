@@ -88,7 +88,7 @@ export const tasks = [
       "Учить новые слова на английском каждый день, чтобы расширить свой словарный запас",
     createdAt: new Date("2023-03-03").toLocaleDateString(),
     assignee: "IlyaKulesh",
-    status: "To Do",
+    status: "Complete",
     priority: "Средний",
     isPrivate: true,
     comments: [],
@@ -194,7 +194,7 @@ export const tasks = [
       "Выбрать удобное для себя время и место для занятий, подобрать программу тренировок",
     createdAt: new Date("2023-03-19").toLocaleDateString(),
     assignee: "IlyaKulesh",
-    status: "To Do",
+    status: "Complete",
     priority: "Средний",
     isPrivate: true,
     comments: [

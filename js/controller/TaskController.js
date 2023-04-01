@@ -19,13 +19,18 @@ export class TaskController {
 
   setCurrentUser(user) {
     this.taskCollection.user = user;
-    this.headerView.display(user);
-    this.taskFeedView.display(this.taskCollection._tasks);
-
     this.taskFeedView.display(
       this.taskCollection._tasks,
       this.taskCollection.user
     );
+    this.headerView.display(user);
+  }
+
+  getCurrentUser() {
+    // return document.querySelector(".menu-name__user-name").textContent
+    // ? document.querySelector(".menu-name__user-name").textContent
+    // : null;
+    return this.taskCollection.user;
   }
 
   addTask(task) {
@@ -75,7 +80,7 @@ export class TaskController {
 
   showTask(id) {
     const taskId = this.taskCollection.get(id);
-    this.taskView.display(taskId);
+    this.taskView.display(taskId, id);
   }
 
   passwordEye() {
@@ -83,7 +88,7 @@ export class TaskController {
 
     const eyeIconPassword = document.querySelector("#eye-icon__password");
     const password = document.querySelector("#password");
-    const confirmPassword = document.querySelector("#confirm-password");
+    const confirmPassword = document.querySelector("#confirmPassword");
 
     eyeIcons.forEach(function (eyeIcon) {
       eyeIcon.addEventListener("click", function () {
@@ -126,6 +131,7 @@ export class TaskController {
 
       filterInputs.forEach((input) => {
         input.addEventListener("change", (e) => {
+          e.preventDefault();
           if (input.classList.contains("filter-select")) {
             filterValues.assignee = input.value;
           } else if (input.classList.contains("filter-task__input")) {
@@ -206,6 +212,65 @@ export class TaskController {
   }
 
   createTask() {
+    const nameInput = document.getElementById("modal-create__name");
+    const descriptionInput = document.getElementById(
+      "modal-create__description"
+    );
+    const statusSelect = document.querySelector(".modal-content-select");
+    const priorityCheckboxes = document.querySelectorAll(
+      '.priority input[type="checkbox"]'
+    );
+    const privacyCheckboxes = document.querySelectorAll(
+      '#privacy__create-modal input[type="checkbox"]'
+    );
+    const assigneeSelect = document.querySelectorAll(
+      ".modal-content-select"
+    )[1];
+
+    const formData = {};
+
+    nameInput.addEventListener("input", (event) => {
+      formData.name = event.target.value;
+    });
+
+    descriptionInput.addEventListener("input", (event) => {
+      formData.description = event.target.value;
+    });
+
+    statusSelect.addEventListener("change", (event) => {
+      formData.status = event.target.value;
+    });
+
+    priorityCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", (event) => {
+        if (event.target.id.split("_")[1] === "high") {
+          formData.priority = "Высокий";
+        } else if (event.target.id.split("_")[1] === "medium") {
+          formData.priority = "Средний";
+        } else if (event.target.id.split("_")[1] === "low") {
+          formData.priority = "Низкий";
+        }
+      });
+    });
+
+    privacyCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", (event) => {
+        if (event.target.id.split("_")[1] === "own") {
+          formData.isPrivate = true;
+        } else if (event.target.id.split("_")[1] === "public") {
+          formData.isPrivate = false;
+        }
+      });
+    });
+
+    assigneeSelect.addEventListener("change", (event) => {
+      formData.assignee = event.target.value;
+    });
+
+    return formData;
+  }
+
+  editTaskModal() {
     const nameInput = document.getElementById("modal-create__name");
     const descriptionInput = document.getElementById(
       "modal-create__description"

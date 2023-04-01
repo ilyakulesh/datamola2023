@@ -53,7 +53,11 @@ main {
 }
 
 .view-content__columns {
-  font-weight: bold;
+  color: var(--black-color);
+}
+
+.view-content__list {
+  color: var(--black-color);
 }
 
 #create-task__button {
@@ -219,6 +223,10 @@ section {
   min-width: 330px;
 }
 
+#task__with-user {
+  cursor: pointer;
+}
+
 /* .task:hover {
   cursor: pointer;
 } */
@@ -240,6 +248,7 @@ section {
 
 .content {
   margin-top: 10px;
+  max-width: 193px;
 }
 
 .status-wrapper {
