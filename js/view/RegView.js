@@ -1,3 +1,4 @@
+import { ERRORS } from "../components/consts.js";
 import { users } from "../components/users.js";
 
 import { UserCollection } from "../model/userCollection.js";
@@ -94,33 +95,31 @@ export class RegView {
         "#username-reg__err-two"
       );
 
-      const regButton = document.querySelector(".reg-button");
-
       formReg.addEventListener("submit", (e) => {
         e.preventDefault();
         const latinRegex = /^[a-zA-Z]+$/;
         if (!latinRegex.test(loginReg.value)) {
           loginReg.value = "";
           loginRegError.style.visibility = "visible";
-          throw new Error("Ошибка: введите текст на латинице");
+          throw new Error(ERRORS.latinError);
         }
 
         const latinСyrillicRegex = /^[a-zA-Zа-яА-Я\s]*$/;
         if (!latinСyrillicRegex.test(usernameReg.value)) {
           usernameReg.value = "";
           usernameRegErrorTwo.style.visibility = "visible";
-          throw new Error("Ошибка: введите текст на латинице или кириллице");
+          throw new Error(ERRORS.latinOrCyrillicError);
         }
 
         if (usernameReg.value.length > 100) {
           usernameReg.value = "";
           usernameRegError.style.visibility = "visible";
-          throw new Error("Ошибка: имя пользователя превышает 100 символов");
+          throw new Error(ERRORS.userNameError);
         }
 
         if (passwordReg.value !== confirmPasswordReg.value) {
           passwordRegError.style.visibility = "visible";
-          throw new Error("Ошибка: пароли не совпадают");
+          throw new Error(ERRORS.passDontMatch);
         }
 
         const inputs = formReg.querySelectorAll("input");
@@ -132,10 +131,8 @@ export class RegView {
 
         if (userCollection.hasLogin(data.login)) {
           loginRegErrTwo.style.visibility = "visible";
-          throw new Error("Ошибка: такой пользователь уже существует");
+          throw new Error(ERRORS.userAlreadyExists);
         }
-
-        // regButton.disabled = false;
 
         console.log(data);
         userCollection.add(

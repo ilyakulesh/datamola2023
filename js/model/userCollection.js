@@ -15,7 +15,6 @@ export class UserCollection {
       this.addAll(this._userCollection);
     } catch (err) {
       console.error(err);
-      return false;
     }
   }
 

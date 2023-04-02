@@ -10,6 +10,7 @@ export class FilterView {
 
   display() {
     this.getUniqueAssignees(taskCollection._tasks);
+    console.log("this.container", this.container);
     this.container.style.display = "block";
   }
 

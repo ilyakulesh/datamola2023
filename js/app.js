@@ -15,6 +15,9 @@ const taskCollection = new TaskCollection(tasks);
 import { TaskController } from "./controller/TaskController.js";
 const taskController = new TaskController();
 
+import { UserPageView } from "./view/UserPageView.js";
+const userPageView = new UserPageView("main");
+
 // Тесты
 // taskController.setCurrentUser(null);
 taskController.setCurrentUser("IlyaKulesh");
@@ -47,10 +50,7 @@ document.querySelector("body").addEventListener("click", (event) => {
     // event.currentTarget.style.fontWeight = "bold";
     viewContentList.style.fontWeight = "normal";
     taskFeedView.position = "columns";
-    taskFeedView.display(
-      taskCollection._tasks,
-      taskController.getCurrentUser()
-    );
+    taskFeedView.display(taskController.tasks, taskController.getCurrentUser());
     console.log(taskFeedView.position);
 
     // viewContent.style.display = "none";
@@ -62,10 +62,7 @@ document.querySelector("body").addEventListener("click", (event) => {
     // event.currentTarget.style.fontWeight = "bold";
     viewContentColumns.style.fontWeight = "normal";
     taskFeedView.position = "list";
-    taskFeedView.display(
-      taskCollection._tasks,
-      taskController.getCurrentUser()
-    );
+    taskFeedView.display(taskController.tasks, taskController.getCurrentUser());
     console.log(taskFeedView.position);
 
     // viewContent.style.display = "none";
@@ -149,8 +146,12 @@ document.querySelector("body").addEventListener("click", (event) => {
     const modalOverlayDelete = document.querySelector(".modal-overlay");
 
     saveButton.addEventListener("click", () => {
+      console.log(
+        "taskCollection.get(taskToEdit.id).id",
+        taskCollection.get(taskToEdit.id).id
+      );
       console.log("Сохранено:", newTask);
-      taskController.editTask(taskCollection.get(taskToEdit.id).id, {
+      taskController.editTask(taskToEdit.id, {
         name: newTask.name,
         description: newTask.description,
         assignee: newTask.assignee,
@@ -181,10 +182,35 @@ document.querySelector("body").addEventListener("click", (event) => {
   if (event.target.closest("#task__with-user")) {
     const currentTask = event.target.closest(".task").id;
     console.log(currentTask);
-    const menuNameUserName = document.querySelector(".menu-name__user-name");
-    console.log("menuNameUserName", menuNameUserName.textContent);
 
     taskController.showTask(currentTask);
     // console.log(event.target.closest(".task").id);
   }
+
+  if (event.target.closest(".menu-name__user-name")) {
+    userPageView.display(
+      document.querySelector(".menu-name__user-name").textContent
+    );
+  }
+
+  if (event.target.closest(".edit__user-edit")) {
+    userPageView.userPageEdit(
+      document.querySelector(".menu-name__user-name").textContent
+    );
+    userPageView.userPageCheck();
+    taskController.passwordEye();
+  }
+
+  if (event.target.closest(".full-task__button")) {
+    const inputComment = document.querySelector(".full-task__input");
+    console.log(inputComment.value);
+
+    const currentTask = event.target.closest(".info-task").id;
+    console.log(currentTask);
+
+    taskController.newComment(currentTask, inputComment.value);
+    taskController.showTask(currentTask);
+  }
 });
+
+console.log("qwe", taskController.taskCollection);

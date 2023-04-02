@@ -37,6 +37,7 @@
 
 .menu-name__user-name {
   margin: auto 0;
+  cursor: pointer;
 }
 
 .menu > li {

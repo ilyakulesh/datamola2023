@@ -38,7 +38,7 @@ export class Comment {
       ) {
         throw new Error(ERRORS.descriptionError);
       }
-      if (!com.createdAt || !(com.createdAt instanceof Date)) {
+      if (!com.createdAt) {
         throw new Error(ERRORS.dateError);
       }
       if (!com.author || !checkStr(com.author)) {

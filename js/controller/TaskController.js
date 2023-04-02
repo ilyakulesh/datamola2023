@@ -27,9 +27,6 @@ export class TaskController {
   }
 
   getCurrentUser() {
-    // return document.querySelector(".menu-name__user-name").textContent
-    // ? document.querySelector(".menu-name__user-name").textContent
-    // : null;
     return this.taskCollection.user;
   }
 
@@ -125,9 +122,15 @@ export class TaskController {
         privacy: [true, false],
       };
 
+      // const filterInputs = document.querySelectorAll(
+      //   ".filter-select, .filter-task__input, .date__input, .priority input, .privacy input"
+      // );
+
       const filterInputs = document.querySelectorAll(
-        ".filter-select, .filter-task__input, .date__input, .priority input, .privacy input"
+        ".filter-content input, select"
       );
+
+      console.log("filterInputs", filterInputs);
 
       filterInputs.forEach((input) => {
         input.addEventListener("change", (e) => {
@@ -327,5 +330,11 @@ export class TaskController {
     });
 
     return formData;
+  }
+
+  newComment(id, inputValue) {
+    console.log(inputValue);
+
+    this.taskCollection.addComment(id, inputValue);
   }
 }

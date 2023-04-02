@@ -2,10 +2,10 @@ import { FilterView } from "./FilterView.js";
 const filterView = new FilterView(".filter-content");
 
 export class TaskFeedView {
-  _position = "columns";
   constructor(containerId) {
     this.container = document.querySelector(containerId);
     this.limit = 10;
+    this._position = "columns";
   }
 
   get position() {
@@ -316,7 +316,7 @@ export class TaskFeedView {
         const noUser = user != null;
 
         taskList += `
-    <div class="task-container">
+    <div id=${task.id} class="task-container">
         <div class="task-example">
             <div class="task-example__name">${task.name}</div>
             <div class="task-example__executor">${task.assignee}</div>

@@ -172,6 +172,8 @@ export class TaskCollection {
         task.priority = priority;
       }
 
+      task.id = id;
+
       task.isPrivate = isPrivate;
 
       const isValid = Task.validate(task);

@@ -41,11 +41,11 @@ export class TaskView {
                     <div class="comment">Комментарии:
                     </div>
                 </div>
-                <div class="full-task__comment-wrapper">
+                <form class="full-task__comment-wrapper">
                     <input class="full-task__input" type='text' name='comment'
                         placeholder="Добавить комментарий...">
                     <button class="full-task__button">Отправить</button>
-                </div>
+                </form>
             </div>
             <div class="status-task">
                 <div>Статус задачи:
