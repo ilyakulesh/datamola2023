@@ -24,6 +24,42 @@ main {
   box-shadow: var(--box-shadow);
 }
 
+.view-content {
+  position: absolute;
+  margin-top: 20px;
+  margin-left: 0px;
+  font-size: 14px;
+  width: 176px;
+  border-radius: var(--border-radius);
+  padding: 10px;
+  background-color: var(--background-secondary);
+  box-shadow: var(--box-shadow);
+}
+
+.view-content button {
+  background: none repeat scroll 0 0 transparent;
+  border: medium none;
+  border-spacing: 0;
+  font-family: "PT Sans Narrow", sans-serif;
+  font-size: 14px;
+  line-height: 1.42rem;
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+  text-indent: 0;
+  cursor: pointer;
+}
+
+.view-content__columns {
+  color: var(--black-color);
+}
+
+.view-content__list {
+  color: var(--black-color);
+}
+
 #create-task__button {
   visibility: hidden;
 }
@@ -33,13 +69,11 @@ main {
   display: inline-block;
 }
 
-.filter button i {
-  font-size: 10px;
-  padding-left: 4px;
+.rotate {
+  transform: rotate(180deg);
 }
 
 .filter-content {
-  display: none;
   position: absolute;
   margin-top: 20px;
   margin-left: -300px;
@@ -60,6 +94,7 @@ main {
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   margin: 8px 5px;
+  color: var(--black-color);
 }
 
 .filter-dropdown {
@@ -188,9 +223,9 @@ section {
   min-width: 330px;
 }
 
-/* .task:hover {
+#task__with-user {
   cursor: pointer;
-} */
+}
 
 .content-wrapper {
   display: flex;
@@ -199,6 +234,7 @@ section {
 
 .task-content {
   width: 70%;
+  max-width: 193px;
   text-align: left;
   padding: 5px 12px;
 }
@@ -209,6 +245,7 @@ section {
 
 .content {
   margin-top: 10px;
+  max-width: 193px;
 }
 
 .status-wrapper {
@@ -272,9 +309,49 @@ section {
   margin-right: 4px;
 }
 
-.task__icons i:hover {
-  color: var(--background-buttons);
+.task__icons {
+  display: flex;
+}
+
+.task__icons i {
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.task__icons-edit {
+  background: none repeat scroll 0 0 transparent;
+  border: medium none;
+  border-spacing: 0;
+  font-family: "PT Sans Narrow", sans-serif;
+  font-size: 16px;
+  line-height: 1.42rem;
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+  text-indent: 0;
   cursor: pointer;
+}
+
+.task__icons-delete {
+  background: none repeat scroll 0 0 transparent;
+  border: medium none;
+  border-spacing: 0;
+  font-family: "PT Sans Narrow", sans-serif;
+  font-size: 16px;
+  line-height: 1.42rem;
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+  text-indent: 0;
+  cursor: pointer;
+}
+
+.task__icons i:hover {
+  color: var(--red-color);
 }
 
 .loadmore {

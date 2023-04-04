@@ -3,16 +3,30 @@ export class TaskView {
     this.container = document.querySelector(containerId);
   }
 
-  display(task) {
+  display(task, id) {
     this.container.innerHTML = "";
 
+    const menuNameUserName = document.querySelector(".menu-name__user-name");
+
+    const showIcons = task.assignee === menuNameUserName.textContent;
     this.container.innerHTML = `
-    <div class="info-task">        
+    <div id="${id}" class="info-task">        
         <div class="header-info">
             <div class="text-info">Информация о задаче</div>
-            <div class="info-task__icons">
-                <i class="fa-solid fa-pencil"></i>
-                <i class="fa-solid fa-trash"></i>
+            <div class="info-task__icons"> ${
+              showIcons
+                ? `
+                  <button class="task__icons-edit">
+                  <i class="fa-solid fa-pencil"></i>
+                  </button>
+                  <button class="task__icons-delete">
+                  <i class="fa-solid fa-trash"></i>
+                  </button>`
+                : `
+                  <i style="visibility: hidden" class="fa-solid fa-pencil"></i>
+                  <i style="visibility: hidden" class="fa-solid fa-trash"></i>`
+            }
+
             </div>
         </div>
         <div class="task-wrapper">
@@ -27,11 +41,11 @@ export class TaskView {
                     <div class="comment">Комментарии:
                     </div>
                 </div>
-                <div class="full-task__comment-wrapper">
+                <form class="full-task__comment-wrapper">
                     <input class="full-task__input" type='text' name='comment'
                         placeholder="Добавить комментарий...">
                     <button class="full-task__button">Отправить</button>
-                </div>
+                </form>
             </div>
             <div class="status-task">
                 <div>Статус задачи:
@@ -51,7 +65,7 @@ export class TaskView {
         </div>
         </div>
         <div class="button-wrapper">
-            <button class="main-page-button">На главную</button>
+            <button id="main-page__user" class="main-page-button">На главную</button>
         </div>`;
 
     if (task.comments.length > 0) {
@@ -64,8 +78,8 @@ export class TaskView {
 
         newComment.innerHTML = `
           <div class="comment-wrapper">
-          <div>${comm.author}</div>
-          <div>${comm.createdAt}</div>
+          <div>${comm.author || comm._author}</div>
+          <div>${comm.createdAt || comm._createdAt}</div>
           </div>
           <div class="task-comment">
           ${comm.text}

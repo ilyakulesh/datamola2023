@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../mockups/extra tasks/Logo.png" type="image/png">
+    <title>Main (columns)</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="https://kit.fontawesome.com/89087bd124.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="#">
+                <img src="./assets/img/Name.svg" alt="logo" class="logo-name">
+            </a>
+            <div class="burger-wrapper">
+                <input id="menu-toggle" type="checkbox" />
+                <label class='menu-button-container' for="menu-toggle">
+                    <div class='menu-button'></div>
+                </label>
+                <ul class="menu">
+                    <li class="menu-name">
+                        <div class="menu-name__user-name"></div>
+                        <button class="header-button">Войти</button>
+                    </li>
+                    <li>
+                        <div class="toggle-button"><input class="checkbox" type="checkbox" id="chk"><label class="label"
+                                for="chk"><i class="fas fa-moon"></i><i class="fas fa-sun"></i>
+                                <div class="ball"></div>
+                            </label></div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <button class="toggle-language">RU</button>
+                            <div class="dropdown-content">
+                                <a class="english-toggle" href="#" data-title="English">EN</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <main сlass="main">
+        <!-- <div class="main__reg-form">
+            <div class="reg-form">
+                <div class="reg-form__header">
+                    <div class="reg-form__header-wrapper">
+                        <button id="reg-form-auth">Вход</button>
+                        <button id="reg-form-reg" class="reg-form__reg">Регистрация</button>
+                    </div>
+                    <hr>
+                </div>
+
+                <div class="reg-form__main">
+                    <form class="reg-form__main-wrapper" id="form1">
+                        <div>
+                            <input type="text" id="login" class="login-reg" placeholder="Логин*" required>
+                            <span id="login-reg__err" class="reg-form__error" style="visibility: hidden;">Введите логин,
+                                состоящий из латинских
+                                символов</span>
+                        </div>
+                        <div>
+                            <input type="password" id="password" class="password-reg" placeholder="Пароль*" required>
+                            <span toggle="#password" class="eye-icon" id="eye-icon__password"></span>
+                        </div>
+                        <div>
+                            <input type="password" id="confirm-password" class="confirm-password-reg"
+                                placeholder="Подтверждение пароля*" required>
+                            <span toggle="#password" class="eye-icon" id="eye-icon__confirm"></span>
+                            <span id="password-reg__err" class="reg-form__error" style="visibility: hidden;">Пароли не
+                                совпадают</span>
+                        </div>
+                        <div>
+                            <input type="text" id="username" class="username-reg" placeholder="Имя пользователя*"
+                                required>
+                            <span id="username-reg__err" class="reg-form__error" style="visibility: hidden;">Имя
+                                пользователя превышает 100
+                                символов</span>
+                        </div>
+                    </form>
+                    <div class="reg-form__main-avatar">
+                        <button class="reg-form__choose-avatar">Выберите аватар</button>
+                        <div>или</div>
+                        <button class="reg-form__load-avatar">Загрузите аватар</button>
+                    </div>
+                </div>
+
+                <div class="reg-form__footer">
+                    <button type="submit" class="reg-button" form="form1">
+                        Зарегистрироваться
+                    </button>
+                </div>
+            </div>
+            <div class="button-wrapper">
+                <a href="../UI/main.html">
+                    <button class="main-page-button">На главную</button>
+                </a>
+            </div>
+        </div> -->
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <a href="#">
+                <img src="./assets/img/Name_footer.svg" alt="logo" class="logo-name">
+            </a>
+            <div class="footer-wrapper">
+                <div>Ilya Kulesh</div>
+                <div>ilyakulesh457@gmail.com</div>
+                <div>26.03.2023</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./script.js"></script>
+    <script src="./theme.js"></script>
+</body>
+
+</html>

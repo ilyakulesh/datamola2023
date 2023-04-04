@@ -1,0 +1,7 @@
+.reg-form__auth {
+  font-weight: bold;
+}
+
+#reg-form-auth {
+  color: var(--black-color);
+}

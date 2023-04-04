@@ -10,6 +10,7 @@ export class HeaderView {
 
       const button = document.querySelector(".header-button");
       button.textContent = "Выйти";
+      button.setAttribute("id", "exit-button");
 
       const createTask = document.querySelector("#create-task__button");
       createTask.style.visibility = "visible";
@@ -19,6 +20,7 @@ export class HeaderView {
 
       const button = document.querySelector(".header-button");
       button.textContent = "Войти";
+      button.setAttribute("id", "auth-button");
 
       const createTask = document.querySelector("#create-task__button");
       createTask.style.visibility = "hidden";

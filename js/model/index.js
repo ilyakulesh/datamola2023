@@ -13,8 +13,16 @@ import { Comment } from "./comment.js";
 
 export class TaskCollection {
   constructor(tasks) {
-    this._tasks = Array.isArray(tasks) ? tasks : [];
-    this._user = null;
+    try {
+      if (!Array.isArray(tasks)) {
+        throw new Error(ERRORS.notArrError);
+      }
+
+      this._user = null;
+      this._tasks = this.restore("tasks") || [];
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   get user() {
@@ -24,9 +32,23 @@ export class TaskCollection {
   set user(user) {
     try {
       this._user = user;
+      localStorage.setItem("currentUser", JSON.stringify(user));
     } catch (err) {
       console.error(err);
     }
+  }
+
+  save() {
+    try {
+      localStorage.setItem("tasks", JSON.stringify(this._tasks));
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  restore(key) {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : [];
   }
 
   getPage(skip = 0, top = 10, filterConfig = {}) {
@@ -46,14 +68,17 @@ export class TaskCollection {
       } = filterConfig;
 
       const filteredTasks = this._tasks.filter((task) => {
+        console.log("Date.parse(task.createdAt)", Date.parse(task.createdAt));
+        console.log("Date.parse(dateFrom)", Date.parse(dateFrom));
         return (
           (!assignee || task.assignee.includes(assignee)) &&
-          (!dateFrom || new Date(task.createdAt) >= new Date(dateFrom)) &&
-          (!dateTo || new Date(task.createdAt) <= new Date(dateTo)) &&
+          (!dateFrom || Date.parse(task.createdAt) >= Date.parse(dateFrom)) &&
+          (!dateTo || Date.parse(task.createdAt) <= Date.parse(dateTo)) &&
           (status.length === 0 || status.includes(task.status)) &&
           (priority.length === 0 || priority.includes(task.priority)) &&
           (isPrivate.length === 0 || isPrivate.includes(task.isPrivate)) &&
-          (!description || task.description.includes(description))
+          (!description ||
+            task.description.toLowerCase().includes(description.toLowerCase()))
         );
       });
 
@@ -101,6 +126,8 @@ export class TaskCollection {
 
       if (Task.validate(newTask)) {
         this._tasks.push(newTask);
+
+        this.save();
         return true;
       }
       throw new Error(ERRORS.taskNotValidate);
@@ -110,7 +137,15 @@ export class TaskCollection {
     }
   }
 
-  edit(id, name, description, assignee, status, priority, isPrivate = false) {
+  edit(
+    id,
+    name,
+    description,
+    assignee = this._user,
+    status,
+    priority,
+    isPrivate = false
+  ) {
     try {
       const taskIndex = findTaskIndexById(id, this._tasks);
       const task = { ...this._tasks[taskIndex] };
@@ -139,6 +174,8 @@ export class TaskCollection {
         task.priority = priority;
       }
 
+      task.id = id;
+
       task.isPrivate = isPrivate;
 
       const isValid = Task.validate(task);
@@ -148,6 +185,7 @@ export class TaskCollection {
       }
 
       this._tasks[taskIndex] = task;
+      this.save();
 
       return true;
     } catch (err) {
@@ -172,6 +210,8 @@ export class TaskCollection {
 
       if (checkUser) {
         this._tasks.splice(checkId, 1);
+
+        this.save();
         return true;
       }
       return false;
@@ -203,6 +243,8 @@ export class TaskCollection {
       }
 
       taskToComment.comments.push(newComment);
+
+      this.save();
     } catch (err) {
       console.error(err);
       return false;
