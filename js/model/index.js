@@ -17,21 +17,9 @@ export class TaskCollection {
       if (!Array.isArray(tasks)) {
         throw new Error(ERRORS.notArrError);
       }
-      this._tasks = tasks.map(
-        (task) =>
-          new Task(
-            task.id,
-            task.name,
-            task.description,
-            task.createdAt,
-            task.assignee,
-            task.status,
-            task.priority,
-            task.isPrivate,
-            task.comments
-          )
-      );
+
       this._user = null;
+      this._tasks = this.restore("tasks") || [];
     } catch (err) {
       console.error(err);
     }
@@ -44,9 +32,23 @@ export class TaskCollection {
   set user(user) {
     try {
       this._user = user;
+      localStorage.setItem("currentUser", JSON.stringify(user));
     } catch (err) {
       console.error(err);
     }
+  }
+
+  save() {
+    try {
+      localStorage.setItem("tasks", JSON.stringify(this._tasks));
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  restore(key) {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : [];
   }
 
   getPage(skip = 0, top = 10, filterConfig = {}) {
@@ -79,8 +81,6 @@ export class TaskCollection {
             task.description.toLowerCase().includes(description.toLowerCase()))
         );
       });
-
-      console.log(filteredTasks);
 
       const sortedTasks = filteredTasks.sort(
         (task1, task2) => new Date(task2.createdAt) - new Date(task1.createdAt)
@@ -126,6 +126,8 @@ export class TaskCollection {
 
       if (Task.validate(newTask)) {
         this._tasks.push(newTask);
+
+        this.save();
         return true;
       }
       throw new Error(ERRORS.taskNotValidate);
@@ -183,6 +185,7 @@ export class TaskCollection {
       }
 
       this._tasks[taskIndex] = task;
+      this.save();
 
       return true;
     } catch (err) {
@@ -207,6 +210,8 @@ export class TaskCollection {
 
       if (checkUser) {
         this._tasks.splice(checkId, 1);
+
+        this.save();
         return true;
       }
       return false;
@@ -238,6 +243,8 @@ export class TaskCollection {
       }
 
       taskToComment.comments.push(newComment);
+
+      this.save();
     } catch (err) {
       console.error(err);
       return false;

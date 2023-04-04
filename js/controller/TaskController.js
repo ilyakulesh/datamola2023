@@ -1,6 +1,8 @@
 import { tasks } from "../components/tasks.js";
+import { users } from "../components/users.js";
 
 import { TaskCollection } from "../model/index.js";
+import { UserCollection } from "../model/userCollection.js";
 
 import { HeaderView } from "../view/HeaderView.js";
 import { TaskFeedView } from "../view/TaskFeedView.js";
@@ -11,10 +13,22 @@ export class TaskController {
   constructor() {
     this.tasks = tasks;
     this.taskCollection = new TaskCollection(tasks);
+    this.userCollection = new UserCollection(users);
     this.headerView = new HeaderView(".menu-name");
     this.taskFeedView = new TaskFeedView(".main-container");
     this.taskView = new TaskView("main");
     this.filterView = new FilterView(".filter-content");
+    this.initializeLocalStorage();
+  }
+
+  initializeLocalStorage() {
+    if (!localStorage.getItem("tasks")) {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    if (!localStorage.getItem("users")) {
+      localStorage.setItem("users", JSON.stringify(users));
+    }
   }
 
   setCurrentUser(user) {
@@ -328,6 +342,7 @@ export class TaskController {
     assigneeSelect.addEventListener("change", (event) => {
       formData.assignee = event.target.value;
     });
+    console.log("formData", formData);
 
     return formData;
   }
@@ -336,5 +351,18 @@ export class TaskController {
     console.log(inputValue);
 
     this.taskCollection.addComment(id, inputValue);
+  }
+
+  findUser(login) {
+    const foundUser = this.userCollection.userCollection.find(
+      (user) => user.login === login
+    );
+
+    if (foundUser) {
+      console.log(foundUser);
+      return foundUser;
+    } else {
+      console.log("Пользователь не найден");
+    }
   }
 }

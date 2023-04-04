@@ -10,17 +10,6 @@ export class UserPageView {
     this.container = document.querySelector(containerId);
   }
 
-  findUser(login) {
-    const foundUser = users.find((user) => user.login === login);
-
-    if (foundUser) {
-      console.log(foundUser);
-      return foundUser;
-    } else {
-      console.log("Пользователь не найден");
-    }
-  }
-
   display(login) {
     this.container.innerHTML = "";
 
@@ -40,11 +29,13 @@ export class UserPageView {
         </div>
         <div class="edit-input-wrapper">
             <div class="edit-input__user-name">${
-              this.findUser(login).name
+              taskController.findUser(login).name
             }</div>
-            <div class="edit-input__login">${this.findUser(login).login}</div>
+            <div class="edit-input__login">${
+              taskController.findUser(login).login
+            }</div>
             <div class="edit-input__password">${
-              this.findUser(login).password
+              taskController.findUser(login).password
             }</div>
         </div>
     </div>
@@ -67,7 +58,7 @@ export class UserPageView {
         <form class="edit-input-wrapper" id="form3">
             <div>
                 <input class="name__edit-user" id="name" type='text' placeholder="Имя пользователя*" value="${
-                  this.findUser(login).name
+                  taskController.findUser(login).name
                 }" required>
                 <span id="edit-user__name-err" class="edit-input-wrapper__error" style="visibility: hidden;">Новое имя не должно совпадать со старым</span>
                 <span id="edit-user__name-err-two" class="reg-form__error" style="visibility: hidden;">Имя
@@ -78,7 +69,7 @@ export class UserPageView {
             </div>
             <div>
                 <input class="login__edit-user" id="login" type='text' placeholder="Логин*" value="${
-                  this.findUser(login).login
+                  taskController.findUser(login).login
                 }" required>
                 <span id="edit-user__login-err" class="reg-form__error" style="visibility: hidden;">Введите логин,
                 состоящий из латинских
@@ -86,7 +77,7 @@ export class UserPageView {
             </div>
             <div>
                 <input class="password__edit-user" type="password" id="password" placeholder="Пароль*" value="${
-                  this.findUser(login).password
+                  taskController.findUser(login).password
                 }" required>
                 <span id="edit-user__password-err" class="edit-input-wrapper__error" style="visibility: hidden;">Новый пароль не должен совпадать со старым</span>
                 <span toggle="#password" class="eye-icon" id="eye-icon__password"></span>
@@ -133,7 +124,7 @@ export class UserPageView {
       formUserEdit.addEventListener("submit", (event) => {
         event.preventDefault();
 
-        const currentUser = this.findUser(
+        const currentUser = taskController.findUser(
           document.querySelector(".menu-name__user-name").textContent
         );
 

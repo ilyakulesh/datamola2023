@@ -4,6 +4,9 @@ import { users } from "../components/users.js";
 import { TaskCollection } from "../model/index.js";
 const taskCollection = new TaskCollection(tasks);
 
+import { UserCollection } from "../model/userCollection.js";
+const userCollection = new UserCollection(users);
+
 import { TaskFeedView } from "../view/TaskFeedView.js";
 const taskFeedView = new TaskFeedView(".main-container");
 
@@ -57,7 +60,7 @@ export class AuthView {
 
   authCheck() {
     try {
-      const formReg = document.querySelector("#form2");
+      const formReg = document.querySelector(".reg-form__main-wrapper");
 
       const passwordAuthErr = document.querySelector("#password-auth__err");
 
@@ -73,8 +76,13 @@ export class AuthView {
 
         console.log(data);
 
-        const user = users.find((user) => user.login === data.login);
-        const password = users.find((user) => user.password === data.password);
+        const usersAll = userCollection.userCollection;
+        console.log("usersAll", usersAll);
+
+        const user = usersAll.find((user) => user.login === data.login);
+        const password = usersAll.find(
+          (user) => user.password === data.password
+        );
 
         if (user && password) {
           console.log("Найден");
@@ -85,7 +93,7 @@ export class AuthView {
           mainContainer.className = "main-container";
 
           main.appendChild(mainContainer);
-          // taskFeedView.display(taskCollection._tasks, taskCollection.user);
+
           console.log("user.login", user.login);
           taskController.setCurrentUser(user.login);
         } else {

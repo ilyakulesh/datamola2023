@@ -9,6 +9,14 @@ const authView = new AuthView("main");
 import { RegView } from "./view/RegView.js";
 const regView = new RegView("main");
 
+const populateLocalStorage = () => {
+  const tasksStorage = localStorage.getItem("tasks");
+  if (!tasksStorage || !JSON.parse(tasksStorage).length) {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+};
+
+populateLocalStorage();
 import { TaskCollection } from "./model/index.js";
 const taskCollection = new TaskCollection(tasks);
 
@@ -19,8 +27,12 @@ import { UserPageView } from "./view/UserPageView.js";
 const userPageView = new UserPageView("main");
 
 // Тесты
-// taskController.setCurrentUser(null);
-taskController.setCurrentUser("IlyaKulesh");
+taskController.setCurrentUser(
+  localStorage.getItem("currentUser")
+    ? JSON.parse(localStorage.getItem("currentUser"))
+    : "IlyaKulesh"
+);
+// taskController.setCurrentUser("IlyaKulesh");
 
 // showTask("1");
 
@@ -45,12 +57,17 @@ document.querySelector("body").addEventListener("click", (event) => {
   }
 
   if (event.target.closest(".view-content__columns")) {
+    const viewContentColumns = document.querySelector(".view-content__columns");
     const viewContentList = document.querySelector(".view-content__list");
 
-    // event.currentTarget.style.fontWeight = "bold";
+    viewContentColumns.style.fontWeight = "bold";
     viewContentList.style.fontWeight = "normal";
+
     taskFeedView.position = "columns";
-    taskFeedView.display(taskController.tasks, taskController.getCurrentUser());
+    taskFeedView.display(
+      JSON.parse(localStorage.getItem("tasks")),
+      taskController.getCurrentUser()
+    );
     console.log(taskFeedView.position);
 
     // viewContent.style.display = "none";
@@ -59,10 +76,16 @@ document.querySelector("body").addEventListener("click", (event) => {
 
   if (event.target.closest(".view-content__list")) {
     const viewContentColumns = document.querySelector(".view-content__columns");
-    // event.currentTarget.style.fontWeight = "bold";
+    const viewContentList = document.querySelector(".view-content__list");
+
+    viewContentList.style.fontWeight = "bold";
     viewContentColumns.style.fontWeight = "normal";
+
     taskFeedView.position = "list";
-    taskFeedView.display(taskController.tasks, taskController.getCurrentUser());
+    taskFeedView.display(
+      JSON.parse(localStorage.getItem("tasks")),
+      taskController.getCurrentUser()
+    );
     console.log(taskFeedView.position);
 
     // viewContent.style.display = "none";
@@ -106,13 +129,12 @@ document.querySelector("body").addEventListener("click", (event) => {
 
   if (event.target.closest("#exit-button")) {
     taskController.setCurrentUser(null);
+  }
 
-    const authButton = document.querySelector("#auth-button");
-    authButton.addEventListener("click", () => {
-      authView.display();
-      authView.authCheck();
-      taskController.passwordEye();
-    });
+  if (event.target.closest("#auth-button")) {
+    authView.display();
+    authView.authCheck();
+    taskController.passwordEye();
   }
 
   if (event.target.closest("#reg-form-auth")) {
@@ -151,6 +173,8 @@ document.querySelector("body").addEventListener("click", (event) => {
         taskCollection.get(taskToEdit.id).id
       );
       console.log("Сохранено:", newTask);
+
+      console.log("taskToEdit.id", taskToEdit.id);
       taskController.editTask(taskToEdit.id, {
         name: newTask.name,
         description: newTask.description,
@@ -210,6 +234,26 @@ document.querySelector("body").addEventListener("click", (event) => {
 
     taskController.newComment(currentTask, inputComment.value);
     taskController.showTask(currentTask);
+  }
+
+  if (event.target.closest(".wrap-list__button")) {
+    // console.log("event.target", event.target);
+    const listTask = event.target.closest(".list-task");
+    const tasks = listTask.querySelector(".tasks");
+    console.log("tasks.style.display", tasks.style.display);
+    console.log("event.target", event.target.textContent);
+
+    const listButton = document.querySelector("#list_button");
+
+    if (tasks.style.display === "block") {
+      tasks.style.display = "none";
+      event.target.textContent = "Развернуть";
+      // listButton.classList.toggle("rotate");
+    } else if (tasks.style.display === "none") {
+      tasks.style.display = "block";
+      event.target.textContent = "Свернуть";
+      // listButton.classList.toggle("rotate");
+    }
   }
 });
 

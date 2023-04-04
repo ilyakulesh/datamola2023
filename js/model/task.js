@@ -44,7 +44,7 @@ export class Task {
         throw new Error(ERRORS.notObjError);
       }
 
-      if (!task._id || !checkStr(task._id)) {
+      if (!task.id || !checkStr(task.id)) {
         throw new Error(ERRORS.idError);
       }
 
@@ -64,7 +64,7 @@ export class Task {
         throw new Error(ERRORS.descriptionError);
       }
 
-      if (!task._createdAt) {
+      if (!task.createdAt) {
         throw new Error(ERRORS.dateError);
       }
 

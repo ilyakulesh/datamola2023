@@ -78,8 +78,8 @@ export class TaskView {
 
         newComment.innerHTML = `
           <div class="comment-wrapper">
-          <div>${comm.author}</div>
-          <div>${comm.createdAt}</div>
+          <div>${comm.author || comm._author}</div>
+          <div>${comm.createdAt || comm._createdAt}</div>
           </div>
           <div class="task-comment">
           ${comm.text}

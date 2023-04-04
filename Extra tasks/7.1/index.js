@@ -66,4 +66,20 @@ const list = [
   },
 ];
 
-createList("Задание 2", list);
+createList("My List", list);
+
+const moveList = () => {
+  const list = document.getElementById("myList");
+  list.addEventListener("click", (event) => {
+    const clickedElement = event.target;
+    if (clickedElement.tagName === "LI") {
+      const subList = clickedElement.querySelector("ul");
+      if (subList) {
+        subList.style.display =
+          subList.style.display === "none" ? "block" : "none";
+      }
+    }
+  });
+};
+
+moveList();

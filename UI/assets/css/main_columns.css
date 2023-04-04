@@ -227,10 +227,6 @@ section {
   cursor: pointer;
 }
 
-/* .task:hover {
-  cursor: pointer;
-} */
-
 .content-wrapper {
   display: flex;
   flex-direction: row;
@@ -238,6 +234,7 @@ section {
 
 .task-content {
   width: 70%;
+  max-width: 193px;
   text-align: left;
   padding: 5px 12px;
 }

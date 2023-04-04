@@ -1,3 +1,4 @@
+import { ERRORS } from "../components/consts.js";
 import { FilterView } from "./FilterView.js";
 const filterView = new FilterView(".filter-content");
 
@@ -5,7 +6,7 @@ export class TaskFeedView {
   constructor(containerId) {
     this.container = document.querySelector(containerId);
     this.limit = 10;
-    this._position = "columns";
+    this._position = localStorage.getItem("taskFeedViewPosition") || "columns";
   }
 
   get position() {
@@ -14,6 +15,7 @@ export class TaskFeedView {
 
   set position(value) {
     this._position = value;
+    localStorage.setItem("taskFeedViewPosition", value);
   }
 
   display(tasks, user) {
@@ -89,7 +91,6 @@ export class TaskFeedView {
             </div>
         </div>`;
 
-      //   const main = document.querySelector("main");
       main.innerHTML = "";
 
       const mainContainerDiv = document.createElement("div");
@@ -99,8 +100,7 @@ export class TaskFeedView {
       filterView.display();
       this.container = mainContainerDiv;
     }
-    if (this._position === "columns") {
-      //   console.log(this.container);
+    if (this.position === "columns") {
       this.container.innerHTML = "";
       this.container.innerHTML = `
         <div class="main-container__wrapper">
@@ -159,13 +159,13 @@ export class TaskFeedView {
               <div class="list-todo-wrapper">
                   <div class="list-todo">Нужно сделать</div>
               </div>
-              <div class="tasks">
+              <div class="tasks" style="display: block;">
               ${this.newTask(this.filterTask(tasks, "To Do", user), user)}
 
               </div>
           </div>
           <div class="wrap-list">
-              <button class="wrap-list__button">Свернуть<i class="fa-solid fa-angle-up"></i></button>
+              <button class="wrap-list__button">Свернуть</button>
           </div>
       </div>
       <div class="list-task">
@@ -173,12 +173,12 @@ export class TaskFeedView {
               <div class="list-todo-wrapper">
                   <div class="inprogress-list">В процессе</div>
               </div>
-              <div class="tasks">
+              <div class="tasks" style="display: block;">
               ${this.newTask(this.filterTask(tasks, "In progress", user), user)}
               </div>
           </div>
           <div class="wrap-list">
-              <button class="wrap-list__button">Свернуть<i class="fa-solid fa-angle-up"></i></button>
+              <button class="wrap-list__button">Свернуть</button>
           </div>
       </div>
       <div class="list-task">
@@ -186,26 +186,20 @@ export class TaskFeedView {
       <div class="list-todo-wrapper">
       <div class="completed-list">Готово</div>
     </div>
-    <div class="tasks">
+    <div class="tasks" style="display: block;">
     ${this.newTask(this.filterTask(tasks, "Complete", user), user)}
     </div>
       </div>
-
-          <div class="list-task-unwrap">
-
-              <div class="unwrap-list">
-
-                  <button class="unwrap-list__button">Развернуть<i
-                          class="fa-solid fa-angle-down"></i></button>
-              </div>
-          </div>
-      </div>
+        <div class="wrap-list">
+            <button class="wrap-list__button">Свернуть</button>
+        </div>
   </div>`;
     }
+
+    // TaskController.taskCollection.save();
   }
 
   filterTask(tasks, status, user) {
-    // console.log(tasks, status, user);
     return tasks.filter(
       (task) =>
         task.status === status &&
@@ -230,12 +224,8 @@ export class TaskFeedView {
     }
   }
 
-  qwe() {
-    console.log("sdsdsd");
-  }
-
   newTask(tasks, user) {
-    if (this._position === "columns") {
+    if (this.position === "columns") {
       let taskList = "";
 
       const visibleTasks = tasks.slice(0, this.limit);
@@ -306,14 +296,13 @@ export class TaskFeedView {
       }
 
       return taskList;
-    } else if (this._position === "list") {
+    } else if (this.position === "list") {
       let taskList = "";
 
       const visibleTasks = tasks.slice(0, this.limit);
 
       visibleTasks.forEach((task) => {
         const showIcons = task.assignee === user;
-        const noUser = user != null;
 
         taskList += `
     <div id=${task.id} class="task-container">
@@ -475,7 +464,7 @@ export class TaskFeedView {
                     <div>
                         <input id="modal-create__name" class="modal-content__input" type='text'
                             placeholder="Введите название задачи..." value="${task.name}">
-                        <span class="modal-error" style="visibility: hidden;">Название не должно превышать 100 символов</span>
+                        <span id="modal-name-edit__err" class="modal-error" style="visibility: hidden;">Название не должно превышать 100 символов</span>
                     </div>
                 </div>
                 <button class="modal-add-img">
@@ -486,7 +475,7 @@ export class TaskFeedView {
                     <div>
                         <input id="modal-create__description" class="modal-content__input" type='text'
                             placeholder="Введите описание задачи..." value="${task.description}">
-                        <span class="modal-error" style="visibility: hidden;">Описание не должно превышать 280 символов</span>
+                        <span id="modal-description-edit__err" class="modal-error" style="visibility: hidden;">Описание не должно превышать 280 символов</span>
                     </div>
                 </div>
             </div>
@@ -541,6 +530,29 @@ export class TaskFeedView {
         <button class="modal-button-save">Сохранить</button>
     </div>
 </div>`;
+
+    const modalEditCheck = () => {
+      try {
+        const modalNameEditErr = document.querySelector(
+          "#modal-name-edit__err"
+        );
+        const modalDescriptionEditErr = document.querySelector(
+          "#modal-description-edit__err"
+        );
+
+        document
+          .querySelector(".modal-button-save")
+          .addEventListener("click", () => {
+            if (modalDescriptionEditErr.value.length > 100) {
+              modalDescriptionEditErr.value = "";
+              modalDescriptionEditErr.style.visibility = "visible";
+              throw new Error(ERRORS.userNameError);
+            }
+          });
+      } catch (err) {}
+    };
+
+    modalEditCheck();
 
     modalOverlay.appendChild(modal);
   }

@@ -134,15 +134,16 @@ export class RegView {
           throw new Error(ERRORS.userAlreadyExists);
         }
 
-        console.log(data);
         userCollection.add(
           data.login,
           data.password,
           data.confirmPassword,
           data.username
         );
+        userCollection.save();
 
         authView.display();
+        authView.authCheck();
       });
     } catch (err) {
       console.error(err);
