@@ -136,3 +136,16 @@
   padding: 0px 20px 0px 20px;
   box-shadow: var(--box-shadow);
 }
+
+#avatar-checkbox {
+  display: none;
+}
+
+.reg-form__main-avatar label img {
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+#avatar-checkbox:checked + img {
+  border: 2px solid red;
+}

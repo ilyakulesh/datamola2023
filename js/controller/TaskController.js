@@ -9,6 +9,11 @@ import { TaskFeedView } from "../view/TaskFeedView.js";
 import { TaskView } from "../view/TaskView.js";
 import { FilterView } from "../view/FilterView.js";
 
+import { TaskFeedApiService } from "../utils/TaskFeedApiService.js";
+const taskFeedApiService = new TaskFeedApiService(
+  "http://169.60.206.50:7777/api"
+);
+
 export class TaskController {
   constructor() {
     this.tasks = tasks;
@@ -18,25 +23,16 @@ export class TaskController {
     this.taskFeedView = new TaskFeedView(".main-container");
     this.taskView = new TaskView("main");
     this.filterView = new FilterView(".filter-content");
-    this.initializeLocalStorage();
   }
 
-  initializeLocalStorage() {
-    if (!localStorage.getItem("tasks")) {
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-    }
-
-    if (!localStorage.getItem("users")) {
-      localStorage.setItem("users", JSON.stringify(users));
-    }
-  }
-
-  setCurrentUser(user) {
+  async setCurrentUser(user) {
     this.taskCollection.user = user;
-    this.taskFeedView.display(
-      this.taskCollection._tasks,
-      this.taskCollection.user
-    );
+
+    await taskFeedApiService.getTasks().then((tasks) => {
+      console.log("getTasks", tasks);
+      this.taskFeedView.display(tasks, this.taskCollection.user);
+    });
+
     this.headerView.display(user);
   }
 
@@ -44,35 +40,17 @@ export class TaskController {
     return this.taskCollection.user;
   }
 
-  addTask(task) {
-    this.taskCollection.add(
-      task.name,
-      task.description,
-      this.taskCollection.user,
-      task.status,
-      task.priority,
-      task.isPrivate
-    );
-    this.taskFeedView.display(
-      this.taskCollection._tasks,
-      this.taskCollection.user
-    );
+  async createTaskToken(task, bearerToken) {
+    return await taskFeedApiService.createTask(task, bearerToken);
   }
 
-  editTask(id, task) {
-    this.taskCollection.edit(
-      id,
-      task.name,
-      task.description,
-      task.assignee,
-      task.status,
-      task.priority,
-      task.isPrivate
-    );
-    this.taskFeedView.display(
-      this.taskCollection._tasks,
-      this.taskCollection.user
-    );
+  async editTask(id, task, token) {
+    await taskFeedApiService.updateTask(id, task, token);
+
+    await taskFeedApiService.getTasks().then((tasks) => {
+      console.log("getTasks", tasks);
+      // this.taskFeedView.display(tasks, this.taskCollection.user);
+    });
   }
 
   removeTask(id) {
@@ -83,15 +61,18 @@ export class TaskController {
     );
   }
 
-  getFeed(skip, top, filterConfig) {
+  async getFeed(skip, top, filterConfig) {
     console.log("filterConfig", filterConfig);
-    const tasks = this.taskCollection.getPage(skip, top, filterConfig);
+    const tasks = await this.taskCollection.getPage(skip, top, filterConfig);
     this.taskFeedView.display(tasks, this.taskCollection.user);
   }
 
-  showTask(id) {
-    const taskId = this.taskCollection.get(id);
-    this.taskView.display(taskId, id);
+  async showTask(id) {
+    // const taskId = this.taskCollection.get(id);
+    const taskId = await taskFeedApiService.getTaskById(id);
+    const comments = await taskFeedApiService.getComments(id);
+
+    this.taskView.display(taskId, id, comments);
   }
 
   passwordEye() {
@@ -130,15 +111,11 @@ export class TaskController {
       let filterValues = {
         assignee: "",
         taskName: "",
-        priority: "Высокий, Средний, Низкий",
+        priority: "High, Medium, Low",
         startDate: "",
         endDate: "",
         privacy: [true, false],
       };
-
-      // const filterInputs = document.querySelectorAll(
-      //   ".filter-select, .filter-task__input, .date__input, .priority input, .privacy input"
-      // );
 
       const filterInputs = document.querySelectorAll(
         ".filter-content input, select"
@@ -200,8 +177,8 @@ export class TaskController {
 
           this.getFeed(0, 10, {
             assignee: filterValues.assignee,
-            dateFrom: filterValues.startDate,
-            dateTo: filterValues.endDate,
+            // dateFrom: filterValues.startDate,
+            // dateTo: filterValues.endDate,
             // status: [],
             priority: filterValues.priority.split(", "),
             isPrivate: filterValues.privacy,
@@ -213,9 +190,11 @@ export class TaskController {
           const filterButton = document.querySelector(".filter-button");
           filterButton.style.display = "block";
 
-          filterButton.addEventListener("click", (e) => {
-            e.preventDefault();
-            this.getFeed(0, 10, {});
+          filterButton.addEventListener("click", async (e) => {
+            await taskFeedApiService.getTasks().then((tasks) => {
+              console.log("getTasks", tasks);
+              this.taskFeedView.display(tasks, this.taskCollection.user);
+            });
             filterButton.style.display = "none";
           });
         });
@@ -244,7 +223,21 @@ export class TaskController {
       ".modal-content-select"
     )[1];
 
-    const formData = {};
+    const selectedStatus = statusSelect.options[statusSelect.selectedIndex];
+    const selectedValueStatus = selectedStatus.value;
+
+    const selectedAssignee =
+      assigneeSelect.options[assigneeSelect.selectedIndex];
+    const selectedValueAssignee = selectedAssignee.id;
+
+    const formData = {
+      name: "",
+      description: "",
+      assignee: selectedValueAssignee,
+      status: selectedValueStatus,
+      priority: "",
+      isPrivate: true,
+    };
 
     nameInput.addEventListener("input", (event) => {
       formData.name = event.target.value;
@@ -261,11 +254,11 @@ export class TaskController {
     priorityCheckboxes.forEach((checkbox) => {
       checkbox.addEventListener("change", (event) => {
         if (event.target.id.split("_")[1] === "high") {
-          formData.priority = "Высокий";
+          formData.priority = "High";
         } else if (event.target.id.split("_")[1] === "medium") {
-          formData.priority = "Средний";
+          formData.priority = "Medium";
         } else if (event.target.id.split("_")[1] === "low") {
-          formData.priority = "Низкий";
+          formData.priority = "Low";
         }
       });
     });
@@ -281,8 +274,10 @@ export class TaskController {
     });
 
     assigneeSelect.addEventListener("change", (event) => {
-      formData.assignee = event.target.value;
+      formData.assignee = event.target.options[event.target.selectedIndex].id;
     });
+
+    console.log("formData", formData);
 
     return formData;
   }
@@ -303,7 +298,27 @@ export class TaskController {
       ".modal-content-select"
     )[1];
 
-    const formData = {};
+    const modalCreateName = document.querySelector("#modal-create__name");
+    const modalCreateDescription = document.querySelector(
+      "#modal-create__description"
+    );
+
+    const selectedStatus = statusSelect.options[statusSelect.selectedIndex];
+    console.log("selectedStatus", selectedStatus);
+    const selectedValueStatus = selectedStatus.value;
+
+    const selectedAssignee =
+      assigneeSelect.options[assigneeSelect.selectedIndex];
+    const selectedValueAssignee = selectedAssignee.id;
+
+    const formData = {
+      name: modalCreateName.value,
+      description: modalCreateDescription.value,
+      assignee: selectedValueAssignee,
+      status: selectedValueStatus,
+      priority: "",
+      isPrivate: true,
+    };
 
     nameInput.addEventListener("input", (event) => {
       formData.name = event.target.value;
@@ -320,11 +335,11 @@ export class TaskController {
     priorityCheckboxes.forEach((checkbox) => {
       checkbox.addEventListener("change", (event) => {
         if (event.target.id.split("_")[1] === "high") {
-          formData.priority = "Высокий";
+          formData.priority = "High";
         } else if (event.target.id.split("_")[1] === "medium") {
-          formData.priority = "Средний";
+          formData.priority = "Medium";
         } else if (event.target.id.split("_")[1] === "low") {
-          formData.priority = "Низкий";
+          formData.priority = "Low";
         }
       });
     });
@@ -340,29 +355,33 @@ export class TaskController {
     });
 
     assigneeSelect.addEventListener("change", (event) => {
-      formData.assignee = event.target.value;
+      formData.assignee = event.target.options[event.target.selectedIndex].id;
     });
     console.log("formData", formData);
 
     return formData;
   }
 
-  newComment(id, inputValue) {
+  async newComment(id, inputValue, bearerToken) {
     console.log(inputValue);
 
-    this.taskCollection.addComment(id, inputValue);
+    const newComment = { text: inputValue };
+
+    return await taskFeedApiService.addComment(id, newComment, bearerToken);
   }
 
-  findUser(login) {
-    const foundUser = this.userCollection.userCollection.find(
-      (user) => user.login === login
-    );
+  async findUser(token) {
+    const foundUser = await taskFeedApiService.getMyProfile(token);
 
     if (foundUser) {
       console.log(foundUser);
-      return foundUser;
+      return await foundUser;
     } else {
       console.log("Пользователь не найден");
     }
+  }
+
+  async updateUserToken(userId, user, bearerToken) {
+    return await taskFeedApiService.updateUser(userId, user, bearerToken);
   }
 }

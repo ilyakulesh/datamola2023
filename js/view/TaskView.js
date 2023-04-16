@@ -1,9 +1,11 @@
+import { formDate } from "../utils/utils.js";
+
 export class TaskView {
   constructor(containerId) {
     this.container = document.querySelector(containerId);
   }
 
-  display(task, id) {
+  display(task, id, comments) {
     this.container.innerHTML = "";
 
     const menuNameUserName = document.querySelector(".menu-name__user-name");
@@ -58,9 +60,11 @@ export class TaskView {
                     <div>${task.isPrivate ? "Приватная" : "Публичная"}</div>
                 </div>
                 <div>Исполнитель:
-                    <div class="status-task__assignee">${task.assignee}</div>
+                    <div class="status-task__assignee">${
+                      task.assignee.login
+                    }</div>
                 </div>
-                <div>Создано ${task.createdAt}</div>
+                <div>Создано ${formDate(task)}</div>
             </div>
         </div>
         </div>
@@ -69,7 +73,7 @@ export class TaskView {
         </div>`;
 
     if (task.comments.length > 0) {
-      task.comments.forEach((comm) => {
+      comments.forEach((comm) => {
         const comment = document.querySelector(".comment");
 
         const newComment = document.createElement("div");
@@ -78,8 +82,8 @@ export class TaskView {
 
         newComment.innerHTML = `
           <div class="comment-wrapper">
-          <div>${comm.author || comm._author}</div>
-          <div>${comm.createdAt || comm._createdAt}</div>
+          <div>${comm.creator.userName}</div>
+          <div>${formDate(comm)}</div>
           </div>
           <div class="task-comment">
           ${comm.text}

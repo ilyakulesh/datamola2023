@@ -51,6 +51,13 @@
   box-shadow: var(--box-shadow);
 }
 
+#user-photo__img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  box-shadow: var(--box-shadow);
+}
+
 .user-photo-button {
   background-color: var(--background-color);
   color: var(--black-color);

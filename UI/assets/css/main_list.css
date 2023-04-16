@@ -129,34 +129,42 @@
 
 .task-example__name {
   width: 130px;
+  word-wrap: break-word;
 }
 
 .task-example__executor {
   width: 105px;
+  word-wrap: break-word;
 }
 
 .task-example__date {
   width: 130px;
+  word-wrap: break-word;
 }
 
 .task-example__text {
   width: 290px;
+  word-wrap: break-word;
 }
 
 .task-example__comments {
   width: 140px;
+  word-wrap: break-word;
 }
 
 .task-example__status {
   width: 120px;
+  word-wrap: break-word;
 }
 
 .task-example__priority {
   width: 110px;
+  word-wrap: break-word;
 }
 
 .task-example__privacy {
   width: 115px;
+  word-wrap: break-word;
 }
 
 .task-icons i {

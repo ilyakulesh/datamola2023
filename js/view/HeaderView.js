@@ -13,6 +13,7 @@ export class HeaderView {
       button.setAttribute("id", "exit-button");
 
       const createTask = document.querySelector("#create-task__button");
+      console.log("createTask", createTask);
       createTask.style.visibility = "visible";
     } else {
       const userName = document.querySelector(".menu-name__user-name");

@@ -1,6 +1,7 @@
 const themeButton = document.getElementById("chk");
 const root = document.querySelector(":root");
 const checkbox = document.querySelector(".checkbox");
+const logoName = document.querySelector(".logo-name");
 
 const themes = {
   default: {
@@ -37,6 +38,13 @@ themeButton.onclick = (e) => {
 
 function changeTheme(isDarkTheme) {
   const theme = isDarkTheme ? "dark" : "default";
+
+  if (theme === "dark") {
+    logoName.src = "./assets/img/NameDark.svg";
+  } else {
+    logoName.src = "./assets/img/Name.svg";
+  }
+
   Object.entries(themes[theme]).forEach(([key, value]) => {
     root.style.setProperty(key, value);
   });
