@@ -13,6 +13,12 @@ const taskFeedView = new TaskFeedView(".main-container");
 import { TaskController } from "../controller/TaskController.js";
 const taskController = new TaskController();
 
+import { TaskFeedApiService } from "../utils/TaskFeedApiService.js";
+
+const taskFeedApiService = new TaskFeedApiService(
+  "http://169.60.206.50:7777/api"
+);
+
 export class AuthView {
   constructor(containerId) {
     this.container = document.querySelector(containerId);
@@ -64,7 +70,7 @@ export class AuthView {
 
       const passwordAuthErr = document.querySelector("#password-auth__err");
 
-      formReg.addEventListener("submit", (e) => {
+      formReg.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const inputs = formReg.querySelectorAll("input");
@@ -76,15 +82,12 @@ export class AuthView {
 
         console.log(data);
 
-        const usersAll = userCollection.userCollection;
-        console.log("usersAll", usersAll);
-
-        const user = usersAll.find((user) => user.login === data.login);
-        const password = usersAll.find(
-          (user) => user.password === data.password
+        const userLogin = await taskFeedApiService.login(
+          data.login,
+          data.password
         );
 
-        if (user && password) {
+        if (userLogin) {
           console.log("Найден");
           const main = document.querySelector("main");
           main.innerHTML = "";
@@ -94,17 +97,23 @@ export class AuthView {
 
           main.appendChild(mainContainer);
 
-          console.log("user.login", user.login);
-          taskController.setCurrentUser(user.login);
+          const findUserByLogin = (users, login) => {
+            for (let i = 0; i < users.length; i++) {
+              if (users[i].login === login) {
+                console.log(users[i].id);
+              }
+            }
+          };
+
+          await taskFeedApiService.getAllUsers().then((users) => {
+            console.log("getUsers", users);
+            findUserByLogin(users, userLogin.login);
+          });
+
+          taskController.setCurrentUser(userLogin.login);
         } else {
           passwordAuthErr.style.visibility = "visible";
         }
-
-        console.log(
-          "taskController.getCurrentUser()",
-          taskCollection._tasks,
-          taskController.getCurrentUser()
-        );
       });
     } catch (err) {
       console.error(err);

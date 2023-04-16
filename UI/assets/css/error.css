@@ -1,0 +1,47 @@
+.main-error__wrapper {
+  width: 100%;
+  max-width: 450px;
+  display: block;
+  justify-content: center;
+  margin: 70px auto;
+  margin-bottom: 0px;
+}
+
+.main-error__top {
+  display: flex;
+}
+
+.main-error__text {
+  font-size: 18px;
+  color: var(--black-color);
+}
+
+.main-error__right img {
+  height: 150px;
+  width: 150px;
+}
+
+#canvas {
+  background-color: var(--dark-main);
+  border: 1px solid black;
+  margin-top: 20px;
+}
+
+#startButton,
+#restartButton {
+  background-color: var(--background-buttons);
+  color: var(--white-color);
+  border-radius: var(--border-radius);
+  border-style: none;
+  height: 30px;
+  cursor: pointer;
+  padding: 0px 20px 0px 20px;
+  box-shadow: var(--box-shadow);
+}
+
+.snake-error__buttons-wrapper {
+  display: flex;
+  max-width: 400px;
+  justify-content: space-between;
+  margin-top: 10px;
+}

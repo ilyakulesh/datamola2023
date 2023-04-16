@@ -2,6 +2,13 @@ import { ERRORS } from "../components/consts.js";
 import { FilterView } from "./FilterView.js";
 const filterView = new FilterView(".filter-content");
 
+import { formDate } from "../utils/utils.js";
+
+import { TaskFeedApiService } from "../utils/TaskFeedApiService.js";
+const taskFeedApiService = new TaskFeedApiService(
+  "http://169.60.206.50:7777/api"
+);
+
 export class TaskFeedView {
   constructor(containerId) {
     this.container = document.querySelector(containerId);
@@ -19,6 +26,7 @@ export class TaskFeedView {
   }
 
   display(tasks, user) {
+    console.log("tasksDisplay0", tasks);
     const mainButtonsCheck = document.querySelector(".main-buttons");
     const mainContainer = document.querySelector(".main-container");
 
@@ -203,7 +211,7 @@ export class TaskFeedView {
     return tasks.filter(
       (task) =>
         task.status === status &&
-        (task.isPrivate === false || task.assignee === user)
+        (task.isPrivate === false || task.assignee.userName === user)
     );
   }
 
@@ -215,11 +223,11 @@ export class TaskFeedView {
         return "status-wrapper__inprogress";
       case "Complete":
         return "status-wrapper__complete";
-      case "Высокий":
+      case "High":
         return "status-wrapper__high";
-      case "Средний":
+      case "Medium":
         return "status-wrapper__medium";
-      case "Низкий":
+      case "Low":
         return "status-wrapper__low";
     }
   }
@@ -230,7 +238,7 @@ export class TaskFeedView {
 
       const visibleTasks = tasks.slice(0, this.limit);
       visibleTasks.forEach((task) => {
-        const showIcons = task.assignee === user;
+        const showIcons = task.creator.userName === user;
         const noUser = user != null;
 
         taskList += `<div id=${task.id} class="task">
@@ -259,13 +267,13 @@ export class TaskFeedView {
                           </div>
                       </div>
                       <div class="task-footer">
-                          <div><i class="fa-regular fa-flag"></i>${
-                            task.createdAt
-                          }</div>
+                          <div><i class="fa-regular fa-flag"></i>${formDate(
+                            task
+                          )}</div>
                           <div><i class="fa-regular fa-message"></i>${
                             task.comments.length
                           }</div>
-                          <div>${task.assignee}</div>
+                          <div>${task.assignee.login}</div>
                           <div class="task__icons">${
                             showIcons
                               ? `
@@ -302,14 +310,14 @@ export class TaskFeedView {
       const visibleTasks = tasks.slice(0, this.limit);
 
       visibleTasks.forEach((task) => {
-        const showIcons = task.assignee === user;
+        const showIcons = task.creator.userName === user;
 
         taskList += `
     <div id=${task.id} class="task-container">
         <div class="task-example">
             <div class="task-example__name">${task.name}</div>
-            <div class="task-example__executor">${task.assignee}</div>
-            <div class="task-example__date">${task.createdAt}</div>
+            <div class="task-example__executor">${task.assignee.login}</div>
+            <div class="task-example__date">${formDate(task)}</div>
             <div class="task-example__text">${task.description}</div>
             <div class="task-example__comments">${task.comments.length}</div>
             <div class="task-example__status">${task.status}</div>
@@ -342,7 +350,7 @@ export class TaskFeedView {
     }
   }
 
-  modalNewTask() {
+  async modalNewTask() {
     const modalOverlay = document.createElement("div");
     modalOverlay.classList.add("modal-overlay");
     document.body.appendChild(modalOverlay);
@@ -385,7 +393,7 @@ export class TaskFeedView {
             </div>
             <div class="modal-content__right">
                 <div class="modal-content__status">Статус задачи:
-                    <select class="modal-content-select">
+                    <select id="modal-select__status" class="modal-content-select">
                         <option class="modal-content-select__option" selected>To Do</option>
                         <option class="modal-content-select__option">In progress</option>
                         <option class="modal-content-select__option">Complete</option>
@@ -420,9 +428,9 @@ export class TaskFeedView {
                     </div>
                 </div>
                 <div class="modal-content__assignee">Исполнитель:
-                    <select class="modal-content-select">
-                        <option class="modal-content-select__option" selected>IlyaKulesh</option>
-                        <option class="modal-content-select__option">DanielHunt</option>
+                    <select id="modal-content-assignee" class="modal-content-select">${this.getUniqueAssignees(
+                      await taskFeedApiService.getAllUsers()
+                    )}
                     </select>
                 </div>
             </div>
@@ -438,7 +446,7 @@ export class TaskFeedView {
     modalOverlay.appendChild(modal);
   }
 
-  modalEditTask(task) {
+  async modalEditTask(title, content) {
     const modalOverlay = document.createElement("div");
     modalOverlay.classList.add("modal-overlay");
     document.body.appendChild(modalOverlay);
@@ -451,7 +459,7 @@ export class TaskFeedView {
 <div class="modal-wrapper">
     <div class="modal-header">
         <div class="modal-info">
-            Создание новой задачи
+            Редактирование задачи
         </div>
         <div class="modal-close">
             <i class="fa-solid fa-xmark"></i>
@@ -463,7 +471,7 @@ export class TaskFeedView {
                 <div>Название задачи:
                     <div>
                         <input id="modal-create__name" class="modal-content__input" type='text'
-                            placeholder="Введите название задачи..." value="${task.name}">
+                            placeholder="Введите название задачи..." value="${title}">
                         <span id="modal-name-edit__err" class="modal-error" style="visibility: hidden;">Название не должно превышать 100 символов</span>
                     </div>
                 </div>
@@ -474,7 +482,7 @@ export class TaskFeedView {
                 <div>Описание задачи:
                     <div>
                         <input id="modal-create__description" class="modal-content__input" type='text'
-                            placeholder="Введите описание задачи..." value="${task.description}">
+                            placeholder="Введите описание задачи..." value="${content}">
                         <span id="modal-description-edit__err" class="modal-error" style="visibility: hidden;">Описание не должно превышать 280 символов</span>
                     </div>
                 </div>
@@ -516,18 +524,18 @@ export class TaskFeedView {
                     </div>
                 </div>
                 <div class="modal-content__assignee">Исполнитель:
-                    <select class="modal-content-select">
-                        <option class="modal-content-select__option" selected>IlyaKulesh</option>
-                        <option class="modal-content-select__option">DanielHunt</option>
-                    </select>
+                <select id="modal-content-assignee" class="modal-content-select">${this.getUniqueAssignees(
+                  await taskFeedApiService.getAllUsers()
+                )}
+                </select>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="modal-footer">
-        <button class="modal-button-close">Сбросить</button>
-        <button class="modal-button-save">Сохранить</button>
+        <button id="modal-button-close__edit" class="modal-button-close">Сбросить</button>
+        <button id="modal-button-save__edit" class="modal-button-save">Сохранить</button>
     </div>
 </div>`;
 
@@ -566,5 +574,23 @@ export class TaskFeedView {
         <button class="view-content__columns">Колонками</button>
         <button class="view-content__list">Общим списком</button>
     `;
+  }
+
+  getUniqueAssignees(users) {
+    const assignees = new Set();
+
+    for (let user of users) {
+      assignees.add(user);
+    }
+
+    let filterAssignee = "";
+    let firstUser = true;
+    assignees.forEach((user) => {
+      const selected = firstUser ? "selected" : "";
+      filterAssignee += `<option id="${user.id}" class="modal-content-select__option" ${selected}>${user.login}</option>`;
+      firstUser = false;
+    });
+
+    return filterAssignee;
   }
 }

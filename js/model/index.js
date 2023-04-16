@@ -11,6 +11,12 @@ import { ERRORS } from "../components/consts.js";
 import { Task } from "./task.js";
 import { Comment } from "./comment.js";
 
+import { TaskFeedApiService } from "../utils/TaskFeedApiService.js";
+
+const taskFeedApiService = new TaskFeedApiService(
+  "http://169.60.206.50:7777/api"
+);
+
 export class TaskCollection {
   constructor(tasks) {
     try {
@@ -51,7 +57,7 @@ export class TaskCollection {
     return data ? JSON.parse(data) : [];
   }
 
-  getPage(skip = 0, top = 10, filterConfig = {}) {
+  async getPage(skip = 0, top = 10, filterConfig = {}) {
     try {
       if (!checkIsObj(filterConfig)) {
         throw new Error(ERRORS.notObjError);
@@ -67,26 +73,37 @@ export class TaskCollection {
         description = null,
       } = filterConfig;
 
-      const filteredTasks = this._tasks.filter((task) => {
-        console.log("Date.parse(task.createdAt)", Date.parse(task.createdAt));
-        console.log("Date.parse(dateFrom)", Date.parse(dateFrom));
-        return (
-          (!assignee || task.assignee.includes(assignee)) &&
-          (!dateFrom || Date.parse(task.createdAt) >= Date.parse(dateFrom)) &&
-          (!dateTo || Date.parse(task.createdAt) <= Date.parse(dateTo)) &&
-          (status.length === 0 || status.includes(task.status)) &&
-          (priority.length === 0 || priority.includes(task.priority)) &&
-          (isPrivate.length === 0 || isPrivate.includes(task.isPrivate)) &&
-          (!description ||
-            task.description.toLowerCase().includes(description.toLowerCase()))
+      const filterTask = await taskFeedApiService.getTasks().then((tasks) => {
+        console.log("getTasks", tasks);
+
+        const filteredTasks = tasks.filter((task) => {
+          console.log("Date.parse(task.createdAt)", Date.parse(task.createdAt));
+          console.log("Date.parse(dateFrom)", Date.parse(dateFrom));
+          return (
+            (!assignee || task.assignee.userName.includes(assignee)) &&
+            (!dateFrom || Date.parse(task.createdAt) >= Date.parse(dateFrom)) &&
+            (!dateTo || Date.parse(task.createdAt) <= Date.parse(dateTo)) &&
+            (status.length === 0 || status.includes(task.status)) &&
+            (priority.length === 0 || priority.includes(task.priority)) &&
+            (isPrivate.length === 0 || isPrivate.includes(task.isPrivate)) &&
+            (!description ||
+              task.description
+                .toLowerCase()
+                .includes(description.toLowerCase()))
+          );
+        });
+
+        const sortedTasks = filteredTasks.sort(
+          (task1, task2) =>
+            new Date(task2.createdAt) - new Date(task1.createdAt)
         );
+
+        return sortedTasks.slice(skip, skip + top);
       });
 
-      const sortedTasks = filteredTasks.sort(
-        (task1, task2) => new Date(task2.createdAt) - new Date(task1.createdAt)
-      );
+      console.log("filterTaskfilterTask", filterTask);
 
-      return sortedTasks.slice(skip, skip + top);
+      return filterTask;
     } catch (err) {
       console.error(err);
     }

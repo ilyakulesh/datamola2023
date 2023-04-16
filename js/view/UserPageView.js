@@ -3,6 +3,7 @@ import { users } from "../components/users.js";
 import { ERRORS } from "../components/consts.js";
 
 import { TaskController } from "../controller/TaskController.js";
+import { getToken } from "../utils/utils.js";
 const taskController = new TaskController();
 
 export class UserPageView {
@@ -10,8 +11,12 @@ export class UserPageView {
     this.container = document.querySelector(containerId);
   }
 
-  display(login) {
+  async display(token) {
+    // console.log("token", token);
     this.container.innerHTML = "";
+
+    const userPage = await taskController.findUser(token);
+    console.log("userPage", userPage.login);
 
     this.container.innerHTML = `
     <div class="edit-user">
@@ -25,41 +30,37 @@ export class UserPageView {
     </div>
     <div class="edit-user-wrapper">
         <div class="user-photo-wrapper">
-            <div class="user-photo"></div>
+            <div class="user-photo"><img id="user-photo__img"/></div>
         </div>
         <div class="edit-input-wrapper">
-            <div class="edit-input__user-name">${
-              taskController.findUser(login).name
-            }</div>
-            <div class="edit-input__login">${
-              taskController.findUser(login).login
-            }</div>
-            <div class="edit-input__password">${
-              taskController.findUser(login).password
-            }</div>
+            <div class="edit-input__user-name">${userPage.userName}</div>
+            <div class="edit-input__login">${userPage.login}</div>
         </div>
     </div>
 </div>
 <div class="button-wrapper">
     <button id="main-page__user" class="main-page-button">На главную</button>
 </div>`;
+
+    const imgElem = document.querySelector("#user-photo__img");
+    imgElem.setAttribute("src", "data:image/jpg;base64," + userPage.photo);
   }
 
-  userPageEdit(login) {
+  async userPageEdit(token) {
     this.container.innerHTML = "";
+
+    const userPage = await taskController.findUser(token);
 
     this.container.innerHTML = `
     <div class="edit-user">
     <div class="edit-user-wrapper">
         <div class="user-photo-wrapper">
-            <div class="user-photo"></div>
+            <div class="user-photo"><img id="user-photo__img"/></div>
             <button class="user-photo-button">Загрузить</button>
         </div>
         <form class="edit-input-wrapper" id="form3">
             <div>
-                <input class="name__edit-user" id="name" type='text' placeholder="Имя пользователя*" value="${
-                  taskController.findUser(login).name
-                }" required>
+                <input class="name__edit-user" id="name" type='text' placeholder="Имя пользователя*" value="${userPage.userName}" required>
                 <span id="edit-user__name-err" class="edit-input-wrapper__error" style="visibility: hidden;">Новое имя не должно совпадать со старым</span>
                 <span id="edit-user__name-err-two" class="reg-form__error" style="visibility: hidden;">Имя
                 пользователя превышает 100
@@ -68,17 +69,13 @@ export class UserPageView {
                 состоящий из латиницы и кириллицы</span>
             </div>
             <div>
-                <input class="login__edit-user" id="login" type='text' placeholder="Логин*" value="${
-                  taskController.findUser(login).login
-                }" required>
+                <input class="login__edit-user" id="login" type='text' placeholder="Логин*" value="${userPage.login}" required>
                 <span id="edit-user__login-err" class="reg-form__error" style="visibility: hidden;">Введите логин,
                 состоящий из латинских
                 символов</span>
             </div>
             <div>
-                <input class="password__edit-user" type="password" id="password" placeholder="Пароль*" value="${
-                  taskController.findUser(login).password
-                }" required>
+                <input class="password__edit-user" type="password" id="password" placeholder="Пароль*" required>
                 <span id="edit-user__password-err" class="edit-input-wrapper__error" style="visibility: hidden;">Новый пароль не должен совпадать со старым</span>
                 <span toggle="#password" class="eye-icon" id="eye-icon__password"></span>
             </div>
@@ -96,11 +93,18 @@ export class UserPageView {
 <div class="button-wrapper">
     <button id="main-page__user" class="main-page-button">На главную</button>
 </div>`;
+
+    const imgElem = document.querySelector("#user-photo__img");
+    imgElem.setAttribute("src", "data:image/jpg;base64," + userPage.photo);
   }
 
-  userPageCheck() {
+  async userPageCheck(token) {
     try {
+      const userPage = await taskController.findUser(token);
+      console.log("userPageCheck", userPage);
+
       const formUserEdit = document.querySelector("#form3");
+      const editUserCancel = document.querySelector("#edit-user__cancel");
 
       const nameEditUser = document.querySelector(".name__edit-user");
       const loginEditUser = document.querySelector(".login__edit-user");
@@ -121,14 +125,37 @@ export class UserPageView {
       );
       const editUserLoginErr = document.querySelector("#edit-user__login-err");
 
-      formUserEdit.addEventListener("submit", (event) => {
+      const imgElem = document.querySelector("#user-photo__img");
+
+      let selectedAvatar = null;
+
+      const loadAvatarButton = document.querySelector(".user-photo-button");
+      loadAvatarButton.addEventListener("click", () => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.onchange = (event) => {
+          const file = event.target.files[0];
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const base64 = event.target.result;
+            selectedAvatar = base64.replace(
+              /^data:image\/(png|jpg);base64,/,
+              ""
+            );
+            imgElem.setAttribute("src", base64);
+          };
+          reader.readAsDataURL(file);
+        };
+        input.click();
+      });
+
+      formUserEdit.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        const currentUser = taskController.findUser(
-          document.querySelector(".menu-name__user-name").textContent
-        );
+        const currentUser = await taskController.findUser(getToken());
 
-        if (currentUser.name === nameEditUser.value) {
+        if (currentUser.userName === nameEditUser.value) {
           editUserNameErr.style.visibility = "visible";
           editUserNameErrThree.style.visibility = "hidden";
           throw new Error(ERRORS.nameIsSame);
@@ -169,14 +196,28 @@ export class UserPageView {
           data[input.id] = input.value;
         });
 
-        currentUser.name = data.name;
-        currentUser.login = data.login;
-        currentUser.password = data.password;
+        const updatedUser = {
+          userName: data.name,
+          password: data.password,
+          retypedPassword: data.confirmPassword,
+          photo: selectedAvatar || userPage.photo,
+        };
 
-        console.log("userData", data);
-        console.log("currentUser", currentUser);
+        await taskController.updateUserToken(
+          userPage.id,
+          updatedUser,
+          getToken()
+        );
 
         taskController.setCurrentUser(currentUser.name);
+      });
+
+      editUserCancel.addEventListener("click", () => {
+        loginEditUser.value = "";
+        nameEditUser.value = "";
+        passwordEditUser.value = "";
+        confirmPasswordEditUser.value = "";
+        imgElem.setAttribute("src", "data:image/jpg;base64," + userPage.photo);
       });
     } catch (err) {
       console.error(err);

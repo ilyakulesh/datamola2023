@@ -9,14 +9,26 @@ const authView = new AuthView("main");
 import { RegView } from "./view/RegView.js";
 const regView = new RegView("main");
 
-const populateLocalStorage = () => {
-  const tasksStorage = localStorage.getItem("tasks");
-  if (!tasksStorage || !JSON.parse(tasksStorage).length) {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }
-};
+import { getToken } from "./utils/utils.js";
 
-populateLocalStorage();
+import { notifaction } from "./utils/utils.js";
+
+import { TaskFeedApiService } from "./utils/TaskFeedApiService.js";
+
+const taskFeedApiService = new TaskFeedApiService(
+  "http://169.60.206.50:7777/api"
+);
+
+taskFeedApiService.getAllUsers().then((users) => {
+  console.log("getUsers", users);
+  // return users;
+});
+
+taskFeedApiService.getTaskById(1).then((task) => {
+  console.log("getTaskById", task);
+});
+
+// populateLocalStorage();
 import { TaskCollection } from "./model/index.js";
 const taskCollection = new TaskCollection(tasks);
 
@@ -30,15 +42,13 @@ const userPageView = new UserPageView("main");
 taskController.setCurrentUser(
   localStorage.getItem("currentUser")
     ? JSON.parse(localStorage.getItem("currentUser"))
-    : "IlyaKulesh"
+    : null
 );
-// taskController.setCurrentUser("IlyaKulesh");
-
-// showTask("1");
 
 // Глобальный обработчик событий
-document.querySelector("body").addEventListener("click", (event) => {
+document.querySelector("body").addEventListener("click", async (event) => {
   if (event.target.closest("#filer__button")) {
+    const filterContent = document.querySelector(".filter-content");
     taskController.filter();
   }
 
@@ -64,10 +74,10 @@ document.querySelector("body").addEventListener("click", (event) => {
     viewContentList.style.fontWeight = "normal";
 
     taskFeedView.position = "columns";
-    taskFeedView.display(
-      JSON.parse(localStorage.getItem("tasks")),
-      taskController.getCurrentUser()
-    );
+    await taskFeedApiService.getTasks().then((tasks) => {
+      console.log("getTasks", tasks);
+      taskFeedView.display(tasks, taskController.getCurrentUser());
+    });
     console.log(taskFeedView.position);
 
     // viewContent.style.display = "none";
@@ -82,10 +92,10 @@ document.querySelector("body").addEventListener("click", (event) => {
     viewContentColumns.style.fontWeight = "normal";
 
     taskFeedView.position = "list";
-    taskFeedView.display(
-      JSON.parse(localStorage.getItem("tasks")),
-      taskController.getCurrentUser()
-    );
+    await taskFeedApiService.getTasks().then((tasks) => {
+      console.log("getTasks", tasks);
+      taskFeedView.display(tasks, taskController.getCurrentUser());
+    });
     console.log(taskFeedView.position);
 
     // viewContent.style.display = "none";
@@ -93,33 +103,53 @@ document.querySelector("body").addEventListener("click", (event) => {
   }
 
   if (event.target.closest("#create-task__button")) {
-    taskFeedView.modalNewTask();
+    await taskFeedView.modalNewTask();
 
     const saveButton = document.querySelector(".modal-button-save");
-    const resetButton = document.querySelector(".modal-button-close");
 
     const newTask = taskController.createTask();
 
-    saveButton.addEventListener("click", () => {
+    saveButton.addEventListener("click", async () => {
       const modalOverlayDelete = document.querySelector(".modal-overlay");
       console.log("Сохранено:", newTask);
-      taskController.addTask({
-        name: newTask.name,
-        description: newTask.description,
-        assignee: newTask.assignee,
-        status: newTask.status,
-        priority: newTask.priority,
-        isPrivate: newTask.isPrivate,
-      });
+
       modalOverlayDelete.remove();
+      await taskFeedApiService.createTask(newTask, getToken());
+      taskController.setCurrentUser(
+        document.querySelector(".menu-name__user-name").textContent
+      );
+
+      const userPage = await taskController.findUser(getToken());
+
+      if (newTask.assignee === userPage.id) {
+        notifaction("У вас новая задача!", newTask.name);
+      }
     });
 
-    // resetButton.addEventListener("click", () => {
-    //   inputs.forEach((input) => {
-    //     input.value = "";
-    //     // formData[input.id] = "";
-    //   });
-    // });
+    const resetButton = document.querySelector(".modal-button-close");
+    const nameInput = document.getElementById("modal-create__name");
+    const descriptionInput = document.getElementById(
+      "modal-create__description"
+    );
+    const statusSelect = document.querySelector(".modal-content-select");
+    const priorityCheckboxes = document.querySelectorAll(
+      '.priority input[type="checkbox"]'
+    );
+    const privacyCheckboxes = document.querySelectorAll(
+      '#privacy__create-modal input[type="checkbox"]'
+    );
+    const assigneeSelect = document.querySelectorAll(
+      ".modal-content-select"
+    )[1];
+
+    resetButton.addEventListener("click", () => {
+      nameInput.value = "";
+      descriptionInput.value = "";
+      statusSelect.value = statusSelect[0].value;
+      priorityCheckboxes.value = "";
+      privacyCheckboxes.value = "";
+      assigneeSelect.value = assigneeSelect[0].value;
+    });
   }
 
   if (event.target.closest(".modal-close")) {
@@ -152,45 +182,76 @@ document.querySelector("body").addEventListener("click", (event) => {
   if (event.target.closest(".task__icons-delete")) {
     const taskToRemove = event.target.closest("div[id]");
     console.log(taskToRemove.id);
-    taskController.removeTask(taskToRemove.id);
+    await taskFeedApiService.deleteTask(taskToRemove.id, getToken());
+    taskController.setCurrentUser(
+      document.querySelector(".menu-name__user-name").textContent
+    );
   }
 
   if (event.target.closest(".task__icons-edit")) {
     const taskToEdit = event.target.closest("div[id]");
-    console.log(taskCollection.get(taskToEdit.id));
+    console.log("taskToEdit", taskToEdit.id);
 
-    taskFeedView.modalEditTask(taskCollection.get(taskToEdit.id));
+    const titleElement = taskToEdit.querySelector(".title"); // находим элемент заголовка внутри задачи
+    const contentElement = taskToEdit.querySelector(".content"); // находим элемент содержимого внутри задачи
 
-    const saveButton = document.querySelector(".modal-button-save");
-    const resetButton = document.querySelector(".modal-button-close");
+    const title = titleElement.textContent.trim(); // получаем текст заголовка и удаляем лишние пробелы
+    const content = contentElement.textContent.trim(); // получаем текст содержимого и удаляем лишние пробелы
+    console.log("title", title);
+    console.log("content", content);
 
-    const newTask = taskController.editTaskModal();
-    const modalOverlayDelete = document.querySelector(".modal-overlay");
+    // await taskFeedApiService.getTasks().then((res) => {
+    //   res.find((task) => {
+    //     if (task.id === taskToEdit.id) {
+    //       console.log("task.id", task.id);
+    //       console.log("task.name", task.name);
+    //       console.log("task.description", task.description);
+    //       taskFeedView.modalEditTask(task);
+    //     }
+    //   });
+    // });
 
-    saveButton.addEventListener("click", () => {
-      console.log(
-        "taskCollection.get(taskToEdit.id).id",
-        taskCollection.get(taskToEdit.id).id
-      );
-      console.log("Сохранено:", newTask);
+    taskFeedView.modalEditTask(title, content);
 
-      console.log("taskToEdit.id", taskToEdit.id);
-      taskController.editTask(taskToEdit.id, {
-        name: newTask.name,
-        description: newTask.description,
-        assignee: newTask.assignee,
-        status: newTask.status,
-        priority: newTask.priority,
-        isPrivate: newTask.isPrivate,
+    const modalEditTaskFunction = () => {
+      const saveButton = document.querySelector("#modal-button-save__edit");
+      const resetButton = document.querySelector("#modal-button-close__edit");
+
+      const newTask = taskController.editTaskModal();
+      const modalOverlayDelete = document.querySelector(".modal-overlay");
+
+      saveButton.addEventListener("click", async () => {
+        // console.log(
+        //   "taskCollection.get(taskToEdit.id).id",
+        //   taskCollection.get(taskToEdit.id).id
+        // );
+        console.log("Сохранено:", newTask);
+
+        console.log("taskToEdit.id", taskToEdit.id);
+        await taskController.editTask(taskToEdit.id, newTask, getToken());
+        taskController.setCurrentUser(
+          document.querySelector(".menu-name__user-name").textContent
+        );
+        modalOverlayDelete.remove();
       });
-      modalOverlayDelete.remove();
-    });
 
-    const modalClose = document.querySelector(".modal-close");
+      resetButton.addEventListener("click", () => {
+        nameInput.value = "";
+        descriptionInput.value = "";
+        statusSelect.value = statusSelect[0].value;
+        priorityCheckboxes.value = "";
+        privacyCheckboxes.value = "";
+        assigneeSelect.value = assigneeSelect[0].value;
+      });
 
-    modalClose.addEventListener("click", () => {
-      modalOverlayDelete.remove();
-    });
+      const modalClose = document.querySelector(".modal-close");
+
+      modalClose.addEventListener("click", () => {
+        modalOverlayDelete.remove();
+      });
+    };
+
+    setTimeout(modalEditTaskFunction, 1000);
   }
 
   if (event.target.closest("#main-page__no-user")) {
@@ -212,28 +273,43 @@ document.querySelector("body").addEventListener("click", (event) => {
   }
 
   if (event.target.closest(".menu-name__user-name")) {
-    userPageView.display(
-      document.querySelector(".menu-name__user-name").textContent
-    );
+    // const token = localStorage.getItem("token");
+    console.log("token", getToken());
+    userPageView.display(getToken());
   }
 
   if (event.target.closest(".edit__user-edit")) {
-    userPageView.userPageEdit(
-      document.querySelector(".menu-name__user-name").textContent
-    );
-    userPageView.userPageCheck();
+    await userPageView.userPageEdit(getToken());
+    await userPageView.userPageCheck(getToken());
     taskController.passwordEye();
   }
 
   if (event.target.closest(".full-task__button")) {
+    event.preventDefault();
     const inputComment = document.querySelector(".full-task__input");
     console.log(inputComment.value);
 
     const currentTask = event.target.closest(".info-task").id;
-    console.log(currentTask);
+    console.log("currentTask", currentTask);
 
-    taskController.newComment(currentTask, inputComment.value);
-    taskController.showTask(currentTask);
+    const assigneeTask = document.querySelector(
+      ".status-task__assignee"
+    ).textContent;
+
+    const currentUser = document.querySelector(
+      ".menu-name__user-name"
+    ).textContent;
+
+    if (assigneeTask === currentUser) {
+      notifaction("У вашей задачи новый комменарий!", inputComment.value);
+    }
+
+    await taskController.newComment(
+      currentTask,
+      inputComment.value,
+      getToken()
+    );
+    await taskController.showTask(currentTask);
   }
 
   if (event.target.closest(".wrap-list__button")) {
@@ -254,6 +330,10 @@ document.querySelector("body").addEventListener("click", (event) => {
       event.target.textContent = "Свернуть";
       // listButton.classList.toggle("rotate");
     }
+  }
+
+  if (event.target.closest(".reg-form__choose-avatar")) {
+    console.log("ВЫБОР ФОТО");
   }
 });
 

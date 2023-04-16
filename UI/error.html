@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../mockups/extra tasks/Logo.png" type="image/png">
+    <title>User page(edit)</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="https://kit.fontawesome.com/89087bd124.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="#">
+                <img src="./assets/img/Name.svg" alt="logo" class="logo-name">
+            </a>
+            <div class="burger-wrapper">
+                <input id="menu-toggle" type="checkbox" />
+                <label class='menu-button-container' for="menu-toggle">
+                    <div class='menu-button'></div>
+                </label>
+                <ul class="menu">
+                    <li class="menu-name">
+                        <div class="menu-name__user-name"></div>
+                        <button class="header-button">Войти</button>
+                    </li>
+                    <li>
+                        <div class="toggle-button"><input class="checkbox" type="checkbox" id="chk"><label class="label"
+                                for="chk"><i class="fas fa-moon"></i><i class="fas fa-sun"></i>
+                                <div class="ball"></div>
+                            </label></div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <button class="toggle-language">RU</button>
+                            <div class="dropdown-content">
+                                <a class="english-toggle" href="#" data-title="English">EN</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <main сlass="main">
+        <div class="main-error__wrapper">
+            <div class="main-error__top">
+                <div class="main-error__left">
+                    <div class="main-error__text">
+                        Ой!<br><br>Похоже что-то пошло не так.<br><br>Код ошибки:
+                    </div>
+                    <div class="button-wrapper">
+                        <button class="main-page-button">На главную</button>
+                    </div>
+                </div>
+                <div class="main-error__right"><img src="./assets/img/cross.png" alt=""></div>
+            </div>
+            <div class="snake-error__wrapper">
+                <canvas id="canvas" width="400" height="300"></canvas>
+                <br />
+                <div class="snake-error__buttons-wrapper">
+                    <button id="startButton">Старт</button>
+                    <button id="restartButton" disabled>Начать новую игру</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <a href="#">
+                <img src="./assets/img/Name_footer.svg" alt="logo" class="logo-name">
+            </a>
+            <div class="footer-wrapper">
+                <div>Ilya Kulesh</div>
+                <div>ilyakulesh457@gmail.com</div>
+                <div>26.02.2023</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./theme.js"></script>
+    <script src="./snake.js"></script>
+</body>
+
+</html>

@@ -234,18 +234,21 @@ section {
 
 .task-content {
   width: 70%;
-  max-width: 193px;
+  max-width: 280px;
   text-align: left;
   padding: 5px 12px;
 }
 
 .title {
   font-weight: bold;
+  max-width: 280px;
+  word-wrap: break-word;
 }
 
 .content {
   margin-top: 10px;
-  max-width: 193px;
+  max-width: 280px;
+  word-wrap: break-word;
 }
 
 .status-wrapper {
@@ -367,4 +370,81 @@ section {
 
 .loadmore-none {
   display: none;
+}
+
+.notification {
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  width: 300px;
+  background-color: var(--background-secondary);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 5px;
+  animation: slideIn 0.5s ease-out;
+}
+
+.notification__text {
+  color: var(--black-color);
+  font-size: 16px;
+  max-width: 250px;
+  word-wrap: break-word;
+}
+
+.notification__close {
+  color: var(--black-color);
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.notification--close {
+  animation: notification-close 1s ease-out forwards;
+}
+
+@keyframes notification-close {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+.loader {
+  display: none;
+  position: absolute;
+  top: 47%;
+  left: 47%;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 6px solid var(--black-color);
+  border-color: var(--black-color) transparent var(--black-color) transparent;
+  animation: loader 1.2s linear infinite;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

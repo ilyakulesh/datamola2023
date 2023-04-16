@@ -7,6 +7,12 @@ const userCollection = new UserCollection(users);
 import { AuthView } from "./AuthView.js";
 const authView = new AuthView("main");
 
+import { TaskFeedApiService } from "../utils/TaskFeedApiService.js";
+
+const taskFeedApiService = new TaskFeedApiService(
+  "http://169.60.206.50:7777/api"
+);
+
 export class RegView {
   constructor(containerId) {
     this.container = document.querySelector(containerId);
@@ -57,7 +63,15 @@ export class RegView {
                   </div>
               </form>
               <div class="reg-form__main-avatar">
-                  <button class="reg-form__choose-avatar">Выберите аватар</button>
+              <label>
+              <input id="avatar-checkbox" type="checkbox" name="avatar" value="avatar1">
+              <img id="man__img"  alt="Avatar1" style="width:39px; height:39px;">
+            </label>
+            
+            <label>
+              <input id="avatar-checkbox" type="checkbox" name="avatar" value="avatar2">
+              <img id="woman__img" alt="Avatar 2" style="width:39px; height:39px;">
+            </label>
                   <div>или</div>
                   <button class="reg-form__load-avatar">Загрузите аватар</button>
               </div>
@@ -74,6 +88,12 @@ export class RegView {
       </div>
     </div>
       `;
+    const manImg = document.querySelector("#man__img");
+    manImg.src =
+      "../../UI/assets/img/user-profile-avatar-man-boy-round-png-icon-free-download-453813.png";
+    const womanImg = document.querySelector("#woman__img");
+    womanImg.src =
+      "../../UI/assets/img/female-avatar-hospital-staff-lady-doctor-icon-with-png-754945.png";
   }
 
   regCheck() {
@@ -94,6 +114,67 @@ export class RegView {
       const usernameRegErrorTwo = document.querySelector(
         "#username-reg__err-two"
       );
+
+      function convertImageToBase64(url, callback) {
+        const img = new Image();
+        img.crossOrigin = "Anonymous";
+        img.onload = function () {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+          canvas.height = img.naturalHeight;
+          canvas.width = img.naturalWidth;
+          ctx.drawImage(img, 0, 0);
+          const dataURL = canvas.toDataURL("image/png");
+          callback(dataURL);
+        };
+        img.src = url;
+      }
+
+      const avatarInputs = document.querySelectorAll('input[name="avatar"]');
+      let selectedAvatar = null;
+
+      avatarInputs.forEach((input) => {
+        input.addEventListener("change", (event) => {
+          if (event.target.checked) {
+            const imgId =
+              event.target.value === "avatar1" ? "man__img" : "woman__img";
+            const img = document.querySelector(`#${imgId}`);
+            convertImageToBase64(img.src, (base64) => {
+              selectedAvatar = base64.replace(
+                /^data:image\/(png|jpg);base64,/,
+                ""
+              );
+            });
+            avatarInputs.forEach((otherInput) => {
+              if (otherInput !== event.target) {
+                otherInput.checked = false;
+              }
+            });
+          } else {
+            selectedAvatar = null;
+          }
+        });
+      });
+
+      const loadAvatarButton = document.querySelector(".reg-form__load-avatar");
+      loadAvatarButton.addEventListener("click", () => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.onchange = (event) => {
+          const file = event.target.files[0];
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const base64 = event.target.result;
+            selectedAvatar = base64.replace(
+              /^data:image\/(png|jpg);base64,/,
+              ""
+            );
+          };
+          reader.readAsDataURL(file);
+        };
+        input.click();
+      });
 
       formReg.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -129,18 +210,18 @@ export class RegView {
           data[input.id] = input.value;
         });
 
-        if (userCollection.hasLogin(data.login)) {
-          loginRegErrTwo.style.visibility = "visible";
-          throw new Error(ERRORS.userAlreadyExists);
-        }
+        const newUser = {
+          login: data.login,
+          userName: data.username,
+          password: data.password,
+          retypedPassword: data.confirmPassword,
+          photo: selectedAvatar,
+        };
+        console.log("newUser", newUser);
 
-        userCollection.add(
-          data.login,
-          data.password,
-          data.confirmPassword,
-          data.username
-        );
-        userCollection.save();
+        taskFeedApiService.registerUser(newUser).then((response) => {
+          console.log("response", response);
+        });
 
         authView.display();
         authView.authCheck();
